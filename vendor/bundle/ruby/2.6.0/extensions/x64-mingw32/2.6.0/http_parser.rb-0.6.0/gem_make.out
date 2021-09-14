@@ -1,0 +1,17 @@
+current directory: E:/workspace/eui-young.github.io/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+E:/Ruby26-x64/bin/ruby.exe -I E:/Ruby26-x64/lib/ruby/2.6.0 -r ./siteconf20210914-15704-1qvab0x.rb extconf.rb
+creating Makefile
+
+current directory: E:/workspace/eui-young.github.io/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR=" clean
+
+current directory: E:/workspace/eui-young.github.io/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR="
+generating ruby_http_parser-x64-mingw32.def
+compiling ruby_http_parser.c
+compiling ryah_http_parser.c
+linking shared-object ruby_http_parser.so
+
+current directory: E:/workspace/eui-young.github.io/vendor/bundle/ruby/2.6.0/gems/http_parser.rb-0.6.0/ext/ruby_http_parser
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 ruby_http_parser.so ./.gem.20210914-15704-h0xz7v
