@@ -77,8 +77,7 @@ plugins:
 # ---------------------------------------------------------------
 
 # Put your favicon.ico into `assets/` directory.
-favicon: /assets/favicon.ico
-
+favicon: /assets/firework.ico
 # Set default keywords (Use a comma to separate)
 keywords: "UIYOUNG"
 
@@ -94,7 +93,7 @@ rss:
 authoricon: heart
 
 # Footer `powered-by` and `theme-info` copyright
-copyright: true
+copyright: false
 
 # ---------------------------------------------------------------
 # SEO Settings
@@ -116,7 +115,7 @@ index_with_subtitle: true
 # Menu Settings
 # ---------------------------------------------------------------
 
-# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -> archives)
+# When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/s -> archives)
 menu:
   home: /
   categories: /categories/
@@ -382,7 +381,7 @@ han: false
 # Disqus
 disqus:
   enable: true
-  shortname:
+  shortname: eui-young-github-io
   count: true
   # hide comments (visitors need to click to load the comments)
   # count need to be false when hide is true
@@ -632,7 +631,7 @@ pace: false
 pace_theme: pace-theme-minimal
 
 # Canvas-nest
-canvas_nest: true
+canvas_nest: false
 
 # three_waves
 three_waves: false
