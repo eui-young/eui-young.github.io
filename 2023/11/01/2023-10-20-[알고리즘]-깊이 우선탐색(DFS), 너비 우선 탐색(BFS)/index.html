@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 7.0.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
@@ -190,7 +190,7 @@
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/11/01/2023-10-20-[%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98]-%EA%B9%8A%EC%9D%B4%20%EC%9A%B0%EC%84%A0%ED%83%90%EC%83%89(DFS),%20%EB%84%88%EB%B9%84%20%EC%9A%B0%EC%84%A0%20%ED%83%90%EC%83%89(BFS)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/cat.jpg">
       <meta itemprop="name" content="zerone">
       <meta itemprop="description" content="알아내보자">
     </span>
@@ -271,7 +271,6 @@
 
           </div>
           
-    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -324,6 +323,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zerone"
+      src="/images/cat.jpg">
   <p class="site-author-name" itemprop="name">zerone</p>
   <div class="site-description" itemprop="description">알아내보자</div>
 </div>
@@ -444,26 +445,6 @@
   
 
   
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : '41d673f6c9aaae060fb7',
-      clientSecret: '395e87debd2b62ed574c8f365f3d1275dc9275a2',
-      repo        : 'eui-young.github.io',
-      owner       : 'eui-young',
-      admin       : [''],
-      id          : '391313f08a8e6e80223ebc2e4f83565b',
-        language: '',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script>
 
 </body>
 </html>
