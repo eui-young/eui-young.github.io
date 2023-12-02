@@ -305,7 +305,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-03 00:02:10" itemprop="dateModified" datetime="2023-12-03T00:02:10+09:00">2023-12-03</time>
+                <time title="Modified: 2023-12-03 00:13:46" itemprop="dateModified" datetime="2023-12-03T00:13:46+09:00">2023-12-03</time>
               </span>
 
           
@@ -323,21 +323,21 @@
 <p>추가적인 내용을 알아보려면<br><a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-position.html">Transform.position</a>, <a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-localPosition.html">Transform.localPosition</a> 참고하시면 됩니다.</p>
 <p>말하기에 앞서 예시를 들기 위해 3D 오브젝트인 Cube, Plane을 생성해보겠습니다. </br></p>
 <p align ="left">
-<img src="https://github.com/eui-young/post/assets/56330520/f79469a9-5b1e-4811-993f-d3f45d31d859" width="300" height="300"/> </p>
+<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/6101536a-6e6b-47bf-9cfa-3c884f58c79c" width="300" height="300"/> </p>
 
 <p>3D 오브젝트의 위치 값은 Transform의 position에 Vector3 ( x, y, z )의 형태로 담겨 있습니다.</p>
 <p align ="left">
-<img src="https://github.com/eui-young/post/assets/56330520/7fc6fb4f-8761-48aa-921f-e1c051769c47" width  ="600" height ="100"/></p>
+<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/214fbbb9-86a9-436e-8adc-3785a4d90359" width  ="600" height ="100"/></p>
 
 <p>위의 Transform 정보는 Cube Object의 데이터입니다.</p>
 <p>현재 Position은 (0, 1, 0)의 값을 가지고 있습니다.</p>
 <p>해당 오브젝트를 우측으로 이동시켜보겠습니다.</p>
 <p align ="left">
-<img src="https://github.com/eui-young/post/assets/56330520/278c2fb4-0db5-4b1e-b113-c3de9d65f058" width = "300" height ="300"/> </p>
+<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/f51c2a57-58e8-40c7-80cc-f5eeae2d2c56" width = "300" height ="300"/> </p>
 
 <p>오브젝트를 우측으로 이동시키니 Position의 x값의 변화가 있습니다.</p>
 <p align ="left">
-<img src="https://github.com/eui-young/post/assets/56330520/99298352-3be1-431e-87bc-a38e551652c3" width = "600" height ="100"/></p>
+<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/1e7b6c7d-92e7-4ab0-ae86-95f0c8680d59" width = "600" height ="100"/></p>
 
 <p>오브젝트의 위치 이동을 위해서는 Position 값의 변화가 필요하다는 것을 알 수 있습니다.</p>
 <hr>
@@ -400,10 +400,10 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>오른쪽으로 이동하는 기능을 부모 오브젝트에 추가해보겠습니다.</p>
 <p>[Parent Object Position]</p>
-<p><img src="https://github.com/eui-young/post/assets/56330520/42dc382c-64cc-4362-befb-c3bcef0e1846" alt="ParentMove"></p>
+<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/d1d4f682-e5d2-40c9-b5e1-4a8073a88ff6" alt="ParentMove"></p>
 <p>부모 오브젝트인 파란색 Cube를 이동시켜보았습니다.</br><br>우측의 inspector창에 보이는 position은 부모 오브젝트의 position입니다.</br><br>해당 오브젝트는 position 값이 변하는 것을 알 수 있습니다.</p>
 <p>자식오브젝트인 분홍색 Cube의 position은 어떻게 변할까요?</p>
-<p>[Child Object Position]<br><img src="https://github.com/eui-young/post/assets/56330520/6ef5d66b-9618-45d4-8ce8-04a8562f4f8e" alt="image/Movement2.gif"></p>
+<p>[Child Object Position]<br><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/b88ffdde-5d5b-49f5-b59b-cbb20c7b6816" alt="image/Movement2.gif"></p>
 <p>자식 오브젝트의 Position값은 변하지 않습니다.</br><br>이는 특정 오브젝트의 자식형질을 가지게 되면서 인스펙터 창에서 확인할 수 있는 position이 localPosition이기 때문입니다.</p>
 <p>부모 오브젝트를 기준으로 일정한 간격을 두고 이동하기 때문에 localPosition에는 변동이 없는 상태입니다.</p>
 <p>이런 경우에 저희가 눈으로 확인할 수 있는 값은 localPosition이므로 </br></p>
@@ -412,7 +412,7 @@
 <p>이럴 때 사용하는 것이 localPosition입니다.</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>자식 오브젝트를 일정하게 위로 이동시켜보겠습니다.</p>
-<p><img src="https://github.com/eui-young/post/assets/56330520/42ae5191-f014-454e-b536-503efeb7b538" alt="Movement3"></p>
+<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/8b8320e3-bbb0-453c-b2c8-2ca182cc211d" alt="Movement3"></p>
 <p>자식 오브젝트 position의 y값만 변화가 있는 것을 확인할 수 있습니다.</p>
 <p>이는 자식 오브젝트의 localPosition에 변화를 주고 있기 때문입니다.</p>
 <p>오브젝트의 이동 구현 또는 위치를 수정할 때 position과 localPosition을 적절하게 사용하시면 됩니다.</p>
