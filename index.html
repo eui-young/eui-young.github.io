@@ -183,155 +183,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/02/2023-12-02-[Unity]-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/02/2023-12-02-%5BUnity%5D-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/" class="post-title-link" itemprop="url">position, localPosition</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2023-12-02 00:00:00 / Modified: 23:45:01" itemprop="dateCreated datePublished" datetime="2023-12-02T00:00:00+09:00">2023-12-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Unity-position-localPosition"><a href="#Unity-position-localPosition" class="headerlink" title="[Unity] position, localPosition"></a>[Unity] position, localPosition</h3><p>Unity 3D 오브젝트의 이동에 대해 정리를 해보려고 합니다.</p>
-<p>추가적인 내용을 알아보려면<br><a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-position.html">Transform.position</a>, <a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-localPosition.html">Transform.localPosition</a> 참고하시면 됩니다.</p>
-<p>말하기에 앞서 예시를 들기 위해 3D 오브젝트인 Cube, Plane을 생성해보겠습니다.</p>
-<img src="image.png" width="300" height="300"/>
-
-</br>
-3D 오브젝트의 위치 값은 Transform의 position에 Vector3 ( x, y, z )의 형태로 담겨 있습니다.
-
-<img src="image-1.png" width  ="600" height ="100"/>
-
-<p>위의 Transform 정보는 Cube Object의 데이터입니다.</p>
-<p>현재 Position은 (0, 1, 0)의 값을 가지고 있습니다.</p>
-<p>해당 오브젝트를 우측으로 이동시켜보겠습니다.</p>
-<img src="image-2.png" width = "300" height ="300"/>
-
-<p>오브젝트를 우측으로 이동시키니 Position의 x값의 변화가 있습니다.</p>
-<img src="image-3.png" width = "600" height ="100"/>
-
-<p>오브젝트의 위치 이동을 위해서는 Position 값의 변화가 필요하다는 것을 알 수 있습니다.</p>
-<hr>
-<h3 id="3d-오브젝트-방향-벡터"><a href="#3d-오브젝트-방향-벡터" class="headerlink" title="3d 오브젝트 방향 벡터"></a>3d 오브젝트 방향 벡터</h3><p>3D 오브젝트의 간편한 이동을 위해 Unity에는 방향을 나타내는 전역 벡터가 정의되어 있습니다.</p>
-<h4 id="방향-벡터"><a href="#방향-벡터" class="headerlink" title="방향 벡터"></a>방향 벡터</h4><table>
-<thead>
-<tr>
-<th>Direction</th>
-<th>Vector3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Vector3.forward</td>
-<td>(0, 0, 1)</td>
-</tr>
-<tr>
-<td>Vector3.back</td>
-<td>(0, 0, -1)</td>
-</tr>
-<tr>
-<td>Vector3.up</td>
-<td>(0, 1, 0)</td>
-</tr>
-<tr>
-<td>Vector3.down</td>
-<td>(0, -1, 0)</td>
-</tr>
-<tr>
-<td>Vector3.right</td>
-<td>(1, 0, 0)</td>
-</tr>
-<tr>
-<td>Vector3.left</td>
-<td>(-1, 0, 0)</td>
-</tr>
-<tr>
-<td>Vector3.zero</td>
-<td>(0, 0, 0)</td>
-</tr>
-<tr>
-<td>Vector3.one</td>
-<td>(1, 1, 1)</td>
-</tr>
-</tbody></table>
-<h4 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h4><p>Position 값을 직접적으로 수정하여 Cube를 이동시키겠습니다.</p>
-<p>아래의 코드가 작성된 스크립트를 Cube 오브젝트의 컴포넌트로 추가하였습니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.position += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>[결과]</br><br><img src ="https://github.com/eui-young/eui-young.github.io/assets/56330520/a30f3187-3685-4b35-af40-6448efa78e65" width ="300" height="300"/></p>
-<p>매 프레임마다 <mark style = "background : #9b9b7a"> 프레임이 흐른 시간과 moveSpeed </mark>를 이용하여 Position의 y값을 증가시켰습니다.</p>
-<h4 id="localPosition"><a href="#localPosition" class="headerlink" title="localPosition"></a>localPosition</h4><p>위의 position은 localposition으로도 표현할 수 있는데요.</br><br>position과 localPosition은 어떤 차이가 있는걸까요?</p>
-<p>position은 오브젝트의 위치 좌표를 <mark style = "background :#9b9b7a">월드 좌표</mark> 기준으로 가지고 있습니다.</br><br>localPosition은 오브젝트의 위치 좌표를 <mark style = "background :#9b9b7a">로컬 좌표</mark> 기준으로 가지고 있습니다.</p>
-<p>월드 좌표와 로컬 좌표의 차이는 무엇일까요?</p>
-<p><b>월드 좌표란 절대적인 좌표를 말합니다.</b></br><br>절대적인 시점에서 바라본 오브젝트의 위치이므로<br>어디에서 오브젝트 위치를 불러와도 항상 같은 값을 가지게 됩니다.</p>
-<p><b>로컬 좌표는 상대적인 좌표를 말합니다.</b></br><br>만약 Cube 오브젝트가 또 다른 오브젝트의 자식 오브젝트로 존재한다면 부모 오브젝트가 이동할 경우 Cube 오브젝트가 같이 이동을 하게 됩니다.</br><br>이때 Cube의 position은 변하지만 localPosition은 변하지 않습니다.</p>
-<p>그런 이유는 Cube 오브젝트의 기준이 부모 오브젝트이기 때문입니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>오른쪽으로 이동하는 기능을 부모 오브젝트에 추가해보겠습니다.</p>
-<p>[Parent Object Position]<br><img src="/Movement1.gif" alt="ParentMove"></p>
-<p>부모 오브젝트인 파란색 Cube를 이동시켜보았습니다.</br><br>우측의 inspector창에 보이는 position은 부모 오브젝트의 position입니다.</br><br>해당 오브젝트는 position 값이 변하는 것을 알 수 있습니다.</p>
-<p>자식오브젝트인 분홍색 Cube의 position은 어떻게 변할까요?</p>
-<p>[Child Object Position]<br><img src="/Movement2.gif" alt="Alt text"></p>
-<p>자식 오브젝트의 Position값은 변하지 않습니다.</br><br>이는 특정 오브젝트의 자식형질을 가지게 되면서 인스펙터 창에서 확인할 수 있는 position이 localPosition이기 때문입니다.</p>
-<p>부모 오브젝트를 기준으로 일정한 간격을 두고 이동하기 때문에 localPosition에는 변동이 없는 상태입니다.</p>
-<p>이런 경우에 저희가 눈으로 확인할 수 있는 값은 localPosition이므로 </br></p>
-<p>자식오브젝트 trnasform.position을 이용하여 자식오브젝트를 이동시키는 것과<br>transform.localPosition을 이용하여 이동시키는 것은 차이가 발생하게 됩니다.</p>
-<p>그렇다면 자식 오브젝트를 이동시키기 위해서는 어떤 값을 이용할 수 있을까요?</p>
-<p>이럴 때 사용하는 것이 localPosition입니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>자식 오브젝트를 일정하게 위로 이동시켜보겠습니다.</p>
-<p><img src="/Movement3.gif" alt="Alt text"></p>
-<p>자식 오브젝트 position의 y값만 변화가 있는 것을 확인할 수 있습니다.</p>
-<p>이는 자식 오브젝트의 localPosition에 변화를 주고 있기 때문입니다.</p>
-<p>오브젝트의 이동 구현 또는 위치를 수정할 때 position과 localPosition을 적절하게 사용하시면 됩니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/02/2023-12-02-[hexo]-next-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -404,6 +255,167 @@
 <h3 id="git-레포지터리에-파일-적용"><a href="#git-레포지터리에-파일-적용" class="headerlink" title="git 레포지터리에 파일 적용"></a>git 레포지터리에 파일 적용</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save //설치 후 deploy가 가능합니다.</span><br><span class="line">$ hexo deploy // hexo d -g   generate 후 deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 <h3 id="적용-완료"><a href="#적용-완료" class="headerlink" title="적용 완료"></a>적용 완료</h3><p>deploy완료 후 deploy 연결 레포지터리에 업로드가 정상적으로 완료되었다면 블로그에 접속하여 변경사항을 확인해주세요.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/02/2023-12-02-[Unity]-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/02/2023-12-02-%5BUnity%5D-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/" class="post-title-link" itemprop="url">position, localPosition</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-02 00:00:00" itemprop="dateCreated datePublished" datetime="2023-12-02T00:00:00+09:00">2023-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-03 00:02:10" itemprop="dateModified" datetime="2023-12-03T00:02:10+09:00">2023-12-03</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="Unity-position-localPosition"><a href="#Unity-position-localPosition" class="headerlink" title="[Unity] position, localPosition"></a>[Unity] position, localPosition</h3><p>Unity 3D 오브젝트의 이동에 대해 정리를 해보려고 합니다.</p>
+<p>추가적인 내용을 알아보려면<br><a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-position.html">Transform.position</a>, <a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-localPosition.html">Transform.localPosition</a> 참고하시면 됩니다.</p>
+<p>말하기에 앞서 예시를 들기 위해 3D 오브젝트인 Cube, Plane을 생성해보겠습니다. </br></p>
+<p align ="left">
+<img src="https://github.com/eui-young/post/assets/56330520/f79469a9-5b1e-4811-993f-d3f45d31d859" width="300" height="300"/> </p>
+
+<p>3D 오브젝트의 위치 값은 Transform의 position에 Vector3 ( x, y, z )의 형태로 담겨 있습니다.</p>
+<p align ="left">
+<img src="https://github.com/eui-young/post/assets/56330520/7fc6fb4f-8761-48aa-921f-e1c051769c47" width  ="600" height ="100"/></p>
+
+<p>위의 Transform 정보는 Cube Object의 데이터입니다.</p>
+<p>현재 Position은 (0, 1, 0)의 값을 가지고 있습니다.</p>
+<p>해당 오브젝트를 우측으로 이동시켜보겠습니다.</p>
+<p align ="left">
+<img src="https://github.com/eui-young/post/assets/56330520/278c2fb4-0db5-4b1e-b113-c3de9d65f058" width = "300" height ="300"/> </p>
+
+<p>오브젝트를 우측으로 이동시키니 Position의 x값의 변화가 있습니다.</p>
+<p align ="left">
+<img src="https://github.com/eui-young/post/assets/56330520/99298352-3be1-431e-87bc-a38e551652c3" width = "600" height ="100"/></p>
+
+<p>오브젝트의 위치 이동을 위해서는 Position 값의 변화가 필요하다는 것을 알 수 있습니다.</p>
+<hr>
+<h3 id="3d-오브젝트-방향-벡터"><a href="#3d-오브젝트-방향-벡터" class="headerlink" title="3d 오브젝트 방향 벡터"></a>3d 오브젝트 방향 벡터</h3><p>3D 오브젝트의 간편한 이동을 위해 Unity에는 방향을 나타내는 전역 벡터가 정의되어 있습니다.</p>
+<h4 id="방향-벡터"><a href="#방향-벡터" class="headerlink" title="방향 벡터"></a>방향 벡터</h4><table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Vector3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vector3.forward</td>
+<td>(0, 0, 1)</td>
+</tr>
+<tr>
+<td>Vector3.back</td>
+<td>(0, 0, -1)</td>
+</tr>
+<tr>
+<td>Vector3.up</td>
+<td>(0, 1, 0)</td>
+</tr>
+<tr>
+<td>Vector3.down</td>
+<td>(0, -1, 0)</td>
+</tr>
+<tr>
+<td>Vector3.right</td>
+<td>(1, 0, 0)</td>
+</tr>
+<tr>
+<td>Vector3.left</td>
+<td>(-1, 0, 0)</td>
+</tr>
+<tr>
+<td>Vector3.zero</td>
+<td>(0, 0, 0)</td>
+</tr>
+<tr>
+<td>Vector3.one</td>
+<td>(1, 1, 1)</td>
+</tr>
+</tbody></table>
+<h4 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h4><p>Position 값을 직접적으로 수정하여 Cube를 이동시키겠습니다.</p>
+<p>아래의 코드가 작성된 스크립트를 Cube 오브젝트의 컴포넌트로 추가하였습니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.position += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[결과]</br></p>
+<p align ="left">
+<img src ="https://github.com/eui-young/eui-young.github.io/assets/56330520/a30f3187-3685-4b35-af40-6448efa78e65" width ="300" height="300"/></p>
+
+<p>매 프레임마다 <mark style = "background : #9b9b7a"> 프레임이 흐른 시간과 moveSpeed </mark>를 이용하여 Position의 y값을 증가시켰습니다.</p>
+<h4 id="localPosition"><a href="#localPosition" class="headerlink" title="localPosition"></a>localPosition</h4><p>위의 position은 localposition으로도 표현할 수 있는데요.</br><br>position과 localPosition은 어떤 차이가 있는걸까요?</p>
+<p>position은 오브젝트의 위치 좌표를 <mark style = "background :#9b9b7a">월드 좌표</mark> 기준으로 가지고 있습니다.</br><br>localPosition은 오브젝트의 위치 좌표를 <mark style = "background :#9b9b7a">로컬 좌표</mark> 기준으로 가지고 있습니다.</p>
+<p>월드 좌표와 로컬 좌표의 차이는 무엇일까요?</p>
+<p><b>월드 좌표란 절대적인 좌표를 말합니다.</b></br><br>절대적인 시점에서 바라본 오브젝트의 위치이므로<br>어디에서 오브젝트 위치를 불러와도 항상 같은 값을 가지게 됩니다.</p>
+<p><b>로컬 좌표는 상대적인 좌표를 말합니다.</b></br><br>만약 Cube 오브젝트가 또 다른 오브젝트의 자식 오브젝트로 존재한다면 부모 오브젝트가 이동할 경우 Cube 오브젝트가 같이 이동을 하게 됩니다.</br><br>이때 Cube의 position은 변하지만 localPosition은 변하지 않습니다.</p>
+<p>그런 이유는 Cube 오브젝트의 기준이 부모 오브젝트이기 때문입니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>오른쪽으로 이동하는 기능을 부모 오브젝트에 추가해보겠습니다.</p>
+<p>[Parent Object Position]</p>
+<p><img src="https://github.com/eui-young/post/assets/56330520/42dc382c-64cc-4362-befb-c3bcef0e1846" alt="ParentMove"></p>
+<p>부모 오브젝트인 파란색 Cube를 이동시켜보았습니다.</br><br>우측의 inspector창에 보이는 position은 부모 오브젝트의 position입니다.</br><br>해당 오브젝트는 position 값이 변하는 것을 알 수 있습니다.</p>
+<p>자식오브젝트인 분홍색 Cube의 position은 어떻게 변할까요?</p>
+<p>[Child Object Position]<br><img src="https://github.com/eui-young/post/assets/56330520/6ef5d66b-9618-45d4-8ce8-04a8562f4f8e" alt="image/Movement2.gif"></p>
+<p>자식 오브젝트의 Position값은 변하지 않습니다.</br><br>이는 특정 오브젝트의 자식형질을 가지게 되면서 인스펙터 창에서 확인할 수 있는 position이 localPosition이기 때문입니다.</p>
+<p>부모 오브젝트를 기준으로 일정한 간격을 두고 이동하기 때문에 localPosition에는 변동이 없는 상태입니다.</p>
+<p>이런 경우에 저희가 눈으로 확인할 수 있는 값은 localPosition이므로 </br></p>
+<p>자식오브젝트 trnasform.position을 이용하여 자식오브젝트를 이동시키는 것과<br>transform.localPosition을 이용하여 이동시키는 것은 차이가 발생하게 됩니다.</p>
+<p>그렇다면 자식 오브젝트를 이동시키기 위해서는 어떤 값을 이용할 수 있을까요?</p>
+<p>이럴 때 사용하는 것이 localPosition입니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>자식 오브젝트를 일정하게 위로 이동시켜보겠습니다.</p>
+<p><img src="https://github.com/eui-young/post/assets/56330520/42ae5191-f014-454e-b536-503efeb7b538" alt="Movement3"></p>
+<p>자식 오브젝트 position의 y값만 변화가 있는 것을 확인할 수 있습니다.</p>
+<p>이는 자식 오브젝트의 localPosition에 변화를 주고 있기 때문입니다.</p>
+<p>오브젝트의 이동 구현 또는 위치를 수정할 때 position과 localPosition을 적절하게 사용하시면 됩니다.</p>
 
       
     </div>
@@ -682,91 +694,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2022/05/12/2022-05-12-[Unity]-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/12/2022-05-12-%5BUnity%5D-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/" class="post-title-link" itemprop="url">UI 클릭 시 다른 오브젝트가 클릭될 때</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2022-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2022-05-12T00:00:00+09:00">2022-05-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-02 02:03:52" itemprop="dateModified" datetime="2023-12-02T02:03:52+09:00">2023-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Unity-UI-클릭-시-다른-오브젝트가-클릭될-때"><a href="#Unity-UI-클릭-시-다른-오브젝트가-클릭될-때" class="headerlink" title="[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때"></a>[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때</h1><p>클릭이벤트를 이용하는 오브젝트 위에 안내 메시지창을 뜨게 하거나, 이미지가 뜰 경우</p>
-<p>UI에 막혀 클릭이 안될거라고 생각한 오브젝트가 클릭 이벤트를 처리하는 상황이 발생할 수 있다.</p>
-<p>이럴 땐</p>
-<h3 id="①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다"><a href="#①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다" class="headerlink" title="① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다."></a>① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다.</h3><img src="https://user-images.githubusercontent.com/56330520/168060976-460accd8-a6eb-488a-bd97-1c6b48925b74.PNG"  />
-
-<p> <mark style='background-color:  #9FCAF3'>Raycast Target</mark>은 z축 방향으로 ray를 쏠 때 광선이 닿는대상이 될 것인지 아닌지를 결정한다.</p>
-<h3 id="②-마우스-클릭-처리를-하는-코드를-작성할-때-IsPointerOverGameObject-를-이용해준다"><a href="#②-마우스-클릭-처리를-하는-코드를-작성할-때-IsPointerOverGameObject-를-이용해준다" class="headerlink" title="② 마우스 클릭 처리를 하는 코드를 작성할 때 IsPointerOverGameObject()를 이용해준다."></a>② 마우스 클릭 처리를 하는 코드를 작성할 때 IsPointerOverGameObject()를 이용해준다.</h3><p><mark style='background-color:  #9FCAF3'> IsPointerOverGameObject()</mark>는 UI가 클릭되면 True, 그렇지 않다면 false를 반환한다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine.EventSystems;</span><br></pre></td></tr></table></figure>
-
-<p>마우스 클릭을 처리하는 부분에 IsPointerOverGameObject() 메소드를 이용하여 작성해주면 된다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnMouseDown</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!EventSystem.current.IsPointerOverGameObject())</span><br><span class="line">    &#123;</span><br><span class="line">		<span class="comment">//입력 처리 내용</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2022/05/12/2022-05-12-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -822,6 +749,91 @@
 
       
           <h1 id="UI-클릭-시-다른-오브젝트가-클릭될-때"><a href="#UI-클릭-시-다른-오브젝트가-클릭될-때" class="headerlink" title="UI 클릭 시 다른 오브젝트가 클릭될 때"></a>UI 클릭 시 다른 오브젝트가 클릭될 때</h1><p>클릭이벤트를 이용하는 오브젝트 위에 안내 메시지창을 뜨게 하거나, 이미지가 뜰 경우</p>
+<p>UI에 막혀 클릭이 안될거라고 생각한 오브젝트가 클릭 이벤트를 처리하는 상황이 발생할 수 있다.</p>
+<p>이럴 땐</p>
+<h3 id="①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다"><a href="#①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다" class="headerlink" title="① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다."></a>① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다.</h3><img src="https://user-images.githubusercontent.com/56330520/168060976-460accd8-a6eb-488a-bd97-1c6b48925b74.PNG"  />
+
+<p> <mark style='background-color:  #9FCAF3'>Raycast Target</mark>은 z축 방향으로 ray를 쏠 때 광선이 닿는대상이 될 것인지 아닌지를 결정한다.</p>
+<h3 id="②-마우스-클릭-처리를-하는-코드를-작성할-때-IsPointerOverGameObject-를-이용해준다"><a href="#②-마우스-클릭-처리를-하는-코드를-작성할-때-IsPointerOverGameObject-를-이용해준다" class="headerlink" title="② 마우스 클릭 처리를 하는 코드를 작성할 때 IsPointerOverGameObject()를 이용해준다."></a>② 마우스 클릭 처리를 하는 코드를 작성할 때 IsPointerOverGameObject()를 이용해준다.</h3><p><mark style='background-color:  #9FCAF3'> IsPointerOverGameObject()</mark>는 UI가 클릭되면 True, 그렇지 않다면 false를 반환한다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine.EventSystems;</span><br></pre></td></tr></table></figure>
+
+<p>마우스 클릭을 처리하는 부분에 IsPointerOverGameObject() 메소드를 이용하여 작성해주면 된다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnMouseDown</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!EventSystem.current.IsPointerOverGameObject())</span><br><span class="line">    &#123;</span><br><span class="line">		<span class="comment">//입력 처리 내용</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2022/05/12/2022-05-12-[Unity]-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/12/2022-05-12-%5BUnity%5D-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/" class="post-title-link" itemprop="url">UI 클릭 시 다른 오브젝트가 클릭될 때</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2022-05-12T00:00:00+09:00">2022-05-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-02 02:03:52" itemprop="dateModified" datetime="2023-12-02T02:03:52+09:00">2023-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Unity-UI-클릭-시-다른-오브젝트가-클릭될-때"><a href="#Unity-UI-클릭-시-다른-오브젝트가-클릭될-때" class="headerlink" title="[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때"></a>[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때</h1><p>클릭이벤트를 이용하는 오브젝트 위에 안내 메시지창을 뜨게 하거나, 이미지가 뜰 경우</p>
 <p>UI에 막혀 클릭이 안될거라고 생각한 오브젝트가 클릭 이벤트를 처리하는 상황이 발생할 수 있다.</p>
 <p>이럴 땐</p>
 <h3 id="①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다"><a href="#①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다" class="headerlink" title="① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다."></a>① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다.</h3><img src="https://user-images.githubusercontent.com/56330520/168060976-460accd8-a6eb-488a-bd97-1c6b48925b74.PNG"  />
