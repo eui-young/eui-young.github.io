@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C#]-Generic%20copy/">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/cat.jpg">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/01/02/2024-01-02-%5BC#%5D-Generic%20copy/" class="post-title-link" itemprop="url">Generic</a>
+            <a href="/2024/01/02/2024-01-02-%5BC%5D-Generic/" class="post-title-link" itemprop="url">Generic</a>
         </h2>
 
         <div class="post-meta">
@@ -208,9 +208,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-01-02 00:00:00 / Modified: 19:11:09" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+              <time title="Created: 2024-01-02 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-03 00:49:03" itemprop="dateModified" datetime="2024-01-03T00:49:03+09:00">2024-01-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
+                </span>
             </span>
 
           
@@ -224,7 +239,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2>
+          <h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p>
+<p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p>
+<p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.<br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p>
+<p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p>
+<p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p>
+<p><mark style ="background : #fcca46">값 형식</mark>일 경우<br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
+<p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면 이전에 생성했던 특수화 클래스를 다시 사용합니다.</p>
+<p>하지만 다른 값 형식이 들어온다면, 다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p>
+<p><mark style ="background : #fcca46">참조 형식</mark>일 경우 런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
+<p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p>
+<p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여<br>변수가 인스턴스를 참조하게 됩니다.</p>
+
       
     </div>
 
@@ -243,7 +277,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C#]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/cat.jpg">
@@ -257,7 +291,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/01/02/2024-01-02-%5BC#%5D-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/" class="post-title-link" itemprop="url">Parameter와 ref, out 키워드</a>
+            <a href="/2024/01/02/2024-01-02-%5BC%5D-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/" class="post-title-link" itemprop="url">Parameter와 ref, out 키워드</a>
         </h2>
 
         <div class="post-meta">
@@ -268,7 +302,16 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-01-02 00:00:00 / Modified: 19:11:09" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+              <time title="Created: 2024-01-02 00:00:00 / Modified: 19:37:47" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
+                </span>
             </span>
 
           
@@ -375,9 +418,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-12-11 00:00:00 / Modified: 21:28:37" itemprop="dateCreated datePublished" datetime="2023-12-11T00:00:00+09:00">2023-12-11</time>
+              <time title="Created: 2023-12-11 00:00:00" itemprop="dateCreated datePublished" datetime="2023-12-11T00:00:00+09:00">2023-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-02 19:37:41" itemprop="dateModified" datetime="2024-01-02T19:37:41+09:00">2024-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/DataStructure/" itemprop="url" rel="index"><span itemprop="name">DataStructure</span></a>
+                </span>
             </span>
 
           
@@ -457,9 +515,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-12-05 00:00:00 / Modified: 00:53:25" itemprop="dateCreated datePublished" datetime="2023-12-05T00:00:00+09:00">2023-12-05</time>
+              <time title="Created: 2023-12-05 00:00:00" itemprop="dateCreated datePublished" datetime="2023-12-05T00:00:00+09:00">2023-12-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-02 19:37:38" itemprop="dateModified" datetime="2024-01-02T19:37:38+09:00">2024-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ETC/" itemprop="url" rel="index"><span itemprop="name">ETC</span></a>
+                </span>
             </span>
 
           
@@ -492,7 +565,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/05/2023-12-05-[C#]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/05/2023-12-05-[C]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/cat.jpg">
@@ -506,7 +579,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/12/05/2023-12-05-%5BC#%5D-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/" class="post-title-link" itemprop="url">대리자</a>
+            <a href="/2023/12/05/2023-12-05-%5BC%5D-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/" class="post-title-link" itemprop="url">대리자</a>
         </h2>
 
         <div class="post-meta">
@@ -523,7 +596,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-02 19:11:03" itemprop="dateModified" datetime="2024-01-02T19:11:03+09:00">2024-01-02</time>
+                <time title="Modified: 2024-01-02 19:37:35" itemprop="dateModified" datetime="2024-01-02T19:37:35+09:00">2024-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -614,8 +687,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-09 13:45:44" itemprop="dateModified" datetime="2023-12-09T13:45:44+09:00">2023-12-09</time>
+                <time title="Modified: 2024-01-02 19:37:30" itemprop="dateModified" datetime="2024-01-02T19:37:30+09:00">2024-01-02</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+            </span>
 
           
 
@@ -710,7 +792,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/12/02/2023-12-02-%5BUnity%5D-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/" class="post-title-link" itemprop="url">position, localPosition</a>
+            <a href="/2023/12/02/2023-12-02-%5BUnity%5D-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/" class="post-title-link" itemprop="url">position,localPosition</a>
         </h2>
 
         <div class="post-meta">
@@ -727,8 +809,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-03 00:13:46" itemprop="dateModified" datetime="2023-12-03T00:13:46+09:00">2023-12-03</time>
+                <time title="Modified: 2024-01-02 19:35:27" itemprop="dateModified" datetime="2024-01-02T19:35:27+09:00">2024-01-02</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+            </span>
 
           
 
@@ -880,10 +971,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-12-02 00:00:00 / Modified: 22:39:21" itemprop="dateCreated datePublished" datetime="2023-12-02T00:00:00+09:00">2023-12-02</time>
+              <time title="Created: 2023-12-02 00:00:00" itemprop="dateCreated datePublished" datetime="2023-12-02T00:00:00+09:00">2023-12-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-02 19:31:47" itemprop="dateModified" datetime="2024-01-02T19:31:47+09:00">2024-01-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -948,7 +1045,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/11/26/2023-11-26-[C#]-Serialization,Deserialization/">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/cat.jpg">
@@ -962,7 +1059,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/11/26/2023-11-26-%5BC#%5D-Serialization,Deserialization/" class="post-title-link" itemprop="url">Serialization, Deserialization</a>
+            <a href="/2023/11/26/2023-11-26-%5BC%5D-Serialization,Deserialization/" class="post-title-link" itemprop="url">Serialization, Deserialization</a>
         </h2>
 
         <div class="post-meta">
@@ -979,7 +1076,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-02 02:02:05" itemprop="dateModified" datetime="2023-12-02T02:02:05+09:00">2023-12-02</time>
+                <time title="Modified: 2024-01-02 19:31:58" itemprop="dateModified" datetime="2024-01-02T19:31:58+09:00">2024-01-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1087,8 +1184,17 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-11-26 23:13:51" itemprop="dateModified" datetime="2023-11-26T23:13:51+09:00">2023-11-26</time>
+                <time title="Modified: 2024-01-02 19:32:07" itemprop="dateModified" datetime="2024-01-02T19:32:07+09:00">2024-01-02</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+            </span>
 
           
 
@@ -1210,7 +1316,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">

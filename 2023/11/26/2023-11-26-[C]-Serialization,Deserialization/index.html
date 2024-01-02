@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"eui-young.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#cdb4db","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="[C#] Parameter 란?Parameter(매개 변수)란 함수를 호출한 곳에서 인수를 전달받아 인수의 값을 함수의 내부에서 사용할 수 있도록 도와주는 변수를 뜻합니다. 1234567891011static void Main(string[] args)&#123;    int _num1 &#x3D; 3;    int _num2 &#x3D; 6;    int _sum &#x3D; Me">
+  <meta name="description" content="[C#] Serialization, Deserialization유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다. Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다. 이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Parameter와 ref, out 키워드">
-<meta property="og:url" content="https://eui-young.github.io/2024/01/02/2024-01-02-[C#]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/index.html">
+<meta property="og:title" content="Serialization, Deserialization">
+<meta property="og:url" content="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/index.html">
 <meta property="og:site_name" content="zerone">
-<meta property="og:description" content="[C#] Parameter 란?Parameter(매개 변수)란 함수를 호출한 곳에서 인수를 전달받아 인수의 값을 함수의 내부에서 사용할 수 있도록 도와주는 변수를 뜻합니다. 1234567891011static void Main(string[] args)&#123;    int _num1 &#x3D; 3;    int _num2 &#x3D; 6;    int _sum &#x3D; Me">
+<meta property="og:description" content="[C#] Serialization, Deserialization유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다. Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다. 이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-01-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-02T10:11:09.244Z">
+<meta property="article:published_time" content="2023-11-25T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-02T10:31:58.202Z">
 <meta property="article:author" content="zerone">
 <meta property="article:tag" content="C#">
-<meta property="article:tag" content="Parameter">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C#]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/">
+<link rel="canonical" href="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/">
 
 
 <script id="page-configurations">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>Parameter와 ref, out 키워드 | zerone</title>
+  <title>Serialization, Deserialization | zerone</title>
   
 
 
@@ -190,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C#]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/cat.jpg">
@@ -203,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Parameter와 ref, out 키워드
+          Serialization, Deserialization
         </h1>
 
         <div class="post-meta">
@@ -212,9 +211,24 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-01-02 00:00:00 / Modified: 19:11:09" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+              <time title="Created: 2023-11-26 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-26T00:00:00+09:00">2023-11-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-02 19:31:58" itemprop="dateModified" datetime="2024-01-02T19:31:58+09:00">2024-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
+                </span>
             </span>
 
           
@@ -228,57 +242,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="C-Parameter-란"><a href="#C-Parameter-란" class="headerlink" title="[C#] Parameter 란?"></a>[C#] Parameter 란?</h2><p>Parameter(매개 변수)란 함수를 호출한 곳에서 인수를 전달받아 인수의 값을 함수의 내부에서 사용할 수 있도록 도와주는 변수를 뜻합니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">int</span> _num1 = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">int</span> _num2 = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">int</span> _sum = Method(_num1,_num2); <span class="comment">//인수 전달</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="built_in">int</span> <span class="title">Method</span>(<span class="params"><span class="built_in">int</span> num1, <span class="built_in">int</span> num2</span>) <span class="comment">//매개 변수</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> num1 + num2; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위와 같이 Method를 호출하는 Main함수에서 _num1, _num2를 인수(Argument)로 넘겨주고</br><br>호출된 Method에서 <mark style = "background : #da627d">인수</mark> 값을 담고 있는 파라미터인 num1, num2를 이용하여 결과 값을 전달해주고 있습니다.</p>
-<p><code>인수란 함수를 호출할 때 넘겨주는 변수 값입니다.</code></p>
-<hr>
-<h3 id="값-형식-전달-참조-형식-전달"><a href="#값-형식-전달-참조-형식-전달" class="headerlink" title="값 형식 전달, 참조 형식 전달"></a>값 형식 전달, 참조 형식 전달</h3><ol>
-<li>값으로 전달 : 변수의 복사본을 전달</li>
-<li>참조로 전달 : 변수에 대한 주소를 전달</li>
-</ol>
+        <h1 id="C-Serialization-Deserialization"><a href="#C-Serialization-Deserialization" class="headerlink" title="[C#] Serialization, Deserialization"></a>[C#] Serialization, Deserialization</h1><p>유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다.</p>
+<p>Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다.</p>
+<p>이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정을 통해 데이터를 관리하였다.</p>
+<h3 id="Serialization"><a href="#Serialization" class="headerlink" title=" Serialization "></a><mark style = "background : #e3d5ca"> Serialization </mark></h3><p>직렬화는 객체의 형태로 존재하는 데이터를 연속적인 데이터로 변형하는 것이다.</p>
+<p>“name” : “euiyoung”,</p>
+<p>“age” : 24,</p>
+<p>“gender” : “woman”</p>
+<p>key - value 의 객체 상태로 존재하는 위 데이터를</p>
 <table>
 <thead>
 <tr>
-<th>형식</th>
-<th>값으로 전달</th>
-<th>참조로 전달</th>
+<th>“euiyoung”</th>
+<th align="left">24</th>
+<th>“woman”</th>
 </tr>
 </thead>
-<tbody><tr>
-<td>값 형식</td>
-<td>호출자에게 변경 내용이 반영되지 않음</td>
-<td>호출자에게 변경 내용이 반영됨</td>
-</tr>
+</table>
+<p>형태로 만들어준다.</p>
+<p>데이터를 저장하거나 데이터를 전송할 때 직렬화 과정을 거친다.</p>
+<h3 id="Deserialization"><a href="#Deserialization" class="headerlink" title=" Deserialization "></a><mark style = "background : #d5bdaf"> Deserialization </mark></h3><p>역직렬화라고 일컫으며 직렬화된 데이터를 객체의 형태로 만드는 것을 의미하는 것이다.</p>
+<p>스트림 데이터를 읽어 원래의 객체 형태로 복원을 하는 것으로</p>
+<p>특정 데이터를 불러올 때 역직렬화 과정을 거친다.</p>
+<table>
+<thead>
 <tr>
-<td>참조 형식</td>
-<td>호출자에게 변경 내용이 반영됨</td>
-<td>호출자에게 변경 내용이 반영됨</td>
+<th>“euiyoung”</th>
+<th>24</th>
+<th>“woman”</th>
 </tr>
-</tbody></table>
-<hr>
-<h3 id="Parameter-키워드"><a href="#Parameter-키워드" class="headerlink" title="Parameter 키워드"></a>Parameter 키워드</h3><p>개발자는 필요함에 따라 파라미터 키워드를 사용할 수 있습니다.</br><br>그럼 파라미터 키워드에는 어떤 것들이 있을까요?</p>
-<hr>
-<h4 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h4><p>일반적으로 c#의 인수는 값이 복사되어 호출된 메소드에게 전달됩니다.</p>
-<p>이런 경우 메서드 내에서 매개변수의 값이 수정되어도 호출된 곳에서 변수의 값은 변하지 않습니다.</p>
-<p>메소드에서 변동된 값이 호출한 곳에서도 적용이 되었으면 좋겠다면<br>ref 키워드를 사용하면 됩니다. </p>
-<p><mark style = "background: #f4acb7"> ref 키워드는 reference로 참조에 의한 인수 전달 키워드입니다. </mark></p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">Method</span>(<span class="params"><span class="keyword">ref</span> <span class="built_in">int</span> num1, <span class="built_in">int</span> num2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num1 + num2; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ref 키워드를 사용하기 위해<br>메소드의 매개변수 앞과, 메소드를 호출할 때 인수 앞에 ref키워드를 명시해주어야 합니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">int</span> _num1 = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">int</span> _num2 = <span class="number">4</span>;</span><br><span class="line">    Method(<span class="keyword">ref</span> _num1,_num2); </span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;Main Start!&quot;</span>);</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;_num1: <span class="subst">&#123;_num1&#125;</span> , _num2: <span class="subst">&#123;_num2&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>(<span class="params"><span class="keyword">ref</span> <span class="built_in">int</span> num1, <span class="built_in">int</span> num2</span>)</span>&#123;</span><br><span class="line">    num1 = num1 + <span class="number">1</span>;</span><br><span class="line">    num2 = num2 + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;Method Start!&quot;</span>);</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;num1: <span class="subst">&#123;num1&#125;</span> , num2: <span class="subst">&#123;num2&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>[결과]</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Method Start!</span><br><span class="line">num1: 4 , num2: 5</span><br><span class="line">Main Start!</span><br><span class="line">_num1: 4 , _num2: 4</span><br></pre></td></tr></table></figure>
-<p>결과를 보면 메소드 내에서 num2는 증가되어 5를 가지고 있지만 </br>main 에서 _num2는 증가되지 않는 4의 값을 가지고 있습니다.</p>
-<p>num2와 다르게 _num1은 메소드 내에서 증가한 것이 </br>main에서도 똑같이 증가된 것을 확인할 수 있습니다.</p>
-<hr>
-<h4 id="out"><a href="#out" class="headerlink" title="out"></a>out</h4><p>out은 ref와 비슷하게 참조에 의한 매개변수을 이용할 수 있게 도와주는 키워드입니다.</p>
-<p>사용방식 또한 ref와 같습니다.</p>
-<p>그럼 둘의 다른점은 무엇일까요?</p>
-<p>ref일 경우 인수를 초기화해야하지만,</br><br>초기화가 되었기때문에 호출된 메소드 내에서 새로운 값을 반드시 할당하지 않아도 됩니다. </p>
-<p>out일 경우 인수가 할당되지 않아도 되지만,</br><br>호출된 메소드 내에서 새로운 값을 반드시 할당해주어야 합니다.</p>
-<hr>
-<p>자세한 내용은 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/method-parameters">Microsoft c# 가이드</a> 를 참고하시면 됩니다.</p>
+</thead>
+</table>
+<p>“name” : “euiyoung”,</p>
+<p>“age” : 24,</p>
+<p>“gender” : “woman”</p>
+<p>위의 연속적인 데이터를 아래의 객체로 변형하는 과정이다.</p>
 
     </div>
 
@@ -289,7 +287,6 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/C/" rel="tag"># C#</a>
-              <a href="/tags/Parameter/" rel="tag"># Parameter</a>
           </div>
 
         
@@ -298,12 +295,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/12/11/2023-12-11-%5B%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%5D-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/" rel="prev" title="자료구조">
-      <i class="fa fa-chevron-left"></i> 자료구조
+    <a href="/2022/06/15/2022-06-15-%5BUnity%5D-GetComponentsInChildren/" rel="prev" title="GetComponentsInChildren">
+      <i class="fa fa-chevron-left"></i> GetComponentsInChildren
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/01/02/2024-01-02-%5BC#%5D-Generic%20copy/" rel="next" title="Generic">
-      Generic <i class="fa fa-chevron-right"></i>
+    <a href="/2023/12/02/2023-12-02-%5Bhexo%5D-next-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/" rel="next" title="next 테마를 이용하여 hexo 블로그 만들기">
+      next 테마를 이용하여 hexo 블로그 만들기 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -364,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-Parameter-%EB%9E%80"><span class="nav-number">1.</span> <span class="nav-text">[C#] Parameter 란?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EA%B0%92-%ED%98%95%EC%8B%9D-%EC%A0%84%EB%8B%AC-%EC%B0%B8%EC%A1%B0-%ED%98%95%EC%8B%9D-%EC%A0%84%EB%8B%AC"><span class="nav-number">1.1.</span> <span class="nav-text">값 형식 전달, 참조 형식 전달</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parameter-%ED%82%A4%EC%9B%8C%EB%93%9C"><span class="nav-number">1.2.</span> <span class="nav-text">Parameter 키워드</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ref"><span class="nav-number">1.2.1.</span> <span class="nav-text">ref</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#out"><span class="nav-number">1.2.2.</span> <span class="nav-text">out</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Serialization-Deserialization"><span class="nav-number">1.</span> <span class="nav-text">[C#] Serialization, Deserialization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serialization"><span class="nav-number">1.0.1.</span> <span class="nav-text"> Serialization </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deserialization"><span class="nav-number">1.0.2.</span> <span class="nav-text"> Deserialization </span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -387,7 +384,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -504,7 +501,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'gitalk',
       owner       : 'eui-young',
       admin       : ['eui-young'],
-      id          : 'ae33755ef96bf4c3b321fc623ceda0ed',
+      id          : '2d005f5977295e0b6047bdc129510f2d',
         language: '',
       distractionFreeMode: true
     });
