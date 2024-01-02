@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"eui-young.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#cdb4db","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"eui-young.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#cdb4db","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="알아내보자">
@@ -181,6 +181,241 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2022/05/13/2022-05-13-[Unity]-%EB%B6%80%EB%AA%A8,-%EC%9E%90%EC%8B%9D-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%88%AC%EB%AA%85%ED%99%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/13/2022-05-13-%5BUnity%5D-%EB%B6%80%EB%AA%A8,-%EC%9E%90%EC%8B%9D-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%88%AC%EB%AA%85%ED%99%94/" class="post-title-link" itemprop="url">부모, 자식 오브젝트 동시에 투명화시키기</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-13 00:00:00" itemprop="dateCreated datePublished" datetime="2022-05-13T00:00:00+09:00">2022-05-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-11-04 17:51:38" itemprop="dateModified" datetime="2023-11-04T17:51:38+09:00">2023-11-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Unity-부모-자식-오브젝트-동시에-투명화시키기"><a href="#Unity-부모-자식-오브젝트-동시에-투명화시키기" class="headerlink" title="[Unity] 부모, 자식 오브젝트 동시에 투명화시키기"></a>[Unity] 부모, 자식 오브젝트 동시에 투명화시키기</h1><p>이미지를 부모 오브젝트로 두고 버튼을 자식 오브젝트로 두었을 때,</p>
+<p>이미지의 투명도를 조절해도 버튼의 투명도는 변하지 않는다.</p>
+<p>자식 오브젝트의 알파 값을 부모 오브젝트의 알파 값과 똑같이 바꾸고 싶다면 </p>
+<p>부모 오브젝트 컴포넌트에 <mark style='background-color:  #9ffaF3'>Canvas  Group</mark> 를 추가해주고 Canvas Group Alpha값을 바꾸어 주면 된다.</p>
+<p><img src="https://user-images.githubusercontent.com/56330520/168248115-b0c4c561-e6fa-4120-a452-1c840ec11aa4.PNG" alt="Canvas Group"></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">ParentObject.GetComponent&lt;CanvasGroup&gt;().Alpha= <span class="number">0.5f</span>;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2022/05/12/2022-05-12-[Unity]-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/05/12/2022-05-12-%5BUnity%5D-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/" class="post-title-link" itemprop="url">UI 클릭 시 다른 오브젝트가 클릭될 때</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-12 00:00:00" itemprop="dateCreated datePublished" datetime="2022-05-12T00:00:00+09:00">2022-05-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-12-02 02:03:52" itemprop="dateModified" datetime="2023-12-02T02:03:52+09:00">2023-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Unity-UI-클릭-시-다른-오브젝트가-클릭될-때"><a href="#Unity-UI-클릭-시-다른-오브젝트가-클릭될-때" class="headerlink" title="[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때"></a>[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때</h1><p>클릭이벤트를 이용하는 오브젝트 위에 안내 메시지창을 뜨게 하거나, 이미지가 뜰 경우</p>
+<p>UI에 막혀 클릭이 안될거라고 생각한 오브젝트가 클릭 이벤트를 처리하는 상황이 발생할 수 있다.</p>
+<p>이럴 땐</p>
+<h3 id="①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다"><a href="#①-Inspector창에서-사용되는-Image의-Raycast-Target을-체크해준다" class="headerlink" title="① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다."></a>① Inspector창에서 사용되는 Image의 Raycast Target을 체크해준다.</h3><img src="https://user-images.githubusercontent.com/56330520/168060976-460accd8-a6eb-488a-bd97-1c6b48925b74.PNG"  />
+
+<p> <mark style='background-color:  #9FCAF3'>Raycast Target</mark>은 z축 방향으로 ray를 쏠 때 광선이 닿는대상이 될 것인지 아닌지를 결정한다.</p>
+<h3 id="②-마우스-클릭-처리를-하는-코드를-작성할-때-IsPointerOverGameObject-를-이용해준다"><a href="#②-마우스-클릭-처리를-하는-코드를-작성할-때-IsPointerOverGameObject-를-이용해준다" class="headerlink" title="② 마우스 클릭 처리를 하는 코드를 작성할 때 IsPointerOverGameObject()를 이용해준다."></a>② 마우스 클릭 처리를 하는 코드를 작성할 때 IsPointerOverGameObject()를 이용해준다.</h3><p><mark style='background-color:  #9FCAF3'> IsPointerOverGameObject()</mark>는 UI가 클릭되면 True, 그렇지 않다면 false를 반환한다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine.EventSystems;</span><br></pre></td></tr></table></figure>
+
+<p>마우스 클릭을 처리하는 부분에 IsPointerOverGameObject() 메소드를 이용하여 작성해주면 된다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnMouseDown</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!EventSystem.current.IsPointerOverGameObject())</span><br><span class="line">    &#123;</span><br><span class="line">		<span class="comment">//입력 처리 내용</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2021/09/25/2021-09-25-GetComponent,-FindObjectOfType/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/09/25/2021-09-25-GetComponent,-FindObjectOfType/" class="post-title-link" itemprop="url">GetComponent, FindObjectOfType</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-09-25 00:00:00" itemprop="dateCreated datePublished" datetime="2021-09-25T00:00:00+09:00">2021-09-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-02 19:11:03" itemprop="dateModified" datetime="2024-01-02T19:11:03+09:00">2024-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="GetComponent-FindObjectOfType"><a href="#GetComponent-FindObjectOfType" class="headerlink" title="GetComponent, FindObjectOfType"></a>GetComponent, FindObjectOfType</h1><h3 id="GetComponet"><a href="#GetComponet" class="headerlink" title="GetComponet"></a>GetComponet</h3><p> 특정 object의 component를 찾음</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GameObject <span class="built_in">object</span>;</span><br><span class="line"><span class="built_in">object</span>.GetComponent&lt;SpriteRenderer&gt;();</span><br><span class="line"><span class="comment">//object의 component인 SpriteRenderer을 찾음</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="FindObjectOfType"><a href="#FindObjectOfType" class="headerlink" title="FindObjectOfType"></a>FindObjectOfType</h3><p>hierarchy창에 있는 모든 object들을 검색 <code>검색된 object script 함수 사용</code></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GameManager gameManager = FindObjectOfType&lt;objectManager&gt;();</span><br><span class="line"><span class="comment">//object의 script인 objectManager를 찾음</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -361,7 +596,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -374,7 +609,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -410,7 +645,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
