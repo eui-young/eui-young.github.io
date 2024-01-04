@@ -20,20 +20,21 @@
     var CONFIG = {"hostname":"eui-young.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#cdb4db","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="[C#] Serialization, Deserialization유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다. Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다. 이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정">
+  <meta name="description" content="[Unity] Object Pooling 개요게임 속 플레이어가 몬스터를 처치하기 위해 총알을 발사한다고 한다면 총알을 생성하고 총알을 삭제하는 작업이 반복될 것입니다. 프레임 속도를 유지하면서 CPU에 부담을 주지 않으려면 빈번하게 파괴되고 생성되는 요소들을 메모리에 할당해두고 있는 것이 좋습니다. 오브젝트를 미리 생성해두었다가 필요할 때에 사용하고 다시">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Serialization, Deserialization">
-<meta property="og:url" content="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/index.html">
+<meta property="og:title" content="Object Pooling 패턴">
+<meta property="og:url" content="https://eui-young.github.io/2024/01/03/2024-01-03-[Unity]-Object-Pooling/index.html">
 <meta property="og:site_name" content="zerone">
-<meta property="og:description" content="[C#] Serialization, Deserialization유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다. Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다. 이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정">
+<meta property="og:description" content="[Unity] Object Pooling 개요게임 속 플레이어가 몬스터를 처치하기 위해 총알을 발사한다고 한다면 총알을 생성하고 총알을 삭제하는 작업이 반복될 것입니다. 프레임 속도를 유지하면서 CPU에 부담을 주지 않으려면 빈번하게 파괴되고 생성되는 요소들을 메모리에 할당해두고 있는 것이 좋습니다. 오브젝트를 미리 생성해두었다가 필요할 때에 사용하고 다시">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-11-25T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-02T10:31:58.202Z">
+<meta property="article:published_time" content="2024-01-02T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-04T08:42:57.572Z">
 <meta property="article:author" content="zerone">
-<meta property="article:tag" content="C#">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="Object Pooling">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/">
+<link rel="canonical" href="https://eui-young.github.io/2024/01/03/2024-01-03-[Unity]-Object-Pooling/">
 
 
 <script id="page-configurations">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>Serialization, Deserialization | zerone</title>
+  <title>Object Pooling 패턴 | zerone</title>
   
 
 
@@ -189,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/03/2024-01-03-[Unity]-Object-Pooling/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/cat.jpg">
@@ -202,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Serialization, Deserialization
+          Object Pooling 패턴
         </h1>
 
         <div class="post-meta">
@@ -212,14 +213,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2023-11-26 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-26T00:00:00+09:00">2023-11-26</time>
+              <time title="Created: 2024-01-03 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-03T00:00:00+09:00">2024-01-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-02 19:31:58" itemprop="dateModified" datetime="2024-01-02T19:31:58+09:00">2024-01-02</time>
+                <time title="Modified: 2024-01-04 17:42:57" itemprop="dateModified" datetime="2024-01-04T17:42:57+09:00">2024-01-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -227,7 +228,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
                 </span>
             </span>
 
@@ -242,41 +243,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="C-Serialization-Deserialization"><a href="#C-Serialization-Deserialization" class="headerlink" title="[C#] Serialization, Deserialization"></a>[C#] Serialization, Deserialization</h1><p>유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다.</p>
-<p>Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다.</p>
-<p>이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정을 통해 데이터를 관리하였다.</p>
-<h3 id="Serialization"><a href="#Serialization" class="headerlink" title=" Serialization "></a><mark style = "background : #e3d5ca"> Serialization </mark></h3><p>직렬화는 객체의 형태로 존재하는 데이터를 연속적인 데이터로 변형하는 것이다.</p>
-<p>“name” : “euiyoung”,</p>
-<p>“age” : 24,</p>
-<p>“gender” : “woman”</p>
-<p>key - value 의 객체 상태로 존재하는 위 데이터를</p>
-<table>
-<thead>
-<tr>
-<th>“euiyoung”</th>
-<th align="left">24</th>
-<th>“woman”</th>
-</tr>
-</thead>
-</table>
-<p>형태로 만들어준다.</p>
-<p>데이터를 저장하거나 데이터를 전송할 때 직렬화 과정을 거친다.</p>
-<h3 id="Deserialization"><a href="#Deserialization" class="headerlink" title=" Deserialization "></a><mark style = "background : #d5bdaf"> Deserialization </mark></h3><p>역직렬화라고 일컫으며 직렬화된 데이터를 객체의 형태로 만드는 것을 의미하는 것이다.</p>
-<p>스트림 데이터를 읽어 원래의 객체 형태로 복원을 하는 것으로</p>
-<p>특정 데이터를 불러올 때 역직렬화 과정을 거친다.</p>
-<table>
-<thead>
-<tr>
-<th>“euiyoung”</th>
-<th>24</th>
-<th>“woman”</th>
-</tr>
-</thead>
-</table>
-<p>“name” : “euiyoung”,</p>
-<p>“age” : 24,</p>
-<p>“gender” : “woman”</p>
-<p>위의 연속적인 데이터를 아래의 객체로 변형하는 과정이다.</p>
+        <h2 id="Unity-Object-Pooling-개요"><a href="#Unity-Object-Pooling-개요" class="headerlink" title="[Unity] Object Pooling 개요"></a>[Unity] Object Pooling 개요</h2><p>게임 속 플레이어가 몬스터를 처치하기 위해 총알을 발사한다고 한다면 총알을 생성하고 총알을 삭제하는 작업이 반복될 것입니다.</p>
+<p>프레임 속도를 유지하면서 CPU에 부담을 주지 않으려면 빈번하게 파괴되고 생성되는 요소들을 메모리에 할당해두고 있는 것이 좋습니다.</p>
+<p>오브젝트를 미리 생성해두었다가 필요할 때에 사용하고 다시 되돌려놓는 방법을 Object Pooling 패턴이라고 합니다.</p>
+<hr>
+<h2 id="Object-Pooling의-작동원리"><a href="#Object-Pooling의-작동원리" class="headerlink" title="Object Pooling의 작동원리"></a>Object Pooling의 작동원리</h2><ol>
+<li><p>컨테이너 형식의 풀은 초기화된 오브젝트 목록을 메모리에 남겨둡니다.</p>
+</li>
+<li><p>사용자는 사용할 오브젝트 인스턴스를 Pool에 요청할 수 있습니다.</p>
+</li>
+<li><p>만약 주어진 시간 내에 풀 내의 인스턴스가 충분하지 않다면 새로운 인스턴스가 동적으로 생성됩니다.</p>
+</li>
+<li><p>풀을 빠져나간 객체 중 클라이언트에서 더 이상 사용되지 않게되면 풀로 돌아가게 됩니다.</p>
+</li>
+<li><p>이 때, 풀에 공간이 없다면 돌아오려는 객체의 인스턴스를 파괴합니다.</p>
+</li>
+</ol>
+<hr>
+<h2 id="장단점"><a href="#장단점" class="headerlink" title="장단점"></a>장단점</h2><p>Object Pooling 패턴에 대해서는 여러 개발자마다 입장이 다릅니다. </p>
+<p>패턴을 사용할 경우 장단점은 어떤 것이 있을까요?</p>
+<h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ol>
+<li><p>메모리 사용률이 예측 가능합니다. 풀을 생성할 때 풀 안에 생성될 오브젝트의 갯수를 미리 지정해두기 때문에 메모리를 어느만큼 사용할지 예측이 가능합니다.</p>
+</li>
+<li><p>오브젝트를 Instantiate, Destroy하는 과정에서 가비지 콜렉터를 호출하게 되면서 프레임 드랍이 발생하는데 해당 작업의 빈도가 줄어들게 됩니다.</p>
+</li>
+</ol>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ol>
+<li><p>메모리를 사용하지 않는 상황에도, 기본적으로 메모리의 공간을 할당하고 있습니다.</p>
+</li>
+<li><p>초기화의 번거로움이 존재합니다. 오브젝트 풀링을 사용할 경우 초기화 코드를 작성해주어야 합니다.</p>
+</li>
+</ol>
+<hr>
+<p>장점만 가지고 있는 패턴은 없는 것 같습니다. 그러므로 상황에 따라 신중하게 패턴을 사용할지 말지 결정해야합니다.</p>
+<p>최적화가 필요한 시점에 어떤 부분에 적용을 시키는 것이 효율이 좋을지 검토해보는 것이 좋을 것 같습니다. </p>
 
     </div>
 
@@ -286,7 +286,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C#</a>
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
+              <a href="/tags/Object-Pooling/" rel="tag"># Object Pooling</a>
           </div>
 
         
@@ -295,13 +296,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/06/15/2022-06-15-%5BUnity%5D-GetComponentsInChildren/" rel="prev" title="GetComponentsInChildren">
-      <i class="fa fa-chevron-left"></i> GetComponentsInChildren
+    <a href="/2024/01/02/2024-01-02-%5BC%5D-Generic/" rel="prev" title="Generic">
+      <i class="fa fa-chevron-left"></i> Generic
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/12/02/2023-12-02-%5Bhexo%5D-next-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/" rel="next" title="next 테마를 이용하여 hexo 블로그 만들기">
-      next 테마를 이용하여 hexo 블로그 만들기 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -361,7 +359,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-Serialization-Deserialization"><span class="nav-number">1.</span> <span class="nav-text">[C#] Serialization, Deserialization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serialization"><span class="nav-number">1.0.1.</span> <span class="nav-text"> Serialization </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deserialization"><span class="nav-number">1.0.2.</span> <span class="nav-text"> Deserialization </span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity-Object-Pooling-%EA%B0%9C%EC%9A%94"><span class="nav-number">1.</span> <span class="nav-text">[Unity] Object Pooling 개요</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-Pooling%EC%9D%98-%EC%9E%91%EB%8F%99%EC%9B%90%EB%A6%AC"><span class="nav-number">2.</span> <span class="nav-text">Object Pooling의 작동원리</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9E%A5%EB%8B%A8%EC%A0%90"><span class="nav-number">3.</span> <span class="nav-text">장단점</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9E%A5%EC%A0%90"><span class="nav-number">3.1.</span> <span class="nav-text">장점</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%8B%A8%EC%A0%90"><span class="nav-number">3.2.</span> <span class="nav-text">단점</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -501,7 +499,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'gitalk',
       owner       : 'eui-young',
       admin       : ['eui-young'],
-      id          : '2d005f5977295e0b6047bdc129510f2d',
+      id          : '31f1fdce5e73fc715e2ff5941a6a9b47',
         language: '',
       distractionFreeMode: true
     });

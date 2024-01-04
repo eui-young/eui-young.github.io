@@ -55,25 +55,6 @@
       </tags>
   </entry>
   <entry>
-    <title>GetComponent, FindObjectOfType</title>
-    <url>/2021/09/25/2021-09-25-%5BUnity%5D-GetComponent,-FindObjectOfType/</url>
-    <content><![CDATA[<h1 id="GetComponent-FindObjectOfType"><a href="#GetComponent-FindObjectOfType" class="headerlink" title="GetComponent, FindObjectOfType"></a>GetComponent, FindObjectOfType</h1><h3 id="GetComponet"><a href="#GetComponet" class="headerlink" title="GetComponet"></a>GetComponet</h3><p> 특정 object의 component를 찾음</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject <span class="built_in">object</span>;</span><br><span class="line"><span class="built_in">object</span>.GetComponent&lt;SpriteRenderer&gt;();</span><br><span class="line"><span class="comment">//object의 component인 SpriteRenderer을 찾음</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="FindObjectOfType"><a href="#FindObjectOfType" class="headerlink" title="FindObjectOfType"></a>FindObjectOfType</h3><p>hierarchy창에 있는 모든 object들을 검색 <code>검색된 object script 함수 사용</code></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameManager gameManager = FindObjectOfType&lt;objectManager&gt;();</span><br><span class="line"><span class="comment">//object의 script인 objectManager를 찾음</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Unity</category>
-      </categories>
-      <tags>
-        <tag>Unity</tag>
-        <tag>GetComponent</tag>
-        <tag>FindObjectOfType</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UI 클릭 시 다른 오브젝트가 클릭될 때</title>
     <url>/2022/05/12/2022-05-12-%5BUnity%5D-UI-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8B%A4%EB%A5%B8-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EA%B0%80-%ED%81%B4%EB%A6%AD%EB%90%A0-%EB%95%8C/</url>
     <content><![CDATA[<h1 id="Unity-UI-클릭-시-다른-오브젝트가-클릭될-때"><a href="#Unity-UI-클릭-시-다른-오브젝트가-클릭될-때" class="headerlink" title="[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때"></a>[Unity] UI 클릭 시 다른 오브젝트가 클릭될 때</h1><p>클릭이벤트를 이용하는 오브젝트 위에 안내 메시지창을 뜨게 하거나, 이미지가 뜰 경우</p>
@@ -97,14 +78,13 @@
       </tags>
   </entry>
   <entry>
-    <title>부모, 자식 오브젝트 동시에 투명화시키기</title>
-    <url>/2022/05/13/2022-05-13-%5BUnity%5D-%EB%B6%80%EB%AA%A8,-%EC%9E%90%EC%8B%9D-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%88%AC%EB%AA%85%ED%99%94/</url>
-    <content><![CDATA[<h1 id="Unity-부모-자식-오브젝트-동시에-투명화시키기"><a href="#Unity-부모-자식-오브젝트-동시에-투명화시키기" class="headerlink" title="[Unity] 부모, 자식 오브젝트 동시에 투명화시키기"></a>[Unity] 부모, 자식 오브젝트 동시에 투명화시키기</h1><p>이미지를 부모 오브젝트로 두고 버튼을 자식 오브젝트로 두었을 때,</p>
-<p>이미지의 투명도를 조절해도 버튼의 투명도는 변하지 않는다.</p>
-<p>자식 오브젝트의 알파 값을 부모 오브젝트의 알파 값과 똑같이 바꾸고 싶다면 </p>
-<p>부모 오브젝트 컴포넌트에 <mark style='background-color:  #9ffaF3'>Canvas  Group</mark> 를 추가해주고 Canvas Group Alpha값을 바꾸어 주면 된다.</p>
-<p><img src="https://user-images.githubusercontent.com/56330520/168248115-b0c4c561-e6fa-4120-a452-1c840ec11aa4.PNG" alt="Canvas Group"></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">ParentObject.GetComponent&lt;CanvasGroup&gt;().Alpha= <span class="number">0.5f</span>;</span><br></pre></td></tr></table></figure>
+    <title>GetComponent, FindObjectOfType</title>
+    <url>/2021/09/25/2021-09-25-%5BUnity%5D-GetComponent,-FindObjectOfType/</url>
+    <content><![CDATA[<h1 id="GetComponent-FindObjectOfType"><a href="#GetComponent-FindObjectOfType" class="headerlink" title="GetComponent, FindObjectOfType"></a>GetComponent, FindObjectOfType</h1><h3 id="GetComponet"><a href="#GetComponet" class="headerlink" title="GetComponet"></a>GetComponet</h3><p> 특정 object의 component를 찾음</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject <span class="built_in">object</span>;</span><br><span class="line"><span class="built_in">object</span>.GetComponent&lt;SpriteRenderer&gt;();</span><br><span class="line"><span class="comment">//object의 component인 SpriteRenderer을 찾음</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="FindObjectOfType"><a href="#FindObjectOfType" class="headerlink" title="FindObjectOfType"></a>FindObjectOfType</h3><p>hierarchy창에 있는 모든 object들을 검색 <code>검색된 object script 함수 사용</code></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameManager gameManager = FindObjectOfType&lt;objectManager&gt;();</span><br><span class="line"><span class="comment">//object의 script인 objectManager를 찾음</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -112,6 +92,8 @@
       </categories>
       <tags>
         <tag>Unity</tag>
+        <tag>GetComponent</tag>
+        <tag>FindObjectOfType</tag>
       </tags>
   </entry>
   <entry>
@@ -142,49 +124,21 @@
       </tags>
   </entry>
   <entry>
-    <title>Serialization, Deserialization</title>
-    <url>/2023/11/26/2023-11-26-%5BC%5D-Serialization,Deserialization/</url>
-    <content><![CDATA[<h1 id="C-Serialization-Deserialization"><a href="#C-Serialization-Deserialization" class="headerlink" title="[C#] Serialization, Deserialization"></a>[C#] Serialization, Deserialization</h1><p>유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다.</p>
-<p>Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다.</p>
-<p>이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정을 통해 데이터를 관리하였다.</p>
-<h3 id="Serialization"><a href="#Serialization" class="headerlink" title=" Serialization "></a><mark style = "background : #e3d5ca"> Serialization </mark></h3><p>직렬화는 객체의 형태로 존재하는 데이터를 연속적인 데이터로 변형하는 것이다.</p>
-<p>“name” : “euiyoung”,</p>
-<p>“age” : 24,</p>
-<p>“gender” : “woman”</p>
-<p>key - value 의 객체 상태로 존재하는 위 데이터를</p>
-<table>
-<thead>
-<tr>
-<th>“euiyoung”</th>
-<th align="left">24</th>
-<th>“woman”</th>
-</tr>
-</thead>
-</table>
-<p>형태로 만들어준다.</p>
-<p>데이터를 저장하거나 데이터를 전송할 때 직렬화 과정을 거친다.</p>
-<h3 id="Deserialization"><a href="#Deserialization" class="headerlink" title=" Deserialization "></a><mark style = "background : #d5bdaf"> Deserialization </mark></h3><p>역직렬화라고 일컫으며 직렬화된 데이터를 객체의 형태로 만드는 것을 의미하는 것이다.</p>
-<p>스트림 데이터를 읽어 원래의 객체 형태로 복원을 하는 것으로</p>
-<p>특정 데이터를 불러올 때 역직렬화 과정을 거친다.</p>
-<table>
-<thead>
-<tr>
-<th>“euiyoung”</th>
-<th>24</th>
-<th>“woman”</th>
-</tr>
-</thead>
-</table>
-<p>“name” : “euiyoung”,</p>
-<p>“age” : 24,</p>
-<p>“gender” : “woman”</p>
-<p>위의 연속적인 데이터를 아래의 객체로 변형하는 과정이다.</p>
+    <title>부모, 자식 오브젝트 동시에 투명화시키기</title>
+    <url>/2022/05/13/2022-05-13-%5BUnity%5D-%EB%B6%80%EB%AA%A8,-%EC%9E%90%EC%8B%9D-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%88%AC%EB%AA%85%ED%99%94/</url>
+    <content><![CDATA[<h1 id="Unity-부모-자식-오브젝트-동시에-투명화시키기"><a href="#Unity-부모-자식-오브젝트-동시에-투명화시키기" class="headerlink" title="[Unity] 부모, 자식 오브젝트 동시에 투명화시키기"></a>[Unity] 부모, 자식 오브젝트 동시에 투명화시키기</h1><p>이미지를 부모 오브젝트로 두고 버튼을 자식 오브젝트로 두었을 때,</p>
+<p>이미지의 투명도를 조절해도 버튼의 투명도는 변하지 않는다.</p>
+<p>자식 오브젝트의 알파 값을 부모 오브젝트의 알파 값과 똑같이 바꾸고 싶다면 </p>
+<p>부모 오브젝트 컴포넌트에 <mark style='background-color:  #9ffaF3'>Canvas  Group</mark> 를 추가해주고 Canvas Group Alpha값을 바꾸어 주면 된다.</p>
+<p><img src="https://user-images.githubusercontent.com/56330520/168248115-b0c4c561-e6fa-4120-a452-1c840ec11aa4.PNG" alt="Canvas Group"></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">ParentObject.GetComponent&lt;CanvasGroup&gt;().Alpha= <span class="number">0.5f</span>;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>C#</category>
+        <category>Unity</category>
       </categories>
       <tags>
-        <tag>C#</tag>
+        <tag>Unity</tag>
       </tags>
   </entry>
   <entry>
@@ -296,6 +250,52 @@
       </tags>
   </entry>
   <entry>
+    <title>Serialization, Deserialization</title>
+    <url>/2023/11/26/2023-11-26-%5BC%5D-Serialization,Deserialization/</url>
+    <content><![CDATA[<h1 id="C-Serialization-Deserialization"><a href="#C-Serialization-Deserialization" class="headerlink" title="[C#] Serialization, Deserialization"></a>[C#] Serialization, Deserialization</h1><p>유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다.</p>
+<p>Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다.</p>
+<p>이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정을 통해 데이터를 관리하였다.</p>
+<h3 id="Serialization"><a href="#Serialization" class="headerlink" title=" Serialization "></a><mark style = "background : #e3d5ca"> Serialization </mark></h3><p>직렬화는 객체의 형태로 존재하는 데이터를 연속적인 데이터로 변형하는 것이다.</p>
+<p>“name” : “euiyoung”,</p>
+<p>“age” : 24,</p>
+<p>“gender” : “woman”</p>
+<p>key - value 의 객체 상태로 존재하는 위 데이터를</p>
+<table>
+<thead>
+<tr>
+<th>“euiyoung”</th>
+<th align="left">24</th>
+<th>“woman”</th>
+</tr>
+</thead>
+</table>
+<p>형태로 만들어준다.</p>
+<p>데이터를 저장하거나 데이터를 전송할 때 직렬화 과정을 거친다.</p>
+<h3 id="Deserialization"><a href="#Deserialization" class="headerlink" title=" Deserialization "></a><mark style = "background : #d5bdaf"> Deserialization </mark></h3><p>역직렬화라고 일컫으며 직렬화된 데이터를 객체의 형태로 만드는 것을 의미하는 것이다.</p>
+<p>스트림 데이터를 읽어 원래의 객체 형태로 복원을 하는 것으로</p>
+<p>특정 데이터를 불러올 때 역직렬화 과정을 거친다.</p>
+<table>
+<thead>
+<tr>
+<th>“euiyoung”</th>
+<th>24</th>
+<th>“woman”</th>
+</tr>
+</thead>
+</table>
+<p>“name” : “euiyoung”,</p>
+<p>“age” : 24,</p>
+<p>“gender” : “woman”</p>
+<p>위의 연속적인 데이터를 아래의 객체로 변형하는 과정이다.</p>
+]]></content>
+      <categories>
+        <category>C#</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Quaternion이란</title>
     <url>/2023/12/04/2023-12-04-%5BUnity%5D-Quaternion%EC%9D%B4%EB%9E%80/</url>
     <content><![CDATA[<h2 id="Quaternion이란"><a href="#Quaternion이란" class="headerlink" title="Quaternion이란?"></a>Quaternion이란?</h2><p>안녕하세요. 이번 포스트에서 Quaternion에 대한 내용을 정리해보려고 합니다.</br><br>Unity에서는 오브젝트의 회전 값을 쿼터니언으로 표현하고 있습니다.</p>
@@ -402,37 +402,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Generic</title>
-    <url>/2024/01/02/2024-01-02-%5BC%5D-Generic/</url>
-    <content><![CDATA[<h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p>
-<p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p>
-<p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p>
-<p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p>
-<p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p>
-<hr>
-<p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
-<p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p>
-<p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p>
-<p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
-<p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p>
-<p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>
-]]></content>
-      <categories>
-        <category>C#</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>대리자</title>
     <url>/2023/12/05/2023-12-05-%5BC%5D-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/</url>
     <content><![CDATA[<h2 id="대리자란"><a href="#대리자란" class="headerlink" title="대리자란?"></a>대리자란?</h2><p>안녕하세요. 이번 포스터에서는 대리자에 관한 내용을 다뤄보겠습니다.</p>
@@ -499,6 +468,37 @@
       </tags>
   </entry>
   <entry>
+    <title>Generic</title>
+    <url>/2024/01/02/2024-01-02-%5BC%5D-Generic/</url>
+    <content><![CDATA[<h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p>
+<p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p>
+<p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p>
+<p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p>
+<p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p>
+<hr>
+<p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
+<p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p>
+<p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p>
+<p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
+<p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p>
+<p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>
+]]></content>
+      <categories>
+        <category>C#</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Parameter와 ref, out 키워드</title>
     <url>/2024/01/02/2024-01-02-%5BC%5D-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/</url>
     <content><![CDATA[<h2 id="C-Parameter-란"><a href="#C-Parameter-란" class="headerlink" title="[C#] Parameter 란?"></a>[C#] Parameter 란?</h2><p>Parameter(매개 변수)란 함수를 호출한 곳에서 인수를 전달받아 인수의 값을 함수의 내부에서 사용할 수 있도록 도와주는 변수를 뜻합니다.</p>
@@ -559,6 +559,52 @@
       <tags>
         <tag>C#</tag>
         <tag>Parameter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Object Pooling 패턴</title>
+    <url>/2024/01/03/2024-01-03-%5BUnity%5D-Object-Pooling/</url>
+    <content><![CDATA[<h2 id="Unity-Object-Pooling-개요"><a href="#Unity-Object-Pooling-개요" class="headerlink" title="[Unity] Object Pooling 개요"></a>[Unity] Object Pooling 개요</h2><p>게임 속 플레이어가 몬스터를 처치하기 위해 총알을 발사한다고 한다면 총알을 생성하고 총알을 삭제하는 작업이 반복될 것입니다.</p>
+<p>프레임 속도를 유지하면서 CPU에 부담을 주지 않으려면 빈번하게 파괴되고 생성되는 요소들을 메모리에 할당해두고 있는 것이 좋습니다.</p>
+<p>오브젝트를 미리 생성해두었다가 필요할 때에 사용하고 다시 되돌려놓는 방법을 Object Pooling 패턴이라고 합니다.</p>
+<hr>
+<h2 id="Object-Pooling의-작동원리"><a href="#Object-Pooling의-작동원리" class="headerlink" title="Object Pooling의 작동원리"></a>Object Pooling의 작동원리</h2><ol>
+<li><p>컨테이너 형식의 풀은 초기화된 오브젝트 목록을 메모리에 남겨둡니다.</p>
+</li>
+<li><p>사용자는 사용할 오브젝트 인스턴스를 Pool에 요청할 수 있습니다.</p>
+</li>
+<li><p>만약 주어진 시간 내에 풀 내의 인스턴스가 충분하지 않다면 새로운 인스턴스가 동적으로 생성됩니다.</p>
+</li>
+<li><p>풀을 빠져나간 객체 중 클라이언트에서 더 이상 사용되지 않게되면 풀로 돌아가게 됩니다.</p>
+</li>
+<li><p>이 때, 풀에 공간이 없다면 돌아오려는 객체의 인스턴스를 파괴합니다.</p>
+</li>
+</ol>
+<hr>
+<h2 id="장단점"><a href="#장단점" class="headerlink" title="장단점"></a>장단점</h2><p>Object Pooling 패턴에 대해서는 여러 개발자마다 입장이 다릅니다. </p>
+<p>패턴을 사용할 경우 장단점은 어떤 것이 있을까요?</p>
+<h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ol>
+<li><p>메모리 사용률이 예측 가능합니다. 풀을 생성할 때 풀 안에 생성될 오브젝트의 갯수를 미리 지정해두기 때문에 메모리를 어느만큼 사용할지 예측이 가능합니다.</p>
+</li>
+<li><p>오브젝트를 Instantiate, Destroy하는 과정에서 가비지 콜렉터를 호출하게 되면서 프레임 드랍이 발생하는데 해당 작업의 빈도가 줄어들게 됩니다.</p>
+</li>
+</ol>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ol>
+<li><p>메모리를 사용하지 않는 상황에도, 기본적으로 메모리의 공간을 할당하고 있습니다.</p>
+</li>
+<li><p>초기화의 번거로움이 존재합니다. 오브젝트 풀링을 사용할 경우 초기화 코드를 작성해주어야 합니다.</p>
+</li>
+</ol>
+<hr>
+<p>장점만 가지고 있는 패턴은 없는 것 같습니다. 그러므로 상황에 따라 신중하게 패턴을 사용할지 말지 결정해야합니다.</p>
+<p>최적화가 필요한 시점에 어떤 부분에 적용을 시키는 것이 효율이 좋을지 검토해보는 것이 좋을 것 같습니다. </p>
+]]></content>
+      <categories>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>Unity</tag>
+        <tag>Object Pooling</tag>
       </tags>
   </entry>
 </search>
