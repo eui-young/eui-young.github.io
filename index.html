@@ -188,6 +188,106 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-Singleton-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/05/2024-01-05-%5BUnity%5D-Singleton-Pattern/" class="post-title-link" itemprop="url">Singleton Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-01-05 00:00:00 / Modified: 19:12:56" itemprop="dateCreated datePublished" datetime="2024-01-05T00:00:00+09:00">2024-01-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/Design-Pattern/" itemprop="url" rel="index"><span itemprop="name">Design Pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Singleton-Pattern-이란"><a href="#Singleton-Pattern-이란" class="headerlink" title="Singleton Pattern 이란?"></a>Singleton Pattern 이란?</h2><p>싱글톤 패턴이란 객체의 인스턴스가 오직 1개만 생성되는 패턴입니다.</p>
+<p>즉, 런타임 동안 메모리에 오직 하나의 인스턴스만 존재하는 것을 의미합니다.</p>
+<p>싱글톤 패턴의 주요 목적은 유일성을 보장하는 것입니다.</p>
+<p>그러므로 일관되고 유일하며 전역적으로 접근할 수 있는 시스템을 관리하는 클래스에 사용할 경우 도움됩니다.</p>
+<hr>
+<h2 id="Singleton-Pattern의-구성"><a href="#Singleton-Pattern의-구성" class="headerlink" title="Singleton Pattern의 구성"></a>Singleton Pattern의 구성</h2><p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/2c51abc3-c3ef-4bc8-bbd8-3d979ee3dcf9" alt="Singleton Pattern"></p>
+<ol>
+<li>static 인스턴스를 생성하여 메모리에 할당해 둡니다.</li>
+<li>생성되어 있는 인스턴스를 Client들이 접근합니다.</li>
+<li>이미 인스턴스가 생성되어 있는 경우 같은 유형의 인스턴스가 발견되면 삭제합니다.</li>
+</ol>
+<hr>
+<h2 id="Singleton-구현"><a href="#Singleton-구현" class="headerlink" title="Singleton 구현"></a>Singleton 구현</h2><p>[Singleton Class]</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &lt;<span class="title">T</span>&gt; : <span class="title">MonoBehaviour</span> <span class="keyword">where</span> <span class="title">T</span> : <span class="title">Component</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> T instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> T Instance</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//생성된 오브젝트를 순차적으로 확인하기때문에 주의</span></span><br><span class="line">                instance = FindObjectOfType&lt;T&gt;();</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    GameObject obj = <span class="keyword">new</span> GameObject();</span><br><span class="line">                    obj.name = <span class="keyword">typeof</span>(T).Name;</span><br><span class="line">                    instance = obj.AddComponent&lt;T&gt;();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//가상 함수로 지정한 경우 파생 클래스에서 재정의가 가능</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            instance = <span class="keyword">this</span> <span class="keyword">as</span> T;</span><br><span class="line">            <span class="comment">//static 메서드로 씬 전환이 발생하여도 파괴되지 않는다.</span></span><br><span class="line">            DontDestroyOnLoad(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[GameManager Class]</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.SceneManagement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GameManager</span> : <span class="title">Singleton</span>&lt;<span class="title">GameManager</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> DateTime _sessionStartTime;</span><br><span class="line">    <span class="keyword">private</span> DateTime _sessionEndTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Start Method</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">TODO:</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 플레이어 세이브 로드</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 세이브가 없다면 플레이어를 등록 씬으로 리다이렉션</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 백엔드 호출하여 일일 챌린지와 보상 획득</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _sessionStartTime = DateTime.Now;</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session start: <span class="subst">&#123;DateTime.Now&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnApplicationQuit</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _sessionEndTime = DateTime.Now;</span><br><span class="line">        TimeSpan timeDifference = _sessionEndTime.Subtract(_sessionStartTime);</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session ended: <span class="subst">&#123;DateTime.Now&#125;</span>&quot;</span>);</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session lasted: <span class="subst">&#123;timeDifference&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnGUI</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(GUILayout.Button(<span class="string">&quot;Next Scene&quot;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Singleton-Pattern의-장단점"><a href="#Singleton-Pattern의-장단점" class="headerlink" title="Singleton Pattern의 장단점"></a>Singleton Pattern의 장단점</h2><h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ol>
+<li>시스템의 전역 접근점을 만들 수 있습니다.</li>
+<li>메모리 자원 낭비를 방지할 수 있습니다.</li>
+</ol>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ol>
+<li>클래스 간의 의존성이 높아지게 됩니다.</li>
+<li>접근하는 객체들을 추적하기가 어려워집니다.</li>
+<li>결합도가 높아지므로 유닛 테스트가 힘들어집니다.</li>
+</ol>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-State-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -301,106 +401,6 @@
 <li><a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/114854688">유니티로 배우는 게임 디자인 패턴</a></li>
 <li><a target="_blank" rel="noopener" href="https://velog.io/@cham/Design-Pattern-%EC%83%81%ED%83%9C-%ED%8C%A8%ED%84%B4State-Pattern">State Pattern</a></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-Singleton-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/05/2024-01-05-%5BUnity%5D-Singleton-Pattern/" class="post-title-link" itemprop="url">Singleton Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-01-05 00:00:00 / Modified: 19:12:56" itemprop="dateCreated datePublished" datetime="2024-01-05T00:00:00+09:00">2024-01-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/Design-Pattern/" itemprop="url" rel="index"><span itemprop="name">Design Pattern</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Singleton-Pattern-이란"><a href="#Singleton-Pattern-이란" class="headerlink" title="Singleton Pattern 이란?"></a>Singleton Pattern 이란?</h2><p>싱글톤 패턴이란 객체의 인스턴스가 오직 1개만 생성되는 패턴입니다.</p>
-<p>즉, 런타임 동안 메모리에 오직 하나의 인스턴스만 존재하는 것을 의미합니다.</p>
-<p>싱글톤 패턴의 주요 목적은 유일성을 보장하는 것입니다.</p>
-<p>그러므로 일관되고 유일하며 전역적으로 접근할 수 있는 시스템을 관리하는 클래스에 사용할 경우 도움됩니다.</p>
-<hr>
-<h2 id="Singleton-Pattern의-구성"><a href="#Singleton-Pattern의-구성" class="headerlink" title="Singleton Pattern의 구성"></a>Singleton Pattern의 구성</h2><p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/2c51abc3-c3ef-4bc8-bbd8-3d979ee3dcf9" alt="Singleton Pattern"></p>
-<ol>
-<li>static 인스턴스를 생성하여 메모리에 할당해 둡니다.</li>
-<li>생성되어 있는 인스턴스를 Client들이 접근합니다.</li>
-<li>이미 인스턴스가 생성되어 있는 경우 같은 유형의 인스턴스가 발견되면 삭제합니다.</li>
-</ol>
-<hr>
-<h2 id="Singleton-구현"><a href="#Singleton-구현" class="headerlink" title="Singleton 구현"></a>Singleton 구현</h2><p>[Singleton Class]</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &lt;<span class="title">T</span>&gt; : <span class="title">MonoBehaviour</span> <span class="keyword">where</span> <span class="title">T</span> : <span class="title">Component</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> T instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> T Instance</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//생성된 오브젝트를 순차적으로 확인하기때문에 주의</span></span><br><span class="line">                instance = FindObjectOfType&lt;T&gt;();</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    GameObject obj = <span class="keyword">new</span> GameObject();</span><br><span class="line">                    obj.name = <span class="keyword">typeof</span>(T).Name;</span><br><span class="line">                    instance = obj.AddComponent&lt;T&gt;();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//가상 함수로 지정한 경우 파생 클래스에서 재정의가 가능</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            instance = <span class="keyword">this</span> <span class="keyword">as</span> T;</span><br><span class="line">            <span class="comment">//static 메서드로 씬 전환이 발생하여도 파괴되지 않는다.</span></span><br><span class="line">            DontDestroyOnLoad(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>[GameManager Class]</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.SceneManagement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GameManager</span> : <span class="title">Singleton</span>&lt;<span class="title">GameManager</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> DateTime _sessionStartTime;</span><br><span class="line">    <span class="keyword">private</span> DateTime _sessionEndTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Start Method</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">TODO:</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 플레이어 세이브 로드</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 세이브가 없다면 플레이어를 등록 씬으로 리다이렉션</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 백엔드 호출하여 일일 챌린지와 보상 획득</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _sessionStartTime = DateTime.Now;</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session start: <span class="subst">&#123;DateTime.Now&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnApplicationQuit</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _sessionEndTime = DateTime.Now;</span><br><span class="line">        TimeSpan timeDifference = _sessionEndTime.Subtract(_sessionStartTime);</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session ended: <span class="subst">&#123;DateTime.Now&#125;</span>&quot;</span>);</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session lasted: <span class="subst">&#123;timeDifference&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnGUI</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(GUILayout.Button(<span class="string">&quot;Next Scene&quot;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="Singleton-Pattern의-장단점"><a href="#Singleton-Pattern의-장단점" class="headerlink" title="Singleton Pattern의 장단점"></a>Singleton Pattern의 장단점</h2><h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ol>
-<li>시스템의 전역 접근점을 만들 수 있습니다.</li>
-<li>메모리 자원 낭비를 방지할 수 있습니다.</li>
-</ol>
-<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ol>
-<li>클래스 간의 의존성이 높아지게 됩니다.</li>
-<li>접근하는 객체들을 추적하기가 어려워집니다.</li>
-<li>결합도가 높아지므로 유닛 테스트가 힘들어집니다.</li>
-</ol>
-<hr>
 
       
     </div>

@@ -1,7 +1,7 @@
 :root {
   --body-bg-color: #eee;
   --content-bg-color: #fff;
-  --card-bg-color: #edafb8;
+  --card-bg-color: #ffd166;
   --text-color: #555;
   --blockquote-color: #a9d6e5;
   --link-color: #555;
@@ -167,7 +167,7 @@ template {
   display: none;
 }
 ::selection {
-  background: #edafb8;
+  background: #ffd166;
   color: #222;
 }
 html,
@@ -1310,7 +1310,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d678fb;
+  background: #adffff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
