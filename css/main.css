@@ -1,9 +1,9 @@
 :root {
   --body-bg-color: #eee;
   --content-bg-color: #fff;
-  --card-bg-color: #f5f5f5;
+  --card-bg-color: #edafb8;
   --text-color: #555;
-  --blockquote-color: #666;
+  --blockquote-color: #a9d6e5;
   --link-color: #555;
   --link-hover-color: #222;
   --brand-color: #fff;
@@ -167,8 +167,8 @@ template {
   display: none;
 }
 ::selection {
-  background: #262a30;
-  color: #eee;
+  background: #edafb8;
+  color: #555;
 }
 html,
 body {
@@ -1310,7 +1310,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #21531d;
+  background: #ffffbe;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1397,14 +1397,14 @@ pre .javascript .function {
   margin-left: 10px;
 }
 .sidebar-nav li:hover {
-  color: #9163cb;
+  color: #1a759f;
 }
 .sidebar-nav .sidebar-nav-active {
-  border-bottom-color: #9163cb;
-  color: #9163cb;
+  border-bottom-color: #1a759f;
+  color: #1a759f;
 }
 .sidebar-nav .sidebar-nav-active:hover {
-  color: #9163cb;
+  color: #1a759f;
 }
 .sidebar-panel {
   display: none;
@@ -1433,7 +1433,7 @@ pre .javascript .function {
   }
 }
 .sidebar-toggle:hover .toggle-line {
-  background: #9163cb;
+  background: #1a759f;
 }
 .post-toc {
   font-size: 0.875em;
@@ -1472,14 +1472,14 @@ pre .javascript .function {
   display: block;
 }
 .post-toc .nav .active > a {
-  border-bottom-color: #9163cb;
-  color: #9163cb;
+  border-bottom-color: #1a759f;
+  color: #1a759f;
 }
 .post-toc .nav .active-current > a {
-  color: #9163cb;
+  color: #1a759f;
 }
 .post-toc .nav .active-current > a:hover {
-  color: #9163cb;
+  color: #1a759f;
 }
 .site-state {
   display: flex;
@@ -2572,14 +2572,14 @@ ul.breadcrumb li + li:last-child {
 .sub-menu .menu-item a:hover,
 .sub-menu .menu-item span.exturl:hover {
   background: transparent;
-  color: #9163cb;
+  color: #1a759f;
 }
 .sub-menu .menu-item-active a {
-  border-bottom-color: #9163cb;
-  color: #9163cb;
+  border-bottom-color: #1a759f;
+  color: #1a759f;
 }
 .sub-menu .menu-item-active a:hover {
-  border-bottom-color: #9163cb;
+  border-bottom-color: #1a759f;
 }
 .sidebar {
   background: var(--body-bg-color);
