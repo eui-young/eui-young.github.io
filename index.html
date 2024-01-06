@@ -185,6 +185,234 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-Singleton-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/05/2024-01-05-%5BUnity%5D-Singleton-Pattern/" class="post-title-link" itemprop="url">Singleton Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-01-05 00:00:00 / Modified: 19:12:56" itemprop="dateCreated datePublished" datetime="2024-01-05T00:00:00+09:00">2024-01-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/Design-Pattern/" itemprop="url" rel="index"><span itemprop="name">Design Pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Singleton-Pattern-이란"><a href="#Singleton-Pattern-이란" class="headerlink" title="Singleton Pattern 이란?"></a>Singleton Pattern 이란?</h2><p>싱글톤 패턴이란 객체의 인스턴스가 오직 1개만 생성되는 패턴입니다.</p>
+<p>즉, 런타임 동안 메모리에 오직 하나의 인스턴스만 존재하는 것을 의미합니다.</p>
+<p>싱글톤 패턴의 주요 목적은 유일성을 보장하는 것입니다.</p>
+<p>그러므로 일관되고 유일하며 전역적으로 접근할 수 있는 시스템을 관리하는 클래스에 사용할 경우 도움됩니다.</p>
+<hr>
+<h2 id="Singleton-Pattern의-구성"><a href="#Singleton-Pattern의-구성" class="headerlink" title="Singleton Pattern의 구성"></a>Singleton Pattern의 구성</h2><p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/2c51abc3-c3ef-4bc8-bbd8-3d979ee3dcf9" alt="Singleton Pattern"></p>
+<ol>
+<li>static 인스턴스를 생성하여 메모리에 할당해 둡니다.</li>
+<li>생성되어 있는 인스턴스를 Client들이 접근합니다.</li>
+<li>이미 인스턴스가 생성되어 있는 경우 같은 유형의 인스턴스가 발견되면 삭제합니다.</li>
+</ol>
+<hr>
+<h2 id="Singleton-구현"><a href="#Singleton-구현" class="headerlink" title="Singleton 구현"></a>Singleton 구현</h2><p>[Singleton Class]</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Singleton</span> &lt;<span class="title">T</span>&gt; : <span class="title">MonoBehaviour</span> <span class="keyword">where</span> <span class="title">T</span> : <span class="title">Component</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> T instance;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> T Instance</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//생성된 오브젝트를 순차적으로 확인하기때문에 주의</span></span><br><span class="line">                instance = FindObjectOfType&lt;T&gt;();</span><br><span class="line">                <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    GameObject obj = <span class="keyword">new</span> GameObject();</span><br><span class="line">                    obj.name = <span class="keyword">typeof</span>(T).Name;</span><br><span class="line">                    instance = obj.AddComponent&lt;T&gt;();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//가상 함수로 지정한 경우 파생 클래스에서 재정의가 가능</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Awake</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            instance = <span class="keyword">this</span> <span class="keyword">as</span> T;</span><br><span class="line">            <span class="comment">//static 메서드로 씬 전환이 발생하여도 파괴되지 않는다.</span></span><br><span class="line">            DontDestroyOnLoad(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>[GameManager Class]</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.SceneManagement;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GameManager</span> : <span class="title">Singleton</span>&lt;<span class="title">GameManager</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> DateTime _sessionStartTime;</span><br><span class="line">    <span class="keyword">private</span> DateTime _sessionEndTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Start Method</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">TODO:</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 플레이어 세이브 로드</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 세이브가 없다면 플레이어를 등록 씬으로 리다이렉션</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> - 백엔드 호출하여 일일 챌린지와 보상 획득</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _sessionStartTime = DateTime.Now;</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session start: <span class="subst">&#123;DateTime.Now&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnApplicationQuit</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _sessionEndTime = DateTime.Now;</span><br><span class="line">        TimeSpan timeDifference = _sessionEndTime.Subtract(_sessionStartTime);</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session ended: <span class="subst">&#123;DateTime.Now&#125;</span>&quot;</span>);</span><br><span class="line">        Debug.Log(<span class="string">$&quot;Game session lasted: <span class="subst">&#123;timeDifference&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnGUI</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(GUILayout.Button(<span class="string">&quot;Next Scene&quot;</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Singleton-Pattern의-장단점"><a href="#Singleton-Pattern의-장단점" class="headerlink" title="Singleton Pattern의 장단점"></a>Singleton Pattern의 장단점</h2><h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ol>
+<li>시스템의 전역 접근점을 만들 수 있습니다.</li>
+<li>메모리 자원 낭비를 방지할 수 있습니다.</li>
+</ol>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ol>
+<li>클래스 간의 의존성이 높아지게 됩니다.</li>
+<li>접근하는 객체들을 추적하기가 어려워집니다.</li>
+<li>결합도가 높아지므로 유닛 테스트가 힘들어집니다.</li>
+</ol>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-State-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/05/2024-01-05-%5BUnity%5D-State-Pattern/" class="post-title-link" itemprop="url">State Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-05 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-05T00:00:00+09:00">2024-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-06 17:29:30" itemprop="dateModified" datetime="2024-01-06T17:29:30+09:00">2024-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/Design-Pattern/" itemprop="url" rel="index"><span itemprop="name">Design Pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="State-Pattern-이란"><a href="#State-Pattern-이란" class="headerlink" title="State Pattern 이란?"></a>State Pattern 이란?</h2><p>유한한 상태를 관리할 때 사용하는 패턴입니다.<br>구현해야하는 상태가 많을 수록 불안정해지는 경우가 많습니다.</p>
+<p>잘못된 플로우로 흘러가는 경우 원하는 상태로 도달하지 못하는 상황도 발생합니다.</p>
+<p>또 상태를 구현하다보면 다양한 코드가 작성되어 어떤 상태인지 정확하게 파악하기 힘들어지기도 합니다.</p>
+<p>State Pattern을 이용하여 상태를 캡슐화하고 클래스를 간소화하여 유지관리를 용이하게 할 수 있습니다.</p>
+<hr>
+<h2 id="State-Pattern의-구성"><a href="#State-Pattern의-구성" class="headerlink" title="State Pattern의 구성"></a>State Pattern의 구성</h2><p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/745254aa-1d8a-4580-9d30-befa461c7a52" alt="State Pattern Diagram"></p>
+<ol>
+<li><p>Context 클래스는 클라이언트가 객체의 내부 상태를 변경할 수 있도록 요청하는 인터페이스인 IState를 정의합니다.</p>
+</li>
+<li><p>Context 클래스는 현재 상태에 대한 정보를 가집니다.</p>
+</li>
+<li><p>IState인터페이스는 상태 클래스인 ConcreteState 클래스가 상속받아 구현합니다.</p>
+</li>
+<li><p>클라이언트는 객체의 상태를 업데이트할 때 Context 객체를 활용하여 원하는 상태로 설정할 것을 요청합니다.</p>
+</li>
+</ol>
+<hr>
+<h2 id="State-Pattern의-구현"><a href="#State-Pattern의-구현" class="headerlink" title="State Pattern의 구현"></a>State Pattern의 구현</h2><p>State Pattern을 구현하기에 앞서 상태들에 대한 정의가 필요합니다.</p>
+<p>저는 캐릭터의 상태로 <code>정지, 걷기, 점프</code> 3가지의 상태를 생각해두었습니다.</p>
+<h3 id="IPlayerState-인터페이스-IState"><a href="#IPlayerState-인터페이스-IState" class="headerlink" title="[IPlayerState 인터페이스] : IState"></a>[IPlayerState 인터페이스] : IState</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPlayerState</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Handle</span>(<span class="params">PlayerController controller</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="PlayerController-클래스"><a href="#PlayerController-클래스" class="headerlink" title="[PlayerController 클래스]"></a>[PlayerController 클래스]</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerController</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> maxSpeed = <span class="number">2f</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> jumpPower = <span class="number">2f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> CurrentSpeed &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> Vector3 CurrentDirection &#123;  <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> CurrentJump &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//현재 상태 정보를 위해 각 상태 별로 생성</span></span><br><span class="line">    <span class="keyword">private</span> IPlayerState _walkState, _stopState, _jumpState;</span><br><span class="line">    <span class="keyword">private</span> PlayerStateContext _playerStateContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerStateContext = <span class="keyword">new</span> PlayerStateContext(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//각 상태들을 정의</span></span><br><span class="line">        _walkState = gameObject.AddComponent&lt;PlayerWalkState&gt;();</span><br><span class="line">        _stopState = gameObject.AddComponent&lt;PlayerStopState&gt;();</span><br><span class="line">        _jumpState = gameObject.AddComponent&lt;PlayerJumpState&gt;();</span><br><span class="line"></span><br><span class="line">        _playerStateContext.Transition(_stopState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">region</span> 상태 전이 메서드</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">WalkPlayer</span>(<span class="params">Vector3 direction</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        CurrentDirection = direction;</span><br><span class="line">        _playerStateContext.Transition(_walkState);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StopPlayer</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerStateContext.Transition(_stopState);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JumpPlayer</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerStateContext.Transition(_jumpState);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endregion</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PlayerStateContext-클래스-Context"><a href="#PlayerStateContext-클래스-Context" class="headerlink" title="[PlayerStateContext 클래스] : Context"></a>[PlayerStateContext 클래스] : Context</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerStateContext</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> IPlayerState CurrentState</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span>; <span class="keyword">set</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> PlayerController _playerController;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PlayerStateContext</span>(<span class="params">PlayerController playerController</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerController = playerController;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Transition</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        CurrentState.Handle(_playerController);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Transition</span>(<span class="params">IPlayerState state</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        CurrentState = state;</span><br><span class="line">        CurrentState.Handle(_playerController);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PlayerWalkState-클래스-ConcreteState"><a href="#PlayerWalkState-클래스-ConcreteState" class="headerlink" title="[PlayerWalkState 클래스] : ConcreteState"></a>[PlayerWalkState 클래스] : ConcreteState</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerWalkState</span> : <span class="title">MonoBehaviour</span>, <span class="title">IPlayerState</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> PlayerController _playerController;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Handle</span>(<span class="params">PlayerController playerController</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!_playerController)</span><br><span class="line">        &#123;</span><br><span class="line">            _playerController = playerController;</span><br><span class="line">        &#125;</span><br><span class="line">        _playerController.CurrentSpeed = _playerController.maxSpeed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_playerController)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (_playerController.CurrentSpeed &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                _playerController.transform.Translate(</span><br><span class="line">                    Time.deltaTime * _playerController.CurrentSpeed * _playerController.CurrentDirection);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ClientState-클래스"><a href="#ClientState-클래스" class="headerlink" title="[ClientState 클래스]"></a>[ClientState 클래스]</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ClientState</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> PlayerController _playerController;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> _inputHorizontal;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> _inputVertical;</span><br><span class="line">    <span class="keyword">private</span> Vector3 _direction;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerController = GetComponent&lt;PlayerController&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _inputHorizontal = Input.GetAxis(<span class="string">&quot;Horizontal&quot;</span>);</span><br><span class="line">        _inputVertical = Input.GetAxis(<span class="string">&quot;Vertical&quot;</span>);</span><br><span class="line"></span><br><span class="line">        _direction = <span class="keyword">new</span> Vector3(_inputHorizontal, <span class="number">0</span>, _inputVertical);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//조건에 따라 상태 전이 메서드 호출</span></span><br><span class="line">        <span class="keyword">if</span>(_direction == Vector3.zero)&#123;</span><br><span class="line">            _playerController.StopPlayer();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(_direction != Vector3.zero) &#123;</span><br><span class="line">            _playerController.WalkPlayer(_direction);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(Input.GetKeyDown(KeyCode.Space)) &#123;</span><br><span class="line">            _playerController.JumpPlayer();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>WalkState를 제외하고 Stop, Jump 도 작성을 해두었지만 WalkState 클래스만 예시로 보여드렸습니다.</p>
+<p>저는 IPlayerState 인터페이스를 생성하고 </p>
+<p>PlayerStateContext클래스를 통해 IPlayerStete를 정의, 현재 상태 정보를 보관하도록 작성해두었습니다.</p>
+<p>WalkState는 IPlayerState를 상속받아 Handle메서드를 구현해두었습니다.</p>
+<p>PlayerController 클래스를 통해 상태들을 호출할 수 있는 메서드를 작성해두고<br>ClientState 클래스에서 조건을 확인한 후 PlayerController에 작성된 메서드를 호출하도록 하였습니다.</p>
+<p>이렇게 작성해두니 상태별로 관리하기가 수월해진 것이 느껴집니다.</p>
+<p>상태를 수정하려거든 각 상태 클래스 또는 상태를 호출하는 ClientState 클래스의 상태 호출 조건을 수정하면 됩니다.</p>
+<p>상태를 추가하려거든 특정 상태 클래스를 추가, PlayerController클래스에서 전이 메서드 추가,<br>전이 메서드 호출하는 코드 추가를 하면 됩니다.</p>
+<p>이렇게 정리해보니 새로운 상태를 추가하거나, 기존 상태에 대한 변경점이 발생한다면 어느 부분을 추가&#x2F;수정해야하는지 명확해졌습니다.</p>
+<hr>
+<h2 id="State-Pattern의-장단점"><a href="#State-Pattern의-장단점" class="headerlink" title="State Pattern의 장단점"></a>State Pattern의 장단점</h2><h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ol>
+<li>상태별로 클래스 관리가 가능합니다.</li>
+<li>유지관리가 수월해집니다.</li>
+</ol>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ol>
+<li>추가할 때마다 상태 클래스를 추가해야하므로 관리해야하는 클래스의 수가 증가합니다.</li>
+<li>상태 전환이 빈번하게 발생한다면 확인 조건이 늘어나므로 코드가 방대해지고 수행 시간이 길어지게 됩니다.</li>
+</ol>
+<p>유니티를 이용하여 상태를 구현하다보면 상태 변경으로 인해 코드가 늘어나고 관리하기 힘들어질 때가 있습니다.</p>
+<p>유니티 내에서는 애니메이터 상태에 추상 클래스인 StateMachineBehaviour 클래스를 상속받은 상태 정의 클래스를 컴포넌트로 추가하여 활용할 수 있습니다.</p>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/03/2024-01-03-[Unity]-Object-Pooling/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1052,211 +1280,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/02/2023-12-02-[hexo]-next-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/02/2023-12-02-%5Bhexo%5D-next-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/" class="post-title-link" itemprop="url">next 테마를 이용하여 hexo 블로그 만들기</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-02 00:00:00" itemprop="dateCreated datePublished" datetime="2023-12-02T00:00:00+09:00">2023-12-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-02 19:31:47" itemprop="dateModified" datetime="2024-01-02T19:31:47+09:00">2024-01-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Node-js-설치"><a href="#Node-js-설치" class="headerlink" title="Node.js 설치"></a>Node.js 설치</h3><p><a target="_blank" rel="noopener" href="https://nodejs.org/en/download/current">Node.js</a>에서 본인 컴퓨터에 적합한 프로그램을 설치합니다.</p>
-<h3 id="hexo-설치"><a href="#hexo-설치" class="headerlink" title="hexo 설치"></a>hexo 설치</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm insall hexo-cli -g</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="hexo-블로그-폴더-생성-및-설정"><a href="#hexo-블로그-폴더-생성-및-설정" class="headerlink" title="hexo 블로그 폴더 생성 및 설정"></a>hexo 블로그 폴더 생성 및 설정</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init blog // blog 폴더가 생성됩니다. (blog 위치에 원하는 폴더명을 입력해주시면 됩니다.)</span><br><span class="line">$ <span class="built_in">cd</span> blog //새로 생성된 blog 폴더 위치로 이동합니다.</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
-
-<h3 id="hexo-블로그-테마-불러오기"><a href="#hexo-블로그-테마-불러오기" class="headerlink" title="hexo 블로그 테마 불러오기"></a>hexo 블로그 테마 불러오기</h3><h4 id="hexo를-이용하여-테마-불러오기"><a href="#hexo를-이용하여-테마-불러오기" class="headerlink" title="hexo를 이용하여 테마 불러오기"></a>hexo를 이용하여 테마 불러오기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
-
-<h4 id="git-clone을-이용하여-테마-불러오기"><a href="#git-clone을-이용하여-테마-불러오기" class="headerlink" title="git clone을 이용하여 테마 불러오기"></a>git clone을 이용하여 테마 불러오기</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-
-<h3 id="블로그-폴더-config-yml-파일에서-theme-테마명으로-수정"><a href="#블로그-폴더-config-yml-파일에서-theme-테마명으로-수정" class="headerlink" title="(블로그 폴더)&#x2F;_config.yml 파일에서 theme : 테마명으로 수정"></a>(블로그 폴더)&#x2F;_config.yml 파일에서 theme : 테마명으로 수정</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 저는 next theme을 설치하였으므로 next로 수정하겠습니다.</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span> </span><br></pre></td></tr></table></figure>
-
-<h3 id="블로그-폴더-config-yml-내용-추가적으로-수정"><a href="#블로그-폴더-config-yml-내용-추가적으로-수정" class="headerlink" title="(블로그 폴더)&#x2F;_config.yml 내용 추가적으로 수정"></a>(블로그 폴더)&#x2F;_config.yml 내용 추가적으로 수정</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">zerone</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">개발</span> <span class="string">일지</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">화이팅</span> <span class="string">!</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">zerone</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/eui-young/eui-young.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="새-포스트파일-생성"><a href="#새-포스트파일-생성" class="headerlink" title="새 포스트파일 생성"></a>새 포스트파일 생성</h3><p>(블로그폴더)&#x2F;source&#x2F; 폴더안에 _post폴더를 생성합니다.</br><br>_post 폴더 안에 포스트 파일을 작성하여 넣어주세요.</p>
-<p>예시로 저는</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="attr">layout</span>: post</span><br><span class="line"><span class="attr">title</span>: 포스트 제목</span><br><span class="line"><span class="attr">date</span>: <span class="number">2023</span>-<span class="number">12</span>-<span class="number">02</span></span><br><span class="line"><span class="attr">categorys</span>: hexo</span><br><span class="line"><span class="attr">tags</span>: [hexo]</span><br><span class="line"><span class="attr">comments</span>: <span class="literal">true</span></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">내용 작성...</span><br></pre></td></tr></table></figure>
-<p>작성하였습니다.</p>
-<h3 id="정적-파일-생성-Generate-static-files"><a href="#정적-파일-생성-Generate-static-files" class="headerlink" title="정적 파일 생성 (Generate static files )"></a>정적 파일 생성 (Generate static files )</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="로컬-서버-구동"><a href="#로컬-서버-구동" class="headerlink" title="로컬 서버 구동"></a>로컬 서버 구동</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-server --save //hexo server 설치</span><br><span class="line">$ hexo server // 또는 hexo s</span><br></pre></td></tr></table></figure>
-<p>로컬 서버 구동 후 localhost:4000 에 접속하여 수정사항이 제대로 적용되었는지 확인합니다.</br><br>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="git-레포지터리에-파일-적용"><a href="#git-레포지터리에-파일-적용" class="headerlink" title="git 레포지터리에 파일 적용"></a>git 레포지터리에 파일 적용</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save //설치 후 deploy가 가능합니다.</span><br><span class="line">$ hexo deploy // hexo d -g   generate 후 deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="적용-완료"><a href="#적용-완료" class="headerlink" title="적용 완료"></a>적용 완료</h3><p>deploy완료 후 deploy 연결 레포지터리에 업로드가 정상적으로 완료되었다면 블로그에 접속하여 변경사항을 확인해주세요.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/11/26/2023-11-26-[C]-Serialization,Deserialization/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/26/2023-11-26-%5BC%5D-Serialization,Deserialization/" class="post-title-link" itemprop="url">Serialization, Deserialization</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-11-26 00:00:00" itemprop="dateCreated datePublished" datetime="2023-11-26T00:00:00+09:00">2023-11-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-02 19:31:58" itemprop="dateModified" datetime="2024-01-02T19:31:58+09:00">2024-01-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="C-Serialization-Deserialization"><a href="#C-Serialization-Deserialization" class="headerlink" title="[C#] Serialization, Deserialization"></a>[C#] Serialization, Deserialization</h1><p>유니티로 종스크롤 슈팅게임을 만들면서 데이터를 저장하고, 불러오는 과정이 있었다.</p>
-<p>Json 파일로 데이터를 저장해주었고  DataManager라는 클래스를 통하여 데이터를 불러오고, 저장을 해주었다.</p>
-<p>이 과정에서 Deserialization, Serialization 즉, 직렬화와 역직렬화 과정을 통해 데이터를 관리하였다.</p>
-<h3 id="Serialization"><a href="#Serialization" class="headerlink" title=" Serialization "></a><mark style = "background : #e3d5ca"> Serialization </mark></h3><p>직렬화는 객체의 형태로 존재하는 데이터를 연속적인 데이터로 변형하는 것이다.</p>
-<p>“name” : “euiyoung”,</p>
-<p>“age” : 24,</p>
-<p>“gender” : “woman”</p>
-<p>key - value 의 객체 상태로 존재하는 위 데이터를</p>
-<table>
-<thead>
-<tr>
-<th>“euiyoung”</th>
-<th align="left">24</th>
-<th>“woman”</th>
-</tr>
-</thead>
-</table>
-<p>형태로 만들어준다.</p>
-<p>데이터를 저장하거나 데이터를 전송할 때 직렬화 과정을 거친다.</p>
-<h3 id="Deserialization"><a href="#Deserialization" class="headerlink" title=" Deserialization "></a><mark style = "background : #d5bdaf"> Deserialization </mark></h3><p>역직렬화라고 일컫으며 직렬화된 데이터를 객체의 형태로 만드는 것을 의미하는 것이다.</p>
-<p>스트림 데이터를 읽어 원래의 객체 형태로 복원을 하는 것으로</p>
-<p>특정 데이터를 불러올 때 역직렬화 과정을 거친다.</p>
-<table>
-<thead>
-<tr>
-<th>“euiyoung”</th>
-<th>24</th>
-<th>“woman”</th>
-</tr>
-</thead>
-</table>
-<p>“name” : “euiyoung”,</p>
-<p>“age” : 24,</p>
-<p>“gender” : “woman”</p>
-<p>위의 연속적인 데이터를 아래의 객체로 변형하는 과정이다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1328,20 +1351,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

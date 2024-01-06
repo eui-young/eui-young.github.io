@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon5.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon5.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Gowun Batang:300,300italic,400,400italic,700,700italic|Noto Sans Mende Kikakui:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"eui-young.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#cdb4db","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="State Pattern 이란?유한한 상태를 관리할 때 사용하는 패턴입니다.구현해야하는 상태가 많을 수록 불안정해지는 경우가 많습니다. 잘못된 플로우로 흘러가는 경우 원하는 상태로 도달하지 못하는 상황도 발생합니다. 또 상태를 구현하다보면 다양한 코드가 작성되어 어떤 상태인지 정확하게 파악하기 힘들어지기도 합니다. State Pattern을 이용하여 상태를">
+<meta property="og:type" content="article">
+<meta property="og:title" content="State Pattern">
+<meta property="og:url" content="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-State-Pattern/index.html">
+<meta property="og:site_name" content="zerone">
+<meta property="og:description" content="State Pattern 이란?유한한 상태를 관리할 때 사용하는 패턴입니다.구현해야하는 상태가 많을 수록 불안정해지는 경우가 많습니다. 잘못된 플로우로 흘러가는 경우 원하는 상태로 도달하지 못하는 상황도 발생합니다. 또 상태를 구현하다보면 다양한 코드가 작성되어 어떤 상태인지 정확하게 파악하기 힘들어지기도 합니다. State Pattern을 이용하여 상태를">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://github.com/eui-young/eui-young.github.io/assets/56330520/745254aa-1d8a-4580-9d30-befa461c7a52">
+<meta property="article:published_time" content="2024-01-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-01-06T08:29:30.092Z">
+<meta property="article:author" content="zerone">
+<meta property="article:tag" content="Unity">
+<meta property="article:tag" content="Design Pattern">
+<meta property="article:tag" content="State">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/eui-young/eui-young.github.io/assets/56330520/745254aa-1d8a-4580-9d30-befa461c7a52">
+
+<link rel="canonical" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-State-Pattern/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>State Pattern | zerone</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">zerone</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">개발 일지</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/eui-young" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-State-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          State Pattern
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-05 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-05T00:00:00+09:00">2024-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-06 17:29:30" itemprop="dateModified" datetime="2024-01-06T17:29:30+09:00">2024-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/Design-Pattern/" itemprop="url" rel="index"><span itemprop="name">Design Pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="State-Pattern-이란"><a href="#State-Pattern-이란" class="headerlink" title="State Pattern 이란?"></a>State Pattern 이란?</h2><p>유한한 상태를 관리할 때 사용하는 패턴입니다.<br>구현해야하는 상태가 많을 수록 불안정해지는 경우가 많습니다.</p>
+<p>잘못된 플로우로 흘러가는 경우 원하는 상태로 도달하지 못하는 상황도 발생합니다.</p>
+<p>또 상태를 구현하다보면 다양한 코드가 작성되어 어떤 상태인지 정확하게 파악하기 힘들어지기도 합니다.</p>
+<p>State Pattern을 이용하여 상태를 캡슐화하고 클래스를 간소화하여 유지관리를 용이하게 할 수 있습니다.</p>
+<hr>
+<h2 id="State-Pattern의-구성"><a href="#State-Pattern의-구성" class="headerlink" title="State Pattern의 구성"></a>State Pattern의 구성</h2><p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/745254aa-1d8a-4580-9d30-befa461c7a52" alt="State Pattern Diagram"></p>
+<ol>
+<li><p>Context 클래스는 클라이언트가 객체의 내부 상태를 변경할 수 있도록 요청하는 인터페이스인 IState를 정의합니다.</p>
+</li>
+<li><p>Context 클래스는 현재 상태에 대한 정보를 가집니다.</p>
+</li>
+<li><p>IState인터페이스는 상태 클래스인 ConcreteState 클래스가 상속받아 구현합니다.</p>
+</li>
+<li><p>클라이언트는 객체의 상태를 업데이트할 때 Context 객체를 활용하여 원하는 상태로 설정할 것을 요청합니다.</p>
+</li>
+</ol>
+<hr>
+<h2 id="State-Pattern의-구현"><a href="#State-Pattern의-구현" class="headerlink" title="State Pattern의 구현"></a>State Pattern의 구현</h2><p>State Pattern을 구현하기에 앞서 상태들에 대한 정의가 필요합니다.</p>
+<p>저는 캐릭터의 상태로 <code>정지, 걷기, 점프</code> 3가지의 상태를 생각해두었습니다.</p>
+<h3 id="IPlayerState-인터페이스-IState"><a href="#IPlayerState-인터페이스-IState" class="headerlink" title="[IPlayerState 인터페이스] : IState"></a>[IPlayerState 인터페이스] : IState</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPlayerState</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Handle</span>(<span class="params">PlayerController controller</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="PlayerController-클래스"><a href="#PlayerController-클래스" class="headerlink" title="[PlayerController 클래스]"></a>[PlayerController 클래스]</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerController</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> maxSpeed = <span class="number">2f</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> jumpPower = <span class="number">2f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> CurrentSpeed &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> Vector3 CurrentDirection &#123;  <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">bool</span> CurrentJump &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//현재 상태 정보를 위해 각 상태 별로 생성</span></span><br><span class="line">    <span class="keyword">private</span> IPlayerState _walkState, _stopState, _jumpState;</span><br><span class="line">    <span class="keyword">private</span> PlayerStateContext _playerStateContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerStateContext = <span class="keyword">new</span> PlayerStateContext(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//각 상태들을 정의</span></span><br><span class="line">        _walkState = gameObject.AddComponent&lt;PlayerWalkState&gt;();</span><br><span class="line">        _stopState = gameObject.AddComponent&lt;PlayerStopState&gt;();</span><br><span class="line">        _jumpState = gameObject.AddComponent&lt;PlayerJumpState&gt;();</span><br><span class="line"></span><br><span class="line">        _playerStateContext.Transition(_stopState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">region</span> 상태 전이 메서드</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">WalkPlayer</span>(<span class="params">Vector3 direction</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        CurrentDirection = direction;</span><br><span class="line">        _playerStateContext.Transition(_walkState);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">StopPlayer</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerStateContext.Transition(_stopState);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JumpPlayer</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerStateContext.Transition(_jumpState);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endregion</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PlayerStateContext-클래스-Context"><a href="#PlayerStateContext-클래스-Context" class="headerlink" title="[PlayerStateContext 클래스] : Context"></a>[PlayerStateContext 클래스] : Context</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerStateContext</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> IPlayerState CurrentState</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span>; <span class="keyword">set</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> PlayerController _playerController;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PlayerStateContext</span>(<span class="params">PlayerController playerController</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerController = playerController;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Transition</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        CurrentState.Handle(_playerController);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Transition</span>(<span class="params">IPlayerState state</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        CurrentState = state;</span><br><span class="line">        CurrentState.Handle(_playerController);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PlayerWalkState-클래스-ConcreteState"><a href="#PlayerWalkState-클래스-ConcreteState" class="headerlink" title="[PlayerWalkState 클래스] : ConcreteState"></a>[PlayerWalkState 클래스] : ConcreteState</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PlayerWalkState</span> : <span class="title">MonoBehaviour</span>, <span class="title">IPlayerState</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> PlayerController _playerController;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Handle</span>(<span class="params">PlayerController playerController</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!_playerController)</span><br><span class="line">        &#123;</span><br><span class="line">            _playerController = playerController;</span><br><span class="line">        &#125;</span><br><span class="line">        _playerController.CurrentSpeed = _playerController.maxSpeed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_playerController)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (_playerController.CurrentSpeed &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                _playerController.transform.Translate(</span><br><span class="line">                    Time.deltaTime * _playerController.CurrentSpeed * _playerController.CurrentDirection);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ClientState-클래스"><a href="#ClientState-클래스" class="headerlink" title="[ClientState 클래스]"></a>[ClientState 클래스]</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ClientState</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> PlayerController _playerController;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> _inputHorizontal;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> _inputVertical;</span><br><span class="line">    <span class="keyword">private</span> Vector3 _direction;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _playerController = GetComponent&lt;PlayerController&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _inputHorizontal = Input.GetAxis(<span class="string">&quot;Horizontal&quot;</span>);</span><br><span class="line">        _inputVertical = Input.GetAxis(<span class="string">&quot;Vertical&quot;</span>);</span><br><span class="line"></span><br><span class="line">        _direction = <span class="keyword">new</span> Vector3(_inputHorizontal, <span class="number">0</span>, _inputVertical);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//조건에 따라 상태 전이 메서드 호출</span></span><br><span class="line">        <span class="keyword">if</span>(_direction == Vector3.zero)&#123;</span><br><span class="line">            _playerController.StopPlayer();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(_direction != Vector3.zero) &#123;</span><br><span class="line">            _playerController.WalkPlayer(_direction);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(Input.GetKeyDown(KeyCode.Space)) &#123;</span><br><span class="line">            _playerController.JumpPlayer();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>WalkState를 제외하고 Stop, Jump 도 작성을 해두었지만 WalkState 클래스만 예시로 보여드렸습니다.</p>
+<p>저는 IPlayerState 인터페이스를 생성하고 </p>
+<p>PlayerStateContext클래스를 통해 IPlayerStete를 정의, 현재 상태 정보를 보관하도록 작성해두었습니다.</p>
+<p>WalkState는 IPlayerState를 상속받아 Handle메서드를 구현해두었습니다.</p>
+<p>PlayerController 클래스를 통해 상태들을 호출할 수 있는 메서드를 작성해두고<br>ClientState 클래스에서 조건을 확인한 후 PlayerController에 작성된 메서드를 호출하도록 하였습니다.</p>
+<p>이렇게 작성해두니 상태별로 관리하기가 수월해진 것이 느껴집니다.</p>
+<p>상태를 수정하려거든 각 상태 클래스 또는 상태를 호출하는 ClientState 클래스의 상태 호출 조건을 수정하면 됩니다.</p>
+<p>상태를 추가하려거든 특정 상태 클래스를 추가, PlayerController클래스에서 전이 메서드 추가,<br>전이 메서드 호출하는 코드 추가를 하면 됩니다.</p>
+<p>이렇게 정리해보니 새로운 상태를 추가하거나, 기존 상태에 대한 변경점이 발생한다면 어느 부분을 추가&#x2F;수정해야하는지 명확해졌습니다.</p>
+<hr>
+<h2 id="State-Pattern의-장단점"><a href="#State-Pattern의-장단점" class="headerlink" title="State Pattern의 장단점"></a>State Pattern의 장단점</h2><h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><ol>
+<li>상태별로 클래스 관리가 가능합니다.</li>
+<li>유지관리가 수월해집니다.</li>
+</ol>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><ol>
+<li>추가할 때마다 상태 클래스를 추가해야하므로 관리해야하는 클래스의 수가 증가합니다.</li>
+<li>상태 전환이 빈번하게 발생한다면 확인 조건이 늘어나므로 코드가 방대해지고 수행 시간이 길어지게 됩니다.</li>
+</ol>
+<p>유니티를 이용하여 상태를 구현하다보면 상태 변경으로 인해 코드가 늘어나고 관리하기 힘들어질 때가 있습니다.</p>
+<p>유니티 내에서는 애니메이터 상태에 추상 클래스인 StateMachineBehaviour 클래스를 상속받은 상태 정의 클래스를 컴포넌트로 추가하여 활용할 수 있습니다.</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Unity/" rel="tag"># Unity</a>
+              <a href="/tags/Design-Pattern/" rel="tag"># Design Pattern</a>
+              <a href="/tags/State/" rel="tag"># State</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/01/03/2024-01-03-%5BUnity%5D-Object-Pooling/" rel="prev" title="Object Pooling 패턴">
+      <i class="fa fa-chevron-left"></i> Object Pooling 패턴
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/01/05/2024-01-05-%5BUnity%5D-Singleton-Pattern/" rel="next" title="Singleton Pattern">
+      Singleton Pattern <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#State-Pattern-%EC%9D%B4%EB%9E%80"><span class="nav-number">1.</span> <span class="nav-text">State Pattern 이란?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State-Pattern%EC%9D%98-%EA%B5%AC%EC%84%B1"><span class="nav-number">2.</span> <span class="nav-text">State Pattern의 구성</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State-Pattern%EC%9D%98-%EA%B5%AC%ED%98%84"><span class="nav-number">3.</span> <span class="nav-text">State Pattern의 구현</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IPlayerState-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4-IState"><span class="nav-number">3.1.</span> <span class="nav-text">[IPlayerState 인터페이스] : IState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PlayerController-%ED%81%B4%EB%9E%98%EC%8A%A4"><span class="nav-number">3.2.</span> <span class="nav-text">[PlayerController 클래스]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PlayerStateContext-%ED%81%B4%EB%9E%98%EC%8A%A4-Context"><span class="nav-number">3.3.</span> <span class="nav-text">[PlayerStateContext 클래스] : Context</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PlayerWalkState-%ED%81%B4%EB%9E%98%EC%8A%A4-ConcreteState"><span class="nav-number">3.4.</span> <span class="nav-text">[PlayerWalkState 클래스] : ConcreteState</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ClientState-%ED%81%B4%EB%9E%98%EC%8A%A4"><span class="nav-number">3.5.</span> <span class="nav-text">[ClientState 클래스]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#State-Pattern%EC%9D%98-%EC%9E%A5%EB%8B%A8%EC%A0%90"><span class="nav-number">4.</span> <span class="nav-text">State Pattern의 장단점</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9E%A5%EC%A0%90"><span class="nav-number">4.1.</span> <span class="nav-text">장점</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EB%8B%A8%EC%A0%90"><span class="nav-number">4.2.</span> <span class="nav-text">단점</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zerone"
+      src="/images/cat.jpg">
+  <p class="site-author-name" itemprop="name">zerone</p>
+  <div class="site-description" itemprop="description">알아내보자</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/eui-young" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;eui-young" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zerone</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '41d673f6c9aaae060fb7',
+      clientSecret: '395e87debd2b62ed574c8f365f3d1275dc9275a2',
+      repo        : 'gitalk',
+      owner       : 'eui-young',
+      admin       : ['eui-young'],
+      id          : 'f3a91e48d235a322b201a24e54d99ddd',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
