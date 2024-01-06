@@ -704,7 +704,7 @@
 <p>유니티를 이용하여 상태를 구현하다보면 상태 변경으로 인해 코드가 늘어나고 관리하기 힘들어질 때가 있습니다.</p>
 <p>유니티 내에서는 애니메이터 상태에 추상 클래스인 StateMachineBehaviour 클래스를 상속받은 상태 정의 클래스를 컴포넌트로 추가하여 활용할 수 있습니다.</p>
 <hr>
-<p>[참초]</p>
+<p>[참조]</p>
 <ul>
 <li><a href="https://www.yes24.com/Product/Goods/114854688">유니티로 배우는 게임 디자인 패턴</a></li>
 <li><a href="https://velog.io/@cham/Design-Pattern-%EC%83%81%ED%83%9C-%ED%8C%A8%ED%84%B4State-Pattern">State Pattern</a></li>
