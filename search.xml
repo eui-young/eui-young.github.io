@@ -55,6 +55,24 @@
       </tags>
   </entry>
   <entry>
+    <title>부모, 자식 오브젝트 동시에 투명화시키기</title>
+    <url>/2022/05/13/2022-05-13-%5BUnity%5D-%EB%B6%80%EB%AA%A8,-%EC%9E%90%EC%8B%9D-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%88%AC%EB%AA%85%ED%99%94/</url>
+    <content><![CDATA[<h1 id="Unity-부모-자식-오브젝트-동시에-투명화시키기"><a href="#Unity-부모-자식-오브젝트-동시에-투명화시키기" class="headerlink" title="[Unity] 부모, 자식 오브젝트 동시에 투명화시키기"></a>[Unity] 부모, 자식 오브젝트 동시에 투명화시키기</h1><p>이미지를 부모 오브젝트로 두고 버튼을 자식 오브젝트로 두었을 때,</p>
+<p>이미지의 투명도를 조절해도 버튼의 투명도는 변하지 않는다.</p>
+<p>자식 오브젝트의 알파 값을 부모 오브젝트의 알파 값과 똑같이 바꾸고 싶다면 </p>
+<p>부모 오브젝트 컴포넌트에 <mark style='background-color:  #9ffaF3'>Canvas  Group</mark> 를 추가해주고 Canvas Group Alpha값을 바꾸어 주면 된다.</p>
+<p><img src="https://user-images.githubusercontent.com/56330520/168248115-b0c4c561-e6fa-4120-a452-1c840ec11aa4.PNG" alt="Canvas Group"></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">ParentObject.GetComponent&lt;CanvasGroup&gt;().Alpha= <span class="number">0.5f</span>;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>Unity</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>GetComponent, FindObjectOfType</title>
     <url>/2021/09/25/2021-09-25-%5BUnity%5D-GetComponent,-FindObjectOfType/</url>
     <content><![CDATA[<h1 id="GetComponent-FindObjectOfType"><a href="#GetComponent-FindObjectOfType" class="headerlink" title="GetComponent, FindObjectOfType"></a>GetComponent, FindObjectOfType</h1><h3 id="GetComponet"><a href="#GetComponet" class="headerlink" title="GetComponet"></a>GetComponet</h3><p> 특정 object의 component를 찾음</p>
@@ -88,51 +106,6 @@
 <p>마우스 클릭을 처리하는 부분에 IsPointerOverGameObject() 메소드를 이용하여 작성해주면 된다.</p>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnMouseDown</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!EventSystem.current.IsPointerOverGameObject())</span><br><span class="line">    &#123;</span><br><span class="line">		<span class="comment">//입력 처리 내용</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-]]></content>
-      <categories>
-        <category>Unity</category>
-      </categories>
-      <tags>
-        <tag>Unity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>부모, 자식 오브젝트 동시에 투명화시키기</title>
-    <url>/2022/05/13/2022-05-13-%5BUnity%5D-%EB%B6%80%EB%AA%A8,-%EC%9E%90%EC%8B%9D-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8-%EB%8F%99%EC%8B%9C%EC%97%90-%ED%88%AC%EB%AA%85%ED%99%94/</url>
-    <content><![CDATA[<h1 id="Unity-부모-자식-오브젝트-동시에-투명화시키기"><a href="#Unity-부모-자식-오브젝트-동시에-투명화시키기" class="headerlink" title="[Unity] 부모, 자식 오브젝트 동시에 투명화시키기"></a>[Unity] 부모, 자식 오브젝트 동시에 투명화시키기</h1><p>이미지를 부모 오브젝트로 두고 버튼을 자식 오브젝트로 두었을 때,</p>
-<p>이미지의 투명도를 조절해도 버튼의 투명도는 변하지 않는다.</p>
-<p>자식 오브젝트의 알파 값을 부모 오브젝트의 알파 값과 똑같이 바꾸고 싶다면 </p>
-<p>부모 오브젝트 컴포넌트에 <mark style='background-color:  #9ffaF3'>Canvas  Group</mark> 를 추가해주고 Canvas Group Alpha값을 바꾸어 주면 된다.</p>
-<p><img src="https://user-images.githubusercontent.com/56330520/168248115-b0c4c561-e6fa-4120-a452-1c840ec11aa4.PNG" alt="Canvas Group"></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">ParentObject.GetComponent&lt;CanvasGroup&gt;().Alpha= <span class="number">0.5f</span>;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Unity</category>
-      </categories>
-      <tags>
-        <tag>Unity</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>GetComponentsInChildren</title>
-    <url>/2022/06/15/2022-06-15-%5BUnity%5D-GetComponentsInChildren/</url>
-    <content><![CDATA[<h1 id="Unity-GetComponentsInChildren"><a href="#Unity-GetComponentsInChildren" class="headerlink" title="[Unity] GetComponentsInChildren"></a>[Unity] GetComponentsInChildren</h1><p>한 오브젝트의 자식 오브젝트들의 배열로 불러오고 싶을때</p>
-<p><mark style='background-color:  #F0AEAF'>GetComponentsInChildren</mark> 을 이용하는데</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">GameObject[] childrenObject;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">&#123; childrenObject=ParentObject.GetComponentsInChildren&lt;GameObject&gt;(<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>이렇게 사용하니 다음 오류가 발생했다.</p>
-<p><code>ArgumentException: GetComponent requires that the requested component &#39;GameObject&#39; derives from MonoBehaviour or Component or is an interface</code></p>
-<p>GameObject는 MonoBehaviour의 클래스에서 컴포넌트로 사용되지 않기 때문에</p>
-<p><mark style='background-color:#F0CF97'>GetComponentsInChildren&lt;GameObject&gt;</MARK>를 사용하지 못한다는 것이다.</p>
-<p>그렇기 때문에  다음과 같이 GameObject의 컴포넌트를 사용해주어야 한다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">Transform[] childrenObject;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">&#123; childrenObject=ParentObject.GetComponentsInChildren&lt;Transform&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>또한 GetCompoentsInChildren은 해당 오브젝트나 자식 오브젝트가 비활성화 상태일 때 이용할 수가 없다.</p>
-<p>하지만 GetComponentsInChildren<T>()는 includeInactive라는 매개변수를 가지며 디폴트값으로는 false를 가진다.</p>
-<p><mark style='background-color:#F0AEAF'>GetComponentsInChildren(true)</mark></p>
-<p>includeInactive 값을 true로 넘겨준다면 비활성화 되어있는 자식 오브젝트들을 이용할 수 있다.</p>
-<p><code>참고 https://foxtrotin.tistory.com/145 </code></p>
 ]]></content>
       <categories>
         <category>Unity</category>
@@ -188,103 +161,24 @@
       </tags>
   </entry>
   <entry>
-    <title>next 테마를 이용하여 hexo 블로그 만들기</title>
-    <url>/2023/12/02/2023-12-02-%5Bhexo%5D-next-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</url>
-    <content><![CDATA[<h3 id="Node-js-설치"><a href="#Node-js-설치" class="headerlink" title="Node.js 설치"></a>Node.js 설치</h3><p><a href="https://nodejs.org/en/download/current">Node.js</a>에서 본인 컴퓨터에 적합한 프로그램을 설치합니다.</p>
-<h3 id="hexo-설치"><a href="#hexo-설치" class="headerlink" title="hexo 설치"></a>hexo 설치</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm insall hexo-cli -g</span><br></pre></td></tr></table></figure>
+    <title>GetComponentsInChildren</title>
+    <url>/2022/06/15/2022-06-15-%5BUnity%5D-GetComponentsInChildren/</url>
+    <content><![CDATA[<h1 id="Unity-GetComponentsInChildren"><a href="#Unity-GetComponentsInChildren" class="headerlink" title="[Unity] GetComponentsInChildren"></a>[Unity] GetComponentsInChildren</h1><p>한 오브젝트의 자식 오브젝트들의 배열로 불러오고 싶을때</p>
+<p><mark style='background-color:  #F0AEAF'>GetComponentsInChildren</mark> 을 이용하는데</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">GameObject[] childrenObject;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">&#123; childrenObject=ParentObject.GetComponentsInChildren&lt;GameObject&gt;(<span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="hexo-블로그-폴더-생성-및-설정"><a href="#hexo-블로그-폴더-생성-및-설정" class="headerlink" title="hexo 블로그 폴더 생성 및 설정"></a>hexo 블로그 폴더 생성 및 설정</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog // blog 폴더가 생성됩니다. (blog 위치에 원하는 폴더명을 입력해주시면 됩니다.)</span><br><span class="line">$ <span class="built_in">cd</span> blog //새로 생성된 blog 폴더 위치로 이동합니다.</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<p>이렇게 사용하니 다음 오류가 발생했다.</p>
+<p><code>ArgumentException: GetComponent requires that the requested component &#39;GameObject&#39; derives from MonoBehaviour or Component or is an interface</code></p>
+<p>GameObject는 MonoBehaviour의 클래스에서 컴포넌트로 사용되지 않기 때문에</p>
+<p><mark style='background-color:#F0CF97'>GetComponentsInChildren&lt;GameObject&gt;</MARK>를 사용하지 못한다는 것이다.</p>
+<p>그렇기 때문에  다음과 같이 GameObject의 컴포넌트를 사용해주어야 한다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">GameObject ParentObject;</span><br><span class="line">Transform[] childrenObject;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">&#123; childrenObject=ParentObject.GetComponentsInChildren&lt;Transform&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="hexo-블로그-테마-불러오기"><a href="#hexo-블로그-테마-불러오기" class="headerlink" title="hexo 블로그 테마 불러오기"></a>hexo 블로그 테마 불러오기</h3><h4 id="hexo를-이용하여-테마-불러오기"><a href="#hexo를-이용하여-테마-불러오기" class="headerlink" title="hexo를 이용하여 테마 불러오기"></a>hexo를 이용하여 테마 불러오기</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
-
-<h4 id="git-clone을-이용하여-테마-불러오기"><a href="#git-clone을-이용하여-테마-불러오기" class="headerlink" title="git clone을 이용하여 테마 불러오기"></a>git clone을 이용하여 테마 불러오기</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-
-<h3 id="블로그-폴더-config-yml-파일에서-theme-테마명으로-수정"><a href="#블로그-폴더-config-yml-파일에서-theme-테마명으로-수정" class="headerlink" title="(블로그 폴더)&#x2F;_config.yml 파일에서 theme : 테마명으로 수정"></a>(블로그 폴더)&#x2F;_config.yml 파일에서 theme : 테마명으로 수정</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 저는 next theme을 설치하였으므로 next로 수정하겠습니다.</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span> </span><br></pre></td></tr></table></figure>
-
-<h3 id="블로그-폴더-config-yml-내용-추가적으로-수정"><a href="#블로그-폴더-config-yml-내용-추가적으로-수정" class="headerlink" title="(블로그 폴더)&#x2F;_config.yml 내용 추가적으로 수정"></a>(블로그 폴더)&#x2F;_config.yml 내용 추가적으로 수정</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">zerone</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">개발</span> <span class="string">일지</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">화이팅</span> <span class="string">!</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">zerone</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/eui-young/eui-young.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="새-포스트파일-생성"><a href="#새-포스트파일-생성" class="headerlink" title="새 포스트파일 생성"></a>새 포스트파일 생성</h3><p>(블로그폴더)&#x2F;source&#x2F; 폴더안에 _post폴더를 생성합니다.</br><br>_post 폴더 안에 포스트 파일을 작성하여 넣어주세요.</p>
-<p>예시로 저는</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="attr">layout</span>: post</span><br><span class="line"><span class="attr">title</span>: 포스트 제목</span><br><span class="line"><span class="attr">date</span>: <span class="number">2023</span>-<span class="number">12</span>-<span class="number">02</span></span><br><span class="line"><span class="attr">categorys</span>: hexo</span><br><span class="line"><span class="attr">tags</span>: [hexo]</span><br><span class="line"><span class="attr">comments</span>: <span class="literal">true</span></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">내용 작성...</span><br></pre></td></tr></table></figure>
-<p>작성하였습니다.</p>
-<h3 id="정적-파일-생성-Generate-static-files"><a href="#정적-파일-생성-Generate-static-files" class="headerlink" title="정적 파일 생성 (Generate static files )"></a>정적 파일 생성 (Generate static files )</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="로컬-서버-구동"><a href="#로컬-서버-구동" class="headerlink" title="로컬 서버 구동"></a>로컬 서버 구동</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-server --save //hexo server 설치</span><br><span class="line">$ hexo server // 또는 hexo s</span><br></pre></td></tr></table></figure>
-<p>로컬 서버 구동 후 localhost:4000 에 접속하여 수정사항이 제대로 적용되었는지 확인합니다.</br><br>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="git-레포지터리에-파일-적용"><a href="#git-레포지터리에-파일-적용" class="headerlink" title="git 레포지터리에 파일 적용"></a>git 레포지터리에 파일 적용</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save //설치 후 deploy가 가능합니다.</span><br><span class="line">$ hexo deploy // hexo d -g   generate 후 deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="적용-완료"><a href="#적용-완료" class="headerlink" title="적용 완료"></a>적용 완료</h3><p>deploy완료 후 deploy 연결 레포지터리에 업로드가 정상적으로 완료되었다면 블로그에 접속하여 변경사항을 확인해주세요.</p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Comment</title>
-    <url>/2023/12/05/2023-12-05-Comments/</url>
-    <content><![CDATA[<h3 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h3>]]></content>
-      <categories>
-        <category>ETC</category>
-      </categories>
-      <tags>
-        <tag>ETC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Quaternion이란</title>
-    <url>/2023/12/04/2023-12-04-%5BUnity%5D-Quaternion%EC%9D%B4%EB%9E%80/</url>
-    <content><![CDATA[<h2 id="Quaternion이란"><a href="#Quaternion이란" class="headerlink" title="Quaternion이란?"></a>Quaternion이란?</h2><p>안녕하세요. 이번 포스트에서 Quaternion에 대한 내용을 정리해보려고 합니다.</br><br>Unity에서는 오브젝트의 회전 값을 쿼터니언으로 표현하고 있습니다.</p>
-<p>상세한 내용은 <a href="https://docs.unity3d.com/">Unity API 문서</a>를 참고하시길 바랍니다.</p>
-<p>쿼터니언을 사용하는 이유는 Euler의 단점을 개선하기 위해서인데요.</p>
-<p>Euler는 무엇일까요?</p>
-<hr>
-<h3 id="Euler-오일러"><a href="#Euler-오일러" class="headerlink" title="Euler(오일러)"></a>Euler(오일러)</h3><p>Euler란 3차원 공간의 절대 좌표를 기준으로 물체의 회전을 측정하는 방식입니다.</p>
-<p>회전이 일어날 경우 세 축으로 나누어서 계산이 이루어집니다.</p>
-<p>180도가 넘는 회전을 표현할 수 있습니다.</p>
-<p>그 과정에서 짐벌락이라는 문제점이 발생할 수 있습니다.</p>
-<h3 id="짐벌락"><a href="#짐벌락" class="headerlink" title="짐벌락"></a>짐벌락</h3><p><mark style = "background : #a2d2ff"> 짐벌락이란</mark> 3개의 축이 순차적으로 회전하는 도중 2개의 축이 겹치는 현상을 뜻합니다.</p>
-<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/02aa62a3-a78b-4eed-b860-eb5adda61a08" alt="gimbal loack"><br>참조 <a href="https://www.researchgate.net/figure/Gimbal-lock-When-the-pitch-Y-rotates-90-degrees-the-roll-X-and-yaw-Z-axes-become_fig14_46720588">https://www.researchgate.net/figure/Gimbal-lock-When-the-pitch-Y-rotates-90-degrees-the-roll-X-and-yaw-Z-axes-become_fig14_46720588</a></p>
-<p>오일러는 x, y, z 축을 기준으로 순차적 회전이 이루어집니다.</p>
-<p>위의 그림에서는 x축 기준으로 회전이 발생하더니 z축과 겹쳐진 것을 확인할 수 있습니다.</p>
-<p>이렇게 두개의 축이 겹쳐지면 y축이 회전할 경우 z축 기준 회전 값이 달라지게 됩니다.</p>
-<h3 id="Quaternion"><a href="#Quaternion" class="headerlink" title="Quaternion"></a>Quaternion</h3><p>Quaternion은 이러한 오일러의 짐벌락 현상을 해결하기 위해 사용됩니다.</p>
-<p>Unity에서 오브젝트의 회전 상태를 나타내는 방식이며 (x, y, z, w)로 표현이 가능합니다.</p>
-<p>각각의 인수는 특정 벡터 (x, y, z)와 벡터의 회전값인 스칼라(w)의 정보를 담고 있습니다.</p>
-<p>Quaternion을 이용한 회전은 다른 축과 관계되어 측정되므로 180도 이상의 회전은 표현이 불가능합니다.</p>
-</br>
-
-<h2 id="Quaternion-관련-메소드"><a href="#Quaternion-관련-메소드" class="headerlink" title="Quaternion 관련 메소드"></a>Quaternion 관련 메소드</h2><p>앞에서 Quaternion의 개념에 대해 알아보았으니,</br><br>Quaternion을 어떻게 활용할 수 있는지 그와 관련된 메소드들을 알아보도록 하겠습니다.</p>
-<h3 id="Quaternion-identity"><a href="#Quaternion-identity" class="headerlink" title="Quaternion.identity"></a>Quaternion.identity</h3><p><mark style = "background : #a2d2ff ">Quaternion.identity는</mark> </br><br>오브젝트가 최상위 오브젝트일 경우 월드 좌표 기준 회전이 발생하지 않은 기본 값,</br><br>오브젝트가 자식 오브젝트일 경우 부모 좌표 기준 회전이 발생하지 않는 기본 값을 담고 있습니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">transform.position = Quaternion.identity;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Quaternion-eulerAngles"><a href="#Quaternion-eulerAngles" class="headerlink" title="Quaternion.eulerAngles"></a>Quaternion.eulerAngles</h3><p><code>정의: public Vector3 eulerAngles</code></p>
-<p>eulerAngles는 쿼터니언을 오일러로 나타내줍니다.</p>
-<p>원래 오브젝트의 rotation 값은 Quaternion으로 정의 되어있기 때문에 오일러각을 이용하여 값을 수정하는 것이 불가합니다.</p>
-<p>하지만 Quaternion.eulerAngles를 통해 오일러 값을 이용하여 회전 시키는 것이 가능합니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">Vector3 _curEulerAngles;</span><br><span class="line">Quaternion _curRotation;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//회전하려는 값</span></span><br><span class="line">    _curEulerAngles = <span class="keyword">new</span> Vector3(<span class="number">60</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">//eulerAngles메소드를 통해 오브젝트의 오일러값에 접근해준다.</span></span><br><span class="line">    transform.rotation.eulerAngles = _curEulerAngles;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Quaternion-Euler"><a href="#Quaternion-Euler" class="headerlink" title="Quaternion.Euler"></a>Quaternion.Euler</h3><p><code>정의: public static Quaternion Euler(float x, float y, float z)</code></p>
-<p>오일러 회전 값을 받아 쿼터니언 회전 값으로 리턴해줍니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Vector3 _rotVector;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span>&#123;</span><br><span class="line">    _rotVector = <span class="keyword">new</span> Vector3(<span class="number">0</span>,<span class="number">50</span>,<span class="number">00</span>;)</span><br><span class="line">    transform.rotation = Quaternion.Euler(_rotVector);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Quaternion-FromToRotaion"><a href="#Quaternion-FromToRotaion" class="headerlink" title="Quaternion.FromToRotaion"></a>Quaternion.FromToRotaion</h3><p><code>정의: public static Quaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection)</code></p>
-<p>fromDirection에 입력된 벡터를 하나의 축으로 삼아 toDirection의 벡터 축으로 회전시켜줍니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span>&#123;</span><br><span class="line">    transform.rotation = Quaternion.FromToRotation(Verctor3.forward, Vector3.up);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Quaternion-LookRotaion"><a href="#Quaternion-LookRotaion" class="headerlink" title="Quaternion.LookRotaion"></a>Quaternion.LookRotaion</h3><p><code>정의: public static Quaternion LookRotation(Vector3 forward, Vector3 upwards = Vector3.up)</code></p>
-<p>forward는 바라보고 싶은 방향이고, upwards는 오브젝트의 머리가 향하는 방향입니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Transform = _otherObject;</span><br><span class="line"><span class="keyword">private</span> Vector3 _relativeDir;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    _relativeDir = _otherObject.position - transform.position;</span><br><span class="line">    transform.rotation = Quaternion.LookRotation(_relativeDir, Vector3.up);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>위와 같이 작성하게 되면 _relativeDir는 상대오브젝트의 좌표에서 현 오브젝트의 좌표를 빼주었으므로</p>
-<p>현 오브젝트 -&gt; 상대 오브젝트 벡터를 뜻합니다.</p>
-<p>해당 벡터 방향을 바라보면서 현 오브젝트의 머리는 위를 바라볼 수 있도록 작성해준 것입니다.</p>
-<h3 id="Quaternion-RotateTowards"><a href="#Quaternion-RotateTowards" class="headerlink" title="Quaternion.RotateTowards"></a>Quaternion.RotateTowards</h3><p><code>정의: public static Quaternion RotateTowards(Quaternion from, Quaternion to, float maxDegreesDelta)</code></p>
-<p>from 회전값을, to 회전값까지 maxDegressDelta 만큼 회전시킨 회전 결과값을 Quanternion으로 리턴해줍니다.</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    transform.rotation = Quaternion.RotateTowards(transfrom.rotation, _target.rotation, Time.deltaTime * rotSpeed);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이번 포스터는 여기까지 작성하고 마치겠습니다.</p>
+<p>또한 GetCompoentsInChildren은 해당 오브젝트나 자식 오브젝트가 비활성화 상태일 때 이용할 수가 없다.</p>
+<p>하지만 GetComponentsInChildren<T>()는 includeInactive라는 매개변수를 가지며 디폴트값으로는 false를 가진다.</p>
+<p><mark style='background-color:#F0AEAF'>GetComponentsInChildren(true)</mark></p>
+<p>includeInactive 값을 true로 넘겨준다면 비활성화 되어있는 자식 오브젝트들을 이용할 수 있다.</p>
+<p><code>참고 https://foxtrotin.tistory.com/145 </code></p>
 ]]></content>
       <categories>
         <category>Unity</category>
@@ -402,6 +296,112 @@
       </tags>
   </entry>
   <entry>
+    <title>Quaternion이란</title>
+    <url>/2023/12/04/2023-12-04-%5BUnity%5D-Quaternion%EC%9D%B4%EB%9E%80/</url>
+    <content><![CDATA[<h2 id="Quaternion이란"><a href="#Quaternion이란" class="headerlink" title="Quaternion이란?"></a>Quaternion이란?</h2><p>안녕하세요. 이번 포스트에서 Quaternion에 대한 내용을 정리해보려고 합니다.</br><br>Unity에서는 오브젝트의 회전 값을 쿼터니언으로 표현하고 있습니다.</p>
+<p>상세한 내용은 <a href="https://docs.unity3d.com/">Unity API 문서</a>를 참고하시길 바랍니다.</p>
+<p>쿼터니언을 사용하는 이유는 Euler의 단점을 개선하기 위해서인데요.</p>
+<p>Euler는 무엇일까요?</p>
+<hr>
+<h3 id="Euler-오일러"><a href="#Euler-오일러" class="headerlink" title="Euler(오일러)"></a>Euler(오일러)</h3><p>Euler란 3차원 공간의 절대 좌표를 기준으로 물체의 회전을 측정하는 방식입니다.</p>
+<p>회전이 일어날 경우 세 축으로 나누어서 계산이 이루어집니다.</p>
+<p>180도가 넘는 회전을 표현할 수 있습니다.</p>
+<p>그 과정에서 짐벌락이라는 문제점이 발생할 수 있습니다.</p>
+<h3 id="짐벌락"><a href="#짐벌락" class="headerlink" title="짐벌락"></a>짐벌락</h3><p><mark style = "background : #a2d2ff"> 짐벌락이란</mark> 3개의 축이 순차적으로 회전하는 도중 2개의 축이 겹치는 현상을 뜻합니다.</p>
+<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/02aa62a3-a78b-4eed-b860-eb5adda61a08" alt="gimbal loack"><br>참조 <a href="https://www.researchgate.net/figure/Gimbal-lock-When-the-pitch-Y-rotates-90-degrees-the-roll-X-and-yaw-Z-axes-become_fig14_46720588">https://www.researchgate.net/figure/Gimbal-lock-When-the-pitch-Y-rotates-90-degrees-the-roll-X-and-yaw-Z-axes-become_fig14_46720588</a></p>
+<p>오일러는 x, y, z 축을 기준으로 순차적 회전이 이루어집니다.</p>
+<p>위의 그림에서는 x축 기준으로 회전이 발생하더니 z축과 겹쳐진 것을 확인할 수 있습니다.</p>
+<p>이렇게 두개의 축이 겹쳐지면 y축이 회전할 경우 z축 기준 회전 값이 달라지게 됩니다.</p>
+<h3 id="Quaternion"><a href="#Quaternion" class="headerlink" title="Quaternion"></a>Quaternion</h3><p>Quaternion은 이러한 오일러의 짐벌락 현상을 해결하기 위해 사용됩니다.</p>
+<p>Unity에서 오브젝트의 회전 상태를 나타내는 방식이며 (x, y, z, w)로 표현이 가능합니다.</p>
+<p>각각의 인수는 특정 벡터 (x, y, z)와 벡터의 회전값인 스칼라(w)의 정보를 담고 있습니다.</p>
+<p>Quaternion을 이용한 회전은 다른 축과 관계되어 측정되므로 180도 이상의 회전은 표현이 불가능합니다.</p>
+</br>
+
+<h2 id="Quaternion-관련-메소드"><a href="#Quaternion-관련-메소드" class="headerlink" title="Quaternion 관련 메소드"></a>Quaternion 관련 메소드</h2><p>앞에서 Quaternion의 개념에 대해 알아보았으니,</br><br>Quaternion을 어떻게 활용할 수 있는지 그와 관련된 메소드들을 알아보도록 하겠습니다.</p>
+<h3 id="Quaternion-identity"><a href="#Quaternion-identity" class="headerlink" title="Quaternion.identity"></a>Quaternion.identity</h3><p><mark style = "background : #a2d2ff ">Quaternion.identity는</mark> </br><br>오브젝트가 최상위 오브젝트일 경우 월드 좌표 기준 회전이 발생하지 않은 기본 값,</br><br>오브젝트가 자식 오브젝트일 경우 부모 좌표 기준 회전이 발생하지 않는 기본 값을 담고 있습니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">transform.position = Quaternion.identity;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Quaternion-eulerAngles"><a href="#Quaternion-eulerAngles" class="headerlink" title="Quaternion.eulerAngles"></a>Quaternion.eulerAngles</h3><p><code>정의: public Vector3 eulerAngles</code></p>
+<p>eulerAngles는 쿼터니언을 오일러로 나타내줍니다.</p>
+<p>원래 오브젝트의 rotation 값은 Quaternion으로 정의 되어있기 때문에 오일러각을 이용하여 값을 수정하는 것이 불가합니다.</p>
+<p>하지만 Quaternion.eulerAngles를 통해 오일러 값을 이용하여 회전 시키는 것이 가능합니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">Vector3 _curEulerAngles;</span><br><span class="line">Quaternion _curRotation;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//회전하려는 값</span></span><br><span class="line">    _curEulerAngles = <span class="keyword">new</span> Vector3(<span class="number">60</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">//eulerAngles메소드를 통해 오브젝트의 오일러값에 접근해준다.</span></span><br><span class="line">    transform.rotation.eulerAngles = _curEulerAngles;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Quaternion-Euler"><a href="#Quaternion-Euler" class="headerlink" title="Quaternion.Euler"></a>Quaternion.Euler</h3><p><code>정의: public static Quaternion Euler(float x, float y, float z)</code></p>
+<p>오일러 회전 값을 받아 쿼터니언 회전 값으로 리턴해줍니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Vector3 _rotVector;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Start</span>()</span>&#123;</span><br><span class="line">    _rotVector = <span class="keyword">new</span> Vector3(<span class="number">0</span>,<span class="number">50</span>,<span class="number">00</span>;)</span><br><span class="line">    transform.rotation = Quaternion.Euler(_rotVector);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Quaternion-FromToRotaion"><a href="#Quaternion-FromToRotaion" class="headerlink" title="Quaternion.FromToRotaion"></a>Quaternion.FromToRotaion</h3><p><code>정의: public static Quaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection)</code></p>
+<p>fromDirection에 입력된 벡터를 하나의 축으로 삼아 toDirection의 벡터 축으로 회전시켜줍니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span>&#123;</span><br><span class="line">    transform.rotation = Quaternion.FromToRotation(Verctor3.forward, Vector3.up);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Quaternion-LookRotaion"><a href="#Quaternion-LookRotaion" class="headerlink" title="Quaternion.LookRotaion"></a>Quaternion.LookRotaion</h3><p><code>정의: public static Quaternion LookRotation(Vector3 forward, Vector3 upwards = Vector3.up)</code></p>
+<p>forward는 바라보고 싶은 방향이고, upwards는 오브젝트의 머리가 향하는 방향입니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Transform = _otherObject;</span><br><span class="line"><span class="keyword">private</span> Vector3 _relativeDir;</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    _relativeDir = _otherObject.position - transform.position;</span><br><span class="line">    transform.rotation = Quaternion.LookRotation(_relativeDir, Vector3.up);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>위와 같이 작성하게 되면 _relativeDir는 상대오브젝트의 좌표에서 현 오브젝트의 좌표를 빼주었으므로</p>
+<p>현 오브젝트 -&gt; 상대 오브젝트 벡터를 뜻합니다.</p>
+<p>해당 벡터 방향을 바라보면서 현 오브젝트의 머리는 위를 바라볼 수 있도록 작성해준 것입니다.</p>
+<h3 id="Quaternion-RotateTowards"><a href="#Quaternion-RotateTowards" class="headerlink" title="Quaternion.RotateTowards"></a>Quaternion.RotateTowards</h3><p><code>정의: public static Quaternion RotateTowards(Quaternion from, Quaternion to, float maxDegreesDelta)</code></p>
+<p>from 회전값을, to 회전값까지 maxDegressDelta 만큼 회전시킨 회전 결과값을 Quanternion으로 리턴해줍니다.</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    transform.rotation = Quaternion.RotateTowards(transfrom.rotation, _target.rotation, Time.deltaTime * rotSpeed);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이번 포스터는 여기까지 작성하고 마치겠습니다.</p>
+]]></content>
+      <categories>
+        <category>Unity</category>
+      </categories>
+      <tags>
+        <tag>Unity</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>next 테마를 이용하여 hexo 블로그 만들기</title>
+    <url>/2023/12/02/2023-12-02-%5Bhexo%5D-next-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-hexo-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</url>
+    <content><![CDATA[<h3 id="Node-js-설치"><a href="#Node-js-설치" class="headerlink" title="Node.js 설치"></a>Node.js 설치</h3><p><a href="https://nodejs.org/en/download/current">Node.js</a>에서 본인 컴퓨터에 적합한 프로그램을 설치합니다.</p>
+<h3 id="hexo-설치"><a href="#hexo-설치" class="headerlink" title="hexo 설치"></a>hexo 설치</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm insall hexo-cli -g</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="hexo-블로그-폴더-생성-및-설정"><a href="#hexo-블로그-폴더-생성-및-설정" class="headerlink" title="hexo 블로그 폴더 생성 및 설정"></a>hexo 블로그 폴더 생성 및 설정</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init blog // blog 폴더가 생성됩니다. (blog 위치에 원하는 폴더명을 입력해주시면 됩니다.)</span><br><span class="line">$ <span class="built_in">cd</span> blog //새로 생성된 blog 폴더 위치로 이동합니다.</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+
+<h3 id="hexo-블로그-테마-불러오기"><a href="#hexo-블로그-테마-불러오기" class="headerlink" title="hexo 블로그 테마 불러오기"></a>hexo 블로그 테마 불러오기</h3><h4 id="hexo를-이용하여-테마-불러오기"><a href="#hexo를-이용하여-테마-불러오기" class="headerlink" title="hexo를 이용하여 테마 불러오기"></a>hexo를 이용하여 테마 불러오기</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-theme-next</span><br></pre></td></tr></table></figure>
+
+<h4 id="git-clone을-이용하여-테마-불러오기"><a href="#git-clone을-이용하여-테마-불러오기" class="headerlink" title="git clone을 이용하여 테마 불러오기"></a>git clone을 이용하여 테마 불러오기</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+
+<h3 id="블로그-폴더-config-yml-파일에서-theme-테마명으로-수정"><a href="#블로그-폴더-config-yml-파일에서-theme-테마명으로-수정" class="headerlink" title="(블로그 폴더)&#x2F;_config.yml 파일에서 theme : 테마명으로 수정"></a>(블로그 폴더)&#x2F;_config.yml 파일에서 theme : 테마명으로 수정</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 저는 next theme을 설치하였으므로 next로 수정하겠습니다.</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="블로그-폴더-config-yml-내용-추가적으로-수정"><a href="#블로그-폴더-config-yml-내용-추가적으로-수정" class="headerlink" title="(블로그 폴더)&#x2F;_config.yml 내용 추가적으로 수정"></a>(블로그 폴더)&#x2F;_config.yml 내용 추가적으로 수정</h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">zerone</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">개발</span> <span class="string">일지</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">화이팅</span> <span class="string">!</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">zerone</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/eui-young/eui-young.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="새-포스트파일-생성"><a href="#새-포스트파일-생성" class="headerlink" title="새 포스트파일 생성"></a>새 포스트파일 생성</h3><p>(블로그폴더)&#x2F;source&#x2F; 폴더안에 _post폴더를 생성합니다.</br><br>_post 폴더 안에 포스트 파일을 작성하여 넣어주세요.</p>
+<p>예시로 저는</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="attr">layout</span>: post</span><br><span class="line"><span class="attr">title</span>: 포스트 제목</span><br><span class="line"><span class="attr">date</span>: <span class="number">2023</span>-<span class="number">12</span>-<span class="number">02</span></span><br><span class="line"><span class="attr">categorys</span>: hexo</span><br><span class="line"><span class="attr">tags</span>: [hexo]</span><br><span class="line"><span class="attr">comments</span>: <span class="literal">true</span></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">내용 작성...</span><br></pre></td></tr></table></figure>
+<p>작성하였습니다.</p>
+<h3 id="정적-파일-생성-Generate-static-files"><a href="#정적-파일-생성-Generate-static-files" class="headerlink" title="정적 파일 생성 (Generate static files )"></a>정적 파일 생성 (Generate static files )</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="로컬-서버-구동"><a href="#로컬-서버-구동" class="headerlink" title="로컬 서버 구동"></a>로컬 서버 구동</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-server --save //hexo server 설치</span><br><span class="line">$ hexo server // 또는 hexo s</span><br></pre></td></tr></table></figure>
+<p>로컬 서버 구동 후 localhost:4000 에 접속하여 수정사항이 제대로 적용되었는지 확인합니다.</br><br>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="git-레포지터리에-파일-적용"><a href="#git-레포지터리에-파일-적용" class="headerlink" title="git 레포지터리에 파일 적용"></a>git 레포지터리에 파일 적용</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save //설치 후 deploy가 가능합니다.</span><br><span class="line">$ hexo deploy // hexo d -g   generate 후 deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="적용-완료"><a href="#적용-완료" class="headerlink" title="적용 완료"></a>적용 완료</h3><p>deploy완료 후 deploy 연결 레포지터리에 업로드가 정상적으로 완료되었다면 블로그에 접속하여 변경사항을 확인해주세요.</p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Comment</title>
+    <url>/2023/12/05/2023-12-05-Comments/</url>
+    <content><![CDATA[<h3 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h3>]]></content>
+      <categories>
+        <category>ETC</category>
+      </categories>
+      <tags>
+        <tag>ETC</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>대리자</title>
     <url>/2023/12/05/2023-12-05-%5BC%5D-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/</url>
     <content><![CDATA[<h2 id="대리자란"><a href="#대리자란" class="headerlink" title="대리자란?"></a>대리자란?</h2><p>안녕하세요. 이번 포스터에서는 대리자에 관한 내용을 다뤄보겠습니다.</p>
@@ -430,41 +430,6 @@
         <tag>C#</tag>
         <tag>delegate</tag>
         <tag>Action</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>자료구조</title>
-    <url>/2023/12/11/2023-12-11-%5B%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%5D-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/</url>
-    <content><![CDATA[<h2 id="자료구조란"><a href="#자료구조란" class="headerlink" title="자료구조란?"></a>자료구조란?</h2><p>자료구조란 데이터의 저장 방법 또는 데이터 관련 연산의 총집합을 의미합니다.</p>
-<p>자료구조는 단순 자료구조, 복합 자료구조, 파일 구조로 나누어 볼 수 있습니다.</p>
-<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/f800a0b9-4c3d-4494-8a83-0ded995a792f" alt="DataStructure"></p>
-<h3 id="단순-자료구조"><a href="#단순-자료구조" class="headerlink" title="단순 자료구조"></a>단순 자료구조</h3><p><mark style = "background: #d88c9a">단순 자료구조</mark>란 기본적으로 제공하는 정수, 실수, 문자를 포함합니다. </p>
-<h3 id="복합-자료구조"><a href="#복합-자료구조" class="headerlink" title="복합 자료구조"></a>복합 자료구조</h3><p>복합 자료구조는 선형구조, 비선형구조로 구분할 수 있습니다.</p>
-<h4 id="선형구조"><a href="#선형구조" class="headerlink" title="선형구조"></a>선형구조</h4><p><mark style = "background: #d88c9a">선형구조</mark>란 데이터 요소를 순차적으로 연결하는 자료구조입니다.</p>
-<ol>
-<li>배열</li>
-<li>링크드 리스트</li>
-<li>스택</li>
-<li>큐</li>
-<li>힙</li>
-</ol>
-<h4 id="비선형구조"><a href="#비선형구조" class="headerlink" title="비선형구조"></a>비선형구조</h4><p><mark style = "background: #d88c9a">비선형구조</mark>란 데이터 요소가 비순차적, 트리 형태로 연결되어있습니다.</p>
-<ol>
-<li>트리</li>
-<li>그래프</li>
-</ol>
-<h3 id="파일구조"><a href="#파일구조" class="headerlink" title="파일구조"></a>파일구조</h3><p><mark style = "background: #d88c9a">파일 구조</mark>는 파일을 저장하는 구조입니다.</p>
-<ol>
-<li>순차 파일구조</li>
-<li>색인 파일구조</li>
-<li>직접 파일구조</li>
-</ol>
-]]></content>
-      <categories>
-        <category>DataStructure</category>
-      </categories>
-      <tags>
-        <tag>DataStructure</tag>
       </tags>
   </entry>
   <entry>
@@ -559,6 +524,41 @@
       <tags>
         <tag>C#</tag>
         <tag>Parameter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>자료구조</title>
+    <url>/2023/12/11/2023-12-11-%5B%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%5D-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/</url>
+    <content><![CDATA[<h2 id="자료구조란"><a href="#자료구조란" class="headerlink" title="자료구조란?"></a>자료구조란?</h2><p>자료구조란 데이터의 저장 방법 또는 데이터 관련 연산의 총집합을 의미합니다.</p>
+<p>자료구조는 단순 자료구조, 복합 자료구조, 파일 구조로 나누어 볼 수 있습니다.</p>
+<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/f800a0b9-4c3d-4494-8a83-0ded995a792f" alt="DataStructure"></p>
+<h3 id="단순-자료구조"><a href="#단순-자료구조" class="headerlink" title="단순 자료구조"></a>단순 자료구조</h3><p><mark style = "background: #d88c9a">단순 자료구조</mark>란 기본적으로 제공하는 정수, 실수, 문자를 포함합니다. </p>
+<h3 id="복합-자료구조"><a href="#복합-자료구조" class="headerlink" title="복합 자료구조"></a>복합 자료구조</h3><p>복합 자료구조는 선형구조, 비선형구조로 구분할 수 있습니다.</p>
+<h4 id="선형구조"><a href="#선형구조" class="headerlink" title="선형구조"></a>선형구조</h4><p><mark style = "background: #d88c9a">선형구조</mark>란 데이터 요소를 순차적으로 연결하는 자료구조입니다.</p>
+<ol>
+<li>배열</li>
+<li>링크드 리스트</li>
+<li>스택</li>
+<li>큐</li>
+<li>힙</li>
+</ol>
+<h4 id="비선형구조"><a href="#비선형구조" class="headerlink" title="비선형구조"></a>비선형구조</h4><p><mark style = "background: #d88c9a">비선형구조</mark>란 데이터 요소가 비순차적, 트리 형태로 연결되어있습니다.</p>
+<ol>
+<li>트리</li>
+<li>그래프</li>
+</ol>
+<h3 id="파일구조"><a href="#파일구조" class="headerlink" title="파일구조"></a>파일구조</h3><p><mark style = "background: #d88c9a">파일 구조</mark>는 파일을 저장하는 구조입니다.</p>
+<ol>
+<li>순차 파일구조</li>
+<li>색인 파일구조</li>
+<li>직접 파일구조</li>
+</ol>
+]]></content>
+      <categories>
+        <category>DataStructure</category>
+      </categories>
+      <tags>
+        <tag>DataStructure</tag>
       </tags>
   </entry>
   <entry>
