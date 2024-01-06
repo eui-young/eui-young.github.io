@@ -107,6 +107,32 @@
     </item>
     
     <item>
+      <title>Generic</title>
+      <link>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</link>
+      <guid>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</guid>
+      <pubDate>Mon, 01 Jan 2024 15:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h2 id=&quot;C-Generic-이란&quot;&gt;&lt;a href=&quot;#C-Generic-이란&quot; class=&quot;headerlink&quot; title=&quot;[C#] Generic 이란?&quot;&gt;&lt;/a&gt;[C#] Generic 이란?&lt;/h2&gt;&lt;p&gt;제너릭이란 데이터의 타입을 일반화하는 것</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p><p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p><p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p><p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p><p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p><hr><p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p><p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p><p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p><p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p><p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p><p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>]]></content:encoded>
+      
+      
+      <category domain="https://eui-young.github.io/categories/C/">C#</category>
+      
+      
+      <category domain="https://eui-young.github.io/tags/C/">C#</category>
+      
+      
+      <comments>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>Parameter와 ref, out 키워드</title>
       <link>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/</link>
       <guid>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/</guid>
@@ -131,32 +157,6 @@
       
       
       <comments>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Generic</title>
-      <link>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</link>
-      <guid>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</guid>
-      <pubDate>Mon, 01 Jan 2024 15:00:00 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h2 id=&quot;C-Generic-이란&quot;&gt;&lt;a href=&quot;#C-Generic-이란&quot; class=&quot;headerlink&quot; title=&quot;[C#] Generic 이란?&quot;&gt;&lt;/a&gt;[C#] Generic 이란?&lt;/h2&gt;&lt;p&gt;제너릭이란 데이터의 타입을 일반화하는 것</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p><p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p><p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p><p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p><p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p><hr><p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p><p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p><p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p><p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p><p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p><p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>]]></content:encoded>
-      
-      
-      <category domain="https://eui-young.github.io/categories/C/">C#</category>
-      
-      
-      <category domain="https://eui-young.github.io/tags/C/">C#</category>
-      
-      
-      <comments>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/#disqus_thread</comments>
       
     </item>
     
@@ -188,6 +188,32 @@
     </item>
     
     <item>
+      <title>Comment</title>
+      <link>https://eui-young.github.io/2023/12/05/2023-12-05-Comments/</link>
+      <guid>https://eui-young.github.io/2023/12/05/2023-12-05-Comments/</guid>
+      <pubDate>Mon, 04 Dec 2023 15:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h3 id=&quot;Comment&quot;&gt;&lt;a href=&quot;#Comment&quot; class=&quot;headerlink&quot; title=&quot;Comment&quot;&gt;&lt;/a&gt;Comment&lt;/h3&gt;</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h3 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h3>]]></content:encoded>
+      
+      
+      <category domain="https://eui-young.github.io/categories/ETC/">ETC</category>
+      
+      
+      <category domain="https://eui-young.github.io/tags/ETC/">ETC</category>
+      
+      
+      <comments>https://eui-young.github.io/2023/12/05/2023-12-05-Comments/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>대리자</title>
       <link>https://eui-young.github.io/2023/12/05/2023-12-05-[C]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/</link>
       <guid>https://eui-young.github.io/2023/12/05/2023-12-05-[C]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/</guid>
@@ -215,32 +241,6 @@
       
       
       <comments>https://eui-young.github.io/2023/12/05/2023-12-05-[C]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Comment</title>
-      <link>https://eui-young.github.io/2023/12/05/2023-12-05-Comments/</link>
-      <guid>https://eui-young.github.io/2023/12/05/2023-12-05-Comments/</guid>
-      <pubDate>Mon, 04 Dec 2023 15:00:00 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h3 id=&quot;Comment&quot;&gt;&lt;a href=&quot;#Comment&quot; class=&quot;headerlink&quot; title=&quot;Comment&quot;&gt;&lt;/a&gt;Comment&lt;/h3&gt;</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h3 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h3>]]></content:encoded>
-      
-      
-      <category domain="https://eui-young.github.io/categories/ETC/">ETC</category>
-      
-      
-      <category domain="https://eui-young.github.io/tags/ETC/">ETC</category>
-      
-      
-      <comments>https://eui-young.github.io/2023/12/05/2023-12-05-Comments/#disqus_thread</comments>
       
     </item>
     
@@ -427,34 +427,6 @@
     </item>
     
     <item>
-      <title>list 관련 메소드</title>
-      <link>https://eui-young.github.io/2021/09/25/2021-09-25-[C]-list-%EA%B4%80%EB%A0%A8-%EB%A9%94%EC%86%8C%EB%93%9C/</link>
-      <guid>https://eui-young.github.io/2021/09/25/2021-09-25-[C]-list-%EA%B4%80%EB%A0%A8-%EB%A9%94%EC%86%8C%EB%93%9C/</guid>
-      <pubDate>Fri, 24 Sep 2021 15:00:00 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h1 id=&quot;List-관련-메소드&quot;&gt;&lt;a href=&quot;#List-관련-메소드&quot; class=&quot;headerlink&quot; title=&quot;List 관련 메소드&quot;&gt;&lt;/a&gt;List 관련 메소드&lt;/h1&gt;&lt;h2 id=&quot;List생성&quot;&gt;&lt;a href=&quot;#List생성&quot; cla</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h1 id="List-관련-메소드"><a href="#List-관련-메소드" class="headerlink" title="List 관련 메소드"></a>List 관련 메소드</h1><h2 id="List생성"><a href="#List생성" class="headerlink" title="List생성"></a>List생성</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List &lt;<span class="built_in">int</span>&gt; num1 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">List &lt;<span class="built_in">int</span>&gt; num2 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;()&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">List &lt;<span class="built_in">int</span>&gt; num3 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(num2); <span class="comment">//contains: 1,2,3</span></span><br><span class="line">List &lt;<span class="built_in">int</span>&gt; num4 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(<span class="number">10</span>); <span class="comment">//capacity:10</span></span><br></pre></td></tr></table></figure><h2 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h2><hr><h3 id="Add-1"><a href="#Add-1" class="headerlink" title="Add"></a><strong>Add</strong></h3><p>List에 원소를 추가</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">int</span>&gt; num=<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">num.Add(<span class="number">2</span>); <span class="comment">// contains: 1</span></span><br></pre></td></tr></table></figure><h3 id="AddRange"><a href="#AddRange" class="headerlink" title="AddRange"></a><strong>AddRange</strong></h3><p>List 끝에 배열 추가</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.AddRange(b); <span class="comment">// contains: 1, 4, 2, 5, 6</span></span><br></pre></td></tr></table></figure><h3 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a><strong>Insert</strong></h3><p>List 중간에 원소 삽입</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num.Add(<span class="number">1</span>); <span class="comment">// contains: 1</span></span><br><span class="line">num.Add(<span class="number">2</span>); <span class="comment">// contains: 1, 2</span></span><br><span class="line">num.Insert(<span class="number">1</span>,<span class="number">4</span>) <span class="comment">// contains: 1 ,4, 2</span></span><br></pre></td></tr></table></figure><h3 id="InsertRange"><a href="#InsertRange" class="headerlink" title="InsertRange"></a><strong>InsertRange</strong></h3><p>List 중간에 배열 추가</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span>[] b= <span class="keyword">new</span> <span class="built_in">int</span>[<span class="number">2</span>];</span><br><span class="line">b[<span class="number">0</span>]=<span class="number">5</span>;</span><br><span class="line">b[<span class="number">1</span>]=<span class="number">6</span>;</span><br><span class="line">num.InsertRange(<span class="number">1</span>,b); <span class="comment">// contains: 1, 5, 6, 4, 2 </span></span><br></pre></td></tr></table></figure><p><code>InsertRange(n, name)</code>  </p><p>n: 특정 배열을 삽입하고 싶은 시작 지점</p><p>name: 삽입하고 싶은 배열명</p><h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><hr><h3 id="Clear"><a href="#Clear" class="headerlink" title="Clear"></a><strong>Clear</strong></h3><p>List 모든 원소 삭제</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.clear(); <span class="comment">//empty</span></span><br></pre></td></tr></table></figure><h3 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a><strong>Remove</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.Remove(<span class="number">4</span>); <span class="comment">// contains: 1,2</span></span><br></pre></td></tr></table></figure><p><code>Remove(item)</code>  삭제하고 싶은 원소를 쓰면 된다 !</p><h3 id="RemoveAll"><a href="#RemoveAll" class="headerlink" title="RemoveAll"></a><strong>RemoveAll</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num <span class="comment">// contains: 1,4,2</span></span><br><span class="line">num.RemoveAll(x=&gt; x&lt;<span class="number">2</span>); <span class="comment">// contains: 4,2</span></span><br></pre></td></tr></table></figure><p><code>RemoveAll(필요한 조건)</code>  해당 조건을 만족하는 원소를 삭제</p><p><code>RemoveAll(x=&gt; true)</code> 모든 원소가 삭제</p><h3 id="RemoveAt"><a href="#RemoveAt" class="headerlink" title="RemoveAt"></a><strong>RemoveAt</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num <span class="comment">// contains: 1,4,2</span></span><br><span class="line">num.RemoveAt(<span class="number">1</span>) <span class="comment">// contains: 1,2</span></span><br></pre></td></tr></table></figure><p><code>RemoveAt(num)</code> num에 해당하는 index의 원소 삭제</p><h2 id="Etc"><a href="#Etc" class="headerlink" title="Etc"></a>Etc</h2><hr><h3 id="Contains"><a href="#Contains" class="headerlink" title="Contains"></a><strong>Contains</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num <span class="comment">// contains:1,4,2 </span></span><br><span class="line">num.Contains(<span class="number">1</span>); <span class="comment">// 1인 원소가 존재하므로 true</span></span><br></pre></td></tr></table></figure><h3 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a><strong>Reverse</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.Reverse() <span class="comment">//num:2,4,1</span></span><br></pre></td></tr></table></figure><h3 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a><strong>Sort</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.Sort() <span class="comment">//num: 1,2,4 작은 순서대로</span></span><br></pre></td></tr></table></figure><h3 id="ToArray"><a href="#ToArray" class="headerlink" title="ToArray"></a><strong>ToArray</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span>[] array= num.ToArray(); <span class="comment">//array:1,4,2</span></span><br></pre></td></tr></table></figure><hr>]]></content:encoded>
-      
-      
-      <category domain="https://eui-young.github.io/categories/C/">C#</category>
-      
-      
-      <category domain="https://eui-young.github.io/tags/list/">list</category>
-      
-      <category domain="https://eui-young.github.io/tags/c/">c#</category>
-      
-      
-      <comments>https://eui-young.github.io/2021/09/25/2021-09-25-[C]-list-%EA%B4%80%EB%A0%A8-%EB%A9%94%EC%86%8C%EB%93%9C/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>GetComponent, FindObjectOfType</title>
       <link>https://eui-young.github.io/2021/09/25/2021-09-25-[Unity]-GetComponent,-FindObjectOfType/</link>
       <guid>https://eui-young.github.io/2021/09/25/2021-09-25-[Unity]-GetComponent,-FindObjectOfType/</guid>
@@ -481,6 +453,34 @@
       
       
       <comments>https://eui-young.github.io/2021/09/25/2021-09-25-[Unity]-GetComponent,-FindObjectOfType/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>list 관련 메소드</title>
+      <link>https://eui-young.github.io/2021/09/25/2021-09-25-[C]-list-%EA%B4%80%EB%A0%A8-%EB%A9%94%EC%86%8C%EB%93%9C/</link>
+      <guid>https://eui-young.github.io/2021/09/25/2021-09-25-[C]-list-%EA%B4%80%EB%A0%A8-%EB%A9%94%EC%86%8C%EB%93%9C/</guid>
+      <pubDate>Fri, 24 Sep 2021 15:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h1 id=&quot;List-관련-메소드&quot;&gt;&lt;a href=&quot;#List-관련-메소드&quot; class=&quot;headerlink&quot; title=&quot;List 관련 메소드&quot;&gt;&lt;/a&gt;List 관련 메소드&lt;/h1&gt;&lt;h2 id=&quot;List생성&quot;&gt;&lt;a href=&quot;#List생성&quot; cla</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="List-관련-메소드"><a href="#List-관련-메소드" class="headerlink" title="List 관련 메소드"></a>List 관련 메소드</h1><h2 id="List생성"><a href="#List생성" class="headerlink" title="List생성"></a>List생성</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List &lt;<span class="built_in">int</span>&gt; num1 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">List &lt;<span class="built_in">int</span>&gt; num2 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;()&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">List &lt;<span class="built_in">int</span>&gt; num3 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(num2); <span class="comment">//contains: 1,2,3</span></span><br><span class="line">List &lt;<span class="built_in">int</span>&gt; num4 = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;(<span class="number">10</span>); <span class="comment">//capacity:10</span></span><br></pre></td></tr></table></figure><h2 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h2><hr><h3 id="Add-1"><a href="#Add-1" class="headerlink" title="Add"></a><strong>Add</strong></h3><p>List에 원소를 추가</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;<span class="built_in">int</span>&gt; num=<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">num.Add(<span class="number">2</span>); <span class="comment">// contains: 1</span></span><br></pre></td></tr></table></figure><h3 id="AddRange"><a href="#AddRange" class="headerlink" title="AddRange"></a><strong>AddRange</strong></h3><p>List 끝에 배열 추가</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.AddRange(b); <span class="comment">// contains: 1, 4, 2, 5, 6</span></span><br></pre></td></tr></table></figure><h3 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a><strong>Insert</strong></h3><p>List 중간에 원소 삽입</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num.Add(<span class="number">1</span>); <span class="comment">// contains: 1</span></span><br><span class="line">num.Add(<span class="number">2</span>); <span class="comment">// contains: 1, 2</span></span><br><span class="line">num.Insert(<span class="number">1</span>,<span class="number">4</span>) <span class="comment">// contains: 1 ,4, 2</span></span><br></pre></td></tr></table></figure><h3 id="InsertRange"><a href="#InsertRange" class="headerlink" title="InsertRange"></a><strong>InsertRange</strong></h3><p>List 중간에 배열 추가</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span>[] b= <span class="keyword">new</span> <span class="built_in">int</span>[<span class="number">2</span>];</span><br><span class="line">b[<span class="number">0</span>]=<span class="number">5</span>;</span><br><span class="line">b[<span class="number">1</span>]=<span class="number">6</span>;</span><br><span class="line">num.InsertRange(<span class="number">1</span>,b); <span class="comment">// contains: 1, 5, 6, 4, 2 </span></span><br></pre></td></tr></table></figure><p><code>InsertRange(n, name)</code>  </p><p>n: 특정 배열을 삽입하고 싶은 시작 지점</p><p>name: 삽입하고 싶은 배열명</p><h2 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h2><hr><h3 id="Clear"><a href="#Clear" class="headerlink" title="Clear"></a><strong>Clear</strong></h3><p>List 모든 원소 삭제</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.clear(); <span class="comment">//empty</span></span><br></pre></td></tr></table></figure><h3 id="Remove"><a href="#Remove" class="headerlink" title="Remove"></a><strong>Remove</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.Remove(<span class="number">4</span>); <span class="comment">// contains: 1,2</span></span><br></pre></td></tr></table></figure><p><code>Remove(item)</code>  삭제하고 싶은 원소를 쓰면 된다 !</p><h3 id="RemoveAll"><a href="#RemoveAll" class="headerlink" title="RemoveAll"></a><strong>RemoveAll</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num <span class="comment">// contains: 1,4,2</span></span><br><span class="line">num.RemoveAll(x=&gt; x&lt;<span class="number">2</span>); <span class="comment">// contains: 4,2</span></span><br></pre></td></tr></table></figure><p><code>RemoveAll(필요한 조건)</code>  해당 조건을 만족하는 원소를 삭제</p><p><code>RemoveAll(x=&gt; true)</code> 모든 원소가 삭제</p><h3 id="RemoveAt"><a href="#RemoveAt" class="headerlink" title="RemoveAt"></a><strong>RemoveAt</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num <span class="comment">// contains: 1,4,2</span></span><br><span class="line">num.RemoveAt(<span class="number">1</span>) <span class="comment">// contains: 1,2</span></span><br></pre></td></tr></table></figure><p><code>RemoveAt(num)</code> num에 해당하는 index의 원소 삭제</p><h2 id="Etc"><a href="#Etc" class="headerlink" title="Etc"></a>Etc</h2><hr><h3 id="Contains"><a href="#Contains" class="headerlink" title="Contains"></a><strong>Contains</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num <span class="comment">// contains:1,4,2 </span></span><br><span class="line">num.Contains(<span class="number">1</span>); <span class="comment">// 1인 원소가 존재하므로 true</span></span><br></pre></td></tr></table></figure><h3 id="Reverse"><a href="#Reverse" class="headerlink" title="Reverse"></a><strong>Reverse</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.Reverse() <span class="comment">//num:2,4,1</span></span><br></pre></td></tr></table></figure><h3 id="Sort"><a href="#Sort" class="headerlink" title="Sort"></a><strong>Sort</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num.Sort() <span class="comment">//num: 1,2,4 작은 순서대로</span></span><br></pre></td></tr></table></figure><h3 id="ToArray"><a href="#ToArray" class="headerlink" title="ToArray"></a><strong>ToArray</strong></h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span>[] array= num.ToArray(); <span class="comment">//array:1,4,2</span></span><br></pre></td></tr></table></figure><hr>]]></content:encoded>
+      
+      
+      <category domain="https://eui-young.github.io/categories/C/">C#</category>
+      
+      
+      <category domain="https://eui-young.github.io/tags/list/">list</category>
+      
+      <category domain="https://eui-young.github.io/tags/c/">c#</category>
+      
+      
+      <comments>https://eui-young.github.io/2021/09/25/2021-09-25-[C]-list-%EA%B4%80%EB%A0%A8-%EB%A9%94%EC%86%8C%EB%93%9C/#disqus_thread</comments>
       
     </item>
     
