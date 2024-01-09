@@ -107,6 +107,32 @@
     </item>
     
     <item>
+      <title>Generic</title>
+      <link>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</link>
+      <guid>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</guid>
+      <pubDate>Mon, 01 Jan 2024 15:00:00 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h2 id=&quot;C-Generic-이란&quot;&gt;&lt;a href=&quot;#C-Generic-이란&quot; class=&quot;headerlink&quot; title=&quot;[C#] Generic 이란?&quot;&gt;&lt;/a&gt;[C#] Generic 이란?&lt;/h2&gt;&lt;p&gt;제너릭이란 데이터의 타입을 일반화하는 것</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p><p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p><p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p><p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p><p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p><hr><p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p><p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p><p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p><p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p><p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p><p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>]]></content:encoded>
+      
+      
+      <category domain="https://eui-young.github.io/categories/C/">C#</category>
+      
+      
+      <category domain="https://eui-young.github.io/tags/C/">C#</category>
+      
+      
+      <comments>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>Parameter와 ref, out 키워드</title>
       <link>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/</link>
       <guid>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/</guid>
@@ -135,19 +161,19 @@
     </item>
     
     <item>
-      <title>Generic</title>
-      <link>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</link>
-      <guid>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/</guid>
+      <title>C#, Garbage Collector</title>
+      <link>https://eui-young.github.io/2024/01/02/2024-01-09-[C]-Garbage-Collector/</link>
+      <guid>https://eui-young.github.io/2024/01/02/2024-01-09-[C]-Garbage-Collector/</guid>
       <pubDate>Mon, 01 Jan 2024 15:00:00 GMT</pubDate>
       
         
         
-      <description>&lt;h2 id=&quot;C-Generic-이란&quot;&gt;&lt;a href=&quot;#C-Generic-이란&quot; class=&quot;headerlink&quot; title=&quot;[C#] Generic 이란?&quot;&gt;&lt;/a&gt;[C#] Generic 이란?&lt;/h2&gt;&lt;p&gt;제너릭이란 데이터의 타입을 일반화하는 것</description>
+      <description>&lt;h2 id=&quot;C-Garbage-Collector-란&quot;&gt;&lt;a href=&quot;#C-Garbage-Collector-란&quot; class=&quot;headerlink&quot; title=&quot;[C#] Garbage Collector 란?&quot;&gt;&lt;/a&gt;[C#] Garbage Collec</description>
         
       
       
       
-      <content:encoded><![CDATA[<h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p><p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p><p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p><p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p><p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p><hr><p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p><p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p><p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p><p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p><p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p><p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>]]></content:encoded>
+      <content:encoded><![CDATA[<h2 id="C-Garbage-Collector-란"><a href="#C-Garbage-Collector-란" class="headerlink" title="[C#] Garbage Collector 란?"></a>[C#] Garbage Collector 란?</h2><p>Garbage Collector란 가비지 컬렉터라고 하며 GC라고 부르기도 합니다.</p><p>GC는 CLR(공용 언어 런타임)에서 제공하는 자동 메모리 관리 소프트웨어입니다.</p><p>C#으로 작성한 소스 코드를 컴파일해서 실행 파일을 만들고 실행하면,</p><p>CLR은 프로그램을 위해 메모리를 확보합니다.</p><p>메모리의 공간을 확보해서 관리되는 힙 메모리를 마련합니다.</p><blockquote> 힙 메모리의 첫 번째 주소에 다음 객체를 할당할 메모리의 포인터를 위치시킵니다. </blockquote><p>각 프로세스는 가상주소공간을 포함합니다.</p><p>이 때, 가상 주소 공간은 조각화될 수 있는데</p><p>가비지 컬렉터는 객체를 할당할 수 있는 블록을 찾게 됩니다.</p><hr><h2 id="GC가-메모리를-관리하는-방법"><a href="#GC가-메모리를-관리하는-방법" class="headerlink" title="GC가 메모리를 관리하는 방법"></a>GC가 메모리를 관리하는 방법</h2><p>데이터가 할당된 메모리의 위치를 참조하는 객체를 <markdown style = "background : #f4acb7">루트</markdown>라고 합니다.</p><p>JIT 컴파일러는 이 루트들을 그래프로 만들고 CLR은 루트 목록을 관리하며 상태를 갱신하다.</p><blockquote> 애플리케이션 루트에는 정적 필드, 스레드 스택의 지역 변수, CPU 레지스터, GC핸들, finalize 큐가 포함됩니다.</blockquote></br><p>GC는 루트목록을 참조하며 힙을 차지하고 있는 쓰레기(힙 메모리를 차지하고 있으나 이를 참조하는 데이터가 없는 개체)들을 수집합니다.</p><hr><h2 id="GC-동작-순서"><a href="#GC-동작-순서" class="headerlink" title="GC 동작 순서"></a>GC 동작 순서</h2><ol><li>작업을 진행하기 전, GC는 모든 객체가 쓰레기라고 가정합니다.</li></ol><blockquote> 루트 목록은 그래프로 관리를 하니, 그래프에 없는 개체라고 생각하시면 됩니다.</blockquote></br><ol start="2"><li><p>루트 목록 내 어떤 루트도 메모리를 가리키지 않는다고 가정합니다.</p></li><li><p>루트 목록을 순회하면서 각 루트가 참조하고 있는 힙 개체와의 관계 여부를 조사합니다.</p></li><li><p>어떤 루트와도 관계가 없는 힙의 개체들은 쓰레기로 간주합니다.</p></li><li><p>쓰레기 개체가 가지고 있던 메모리는 이제 비어 있는 공간이 됩니다.</p></li><li><p>비어 있는 공간에 개체를 이동시켜 채워넣습니다.</p></li></ol><hr><h2 id="GC-메모리-정리-순서"><a href="#GC-메모리-정리-순서" class="headerlink" title="GC 메모리 정리 순서"></a>GC 메모리 정리 순서</h2><ol><li><p>가비지 컬렉터는 메모리를 할당하고 있는 개체들을 3개의 세대로 나눕니다. (0세대, 1세대, 2세대)</p></li><li><p>0세대는 나이가 적은 개체, 2세대는 나이가 많은 데이터를<br>위치시킵니다.</p></li></ol><blockquote> 나이는 가비지 컬렉션을 겪은 횟수로 정해집니다.</blockquote></br><ol start="3"><li>가비지 컬렉터는 0세대를 위주로 개체 회수를 진행합니다.</li></ol><p>0세대에서 개체가 회수되지 않았다면 다음 세대로 넘어가게 됩니다.</p><hr><h2 id="GC-호출-시기"><a href="#GC-호출-시기" class="headerlink" title="GC 호출 시기"></a>GC 호출 시기</h2><ol><li><p>엔진은 수집을 수행하기에 가장 적합한 시간을 결정하고, 시간에 맞춰 주기적으로 GC를 호출합니다.</p></li><li><p>시스템의 실제 메모리가 부족한 경우 호출합니다.</p></li><li><p>할당된 개체에 사용되는 힙 메모리가 허용하는 임계값을 초과한 경우 호출합니다. (3개의 세대 중 한 세대의 잔존율이 높을 경우 해당 세대의 할당 임계값을 늘립니다.)</p></li><li><p>GC.Collect 메소드를 호출하여 호출하기도 하지만 GC는 주기적으로 호출되므로 수동으로 호출할 필요는 없습니다.</p></li></ol><h2 id="GC-수행-작업"><a href="#GC-수행-작업" class="headerlink" title="GC 수행 작업"></a>GC 수행 작업</h2><ol><li><p>모든 활성 개체를 찾아 루트 목록을 만드는 표시 작업</p></li><li><p>압축될 개체에 대한 참조를 업데이트 하는 재배치 작업</p></li><li><p>비활성 개체에 의해 점유된 공간을 회수하고 남은 개체를 압축하는 압축작업</p></li></ol>]]></content:encoded>
       
       
       <category domain="https://eui-young.github.io/categories/C/">C#</category>
@@ -155,8 +181,10 @@
       
       <category domain="https://eui-young.github.io/tags/C/">C#</category>
       
+      <category domain="https://eui-young.github.io/tags/Garbage-Collector/">Garbage Collector</category>
       
-      <comments>https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/#disqus_thread</comments>
+      
+      <comments>https://eui-young.github.io/2024/01/02/2024-01-09-[C]-Garbage-Collector/#disqus_thread</comments>
       
     </item>
     
@@ -210,37 +238,6 @@
       
       
       <comments>https://eui-young.github.io/2023/12/05/2023-12-05-Comments/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>대리자</title>
-      <link>https://eui-young.github.io/2023/12/05/2023-12-05-[C]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/</link>
-      <guid>https://eui-young.github.io/2023/12/05/2023-12-05-[C]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/</guid>
-      <pubDate>Mon, 04 Dec 2023 15:00:00 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h2 id=&quot;대리자란&quot;&gt;&lt;a href=&quot;#대리자란&quot; class=&quot;headerlink&quot; title=&quot;대리자란?&quot;&gt;&lt;/a&gt;대리자란?&lt;/h2&gt;&lt;p&gt;안녕하세요. 이번 포스터에서는 대리자에 관한 내용을 다뤄보겠습니다.&lt;/p&gt;
-&lt;p&gt;대리자의 자세한 내용은 &lt;a</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h2 id="대리자란"><a href="#대리자란" class="headerlink" title="대리자란?"></a>대리자란?</h2><p>안녕하세요. 이번 포스터에서는 대리자에 관한 내용을 다뤄보겠습니다.</p><p>대리자의 자세한 내용은 <a href="https://learn.microsoft.com/ko-kr/dotnet/csharp/programming-guide/delegates/using-delegates">Microsoft 문서</a>를 참고하시면 됩니다.</p><p>대리자란 C와 C++의 함수 포인터처럼 메소드를 안전하게 <mark style = "background: #f28482">캡슐화</mark>하는 형식입니다.</p><h3 id="대리자의-속성"><a href="#대리자의-속성" class="headerlink" title="대리자의 속성"></a>대리자의 속성</h3><ol><li>함수 포인터는 객체의 주소를 참조하지만</br>대리자는 인스턴스와 메소드 모두를 캡슐화하여 참조합니다.</li><li>대리자를 통해 메서드를 매개 변수로 전달할 수 있습니다.</li><li>대리자를 사용하여 콜백 메소드를 정의할 수 있습니다.</li><li>여러 대리자를 연결하여 단일 이벤트에 대해 여러 메소드를 호출할 수 있습니다.</li><li>메서드는 대리자 형식과 정확히 일치하지 않아도 됩니다.</li><li>대리자에 할당하는 메소드는 대리자의 매개변수와 리턴 타입이 같아야 한다.</li></ol><h3 id="대리자-참조-방식"><a href="#대리자-참조-방식" class="headerlink" title="대리자 참조 방식"></a>대리자 참조 방식</h3><p>대리자는 +&#x3D;, -&#x3D;, &#x3D; 연산자를 통하여 메소드를 참조할 수 있습니다. </p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">delegate</span> <span class="keyword">void</span> <span class="title">Callback</span>()</span>; <span class="comment">//delegate 선언</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PrintMethod1</span>()</span> =&gt; &#123;Console.WriteLine(<span class="string">&quot;CheckPrint 1&quot;</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PrintMethod2</span>()</span> =&gt; &#123;Console.WriteLine(<span class="string">&quot;CheckPrint 2&quot;</span>);&#125;</span><br></pre></td></tr></table></figure><p>위와 같이 delegate와 메소드들을 작성해두었습니다.</p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span>&#123;</span><br><span class="line">    CallBack callback += PrintMethod1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>대리자는 인스턴스가 생성되지 않은 상태에서 +&#x3D; 연산자를 통해서 메소드를 할당할 수 없습니다. </p><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span>&#123;</span><br><span class="line">    CallBack callback = PrintMethod1; <span class="comment">//인스턴스 생성 및 메소드 참조</span></span><br><span class="line">    callback += PrintMethod2; <span class="comment">// 두번째 메소드 참조</span></span><br><span class="line">    callback -= PrintMethod1; <span class="comment">// 첫번째 참조 메소드 제거</span></span><br><span class="line"></span><br><span class="line">    callback();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="대리자-종류"><a href="#대리자-종류" class="headerlink" title="대리자 종류"></a>대리자 종류</h3><h4 id="Delegate"><a href="#Delegate" class="headerlink" title="Delegate"></a>Delegate</h4><h4 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h4><h4 id="Func"><a href="#Func" class="headerlink" title="Func"></a>Func</h4>]]></content:encoded>
-      
-      
-      <category domain="https://eui-young.github.io/categories/C/">C#</category>
-      
-      
-      <category domain="https://eui-young.github.io/tags/C/">C#</category>
-      
-      <category domain="https://eui-young.github.io/tags/delegate/">delegate</category>
-      
-      <category domain="https://eui-young.github.io/tags/Action/">Action</category>
-      
-      
-      <comments>https://eui-young.github.io/2023/12/05/2023-12-05-[C]-%EB%8C%80%EB%A6%AC%EC%9E%90%EB%9E%80/#disqus_thread</comments>
       
     </item>
     

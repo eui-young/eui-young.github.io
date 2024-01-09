@@ -9,6 +9,20 @@
 
 
     <url>
+        <loc>https://eui-young.github.io/categories/ETC/</loc>
+        <lastmod>2024-01-09T17:45:59.753Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://eui-young.github.io/categories/C/</loc>
+        <lastmod>2024-01-09T13:44:18.096Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://eui-young.github.io/categories/Unity/Design-Pattern/</loc>
         <lastmod>2024-01-06T08:50:55.672Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -23,22 +37,8 @@
     </url>
 
     <url>
-        <loc>https://eui-young.github.io/categories/C/</loc>
-        <lastmod>2024-01-02T15:53:31.404Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://eui-young.github.io/categories/DataStructure/</loc>
         <lastmod>2024-01-02T10:37:41.702Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://eui-young.github.io/categories/ETC/</loc>
-        <lastmod>2024-01-02T10:37:38.666Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

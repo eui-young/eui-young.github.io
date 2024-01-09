@@ -188,15 +188,21 @@ body {
   }
 }
 h1,
-h2,
+h2 {
+  font-family: 'Gowun Batang', "Gowun Batang", "Microsoft YaHei", sans-serif;
+  font-weight: bolder;
+  line-height: 1.5;
+}
 h3,
 h4,
 h5,
 h6 {
+  border-left: 4px solid #37c6c0;
   font-family: 'Gowun Batang', "Gowun Batang", "Microsoft YaHei", sans-serif;
   font-weight: bolder;
-  line-height: 1.5;
+  line-height: 0.8;
   margin: 20px 0 15px;
+  padding: 10px;
 }
 h1 {
   font-size: 1.5em;
@@ -249,9 +255,9 @@ hr {
   margin: 40px 0;
 }
 blockquote {
-  border-left: 4px solid #a9d6e5;
+  border-left: 2px solid #37c6c0;
   color: var(--blockquote-color);
-  margin: 0;
+  margin: 3px;
   padding: 0 15px;
 }
 blockquote cite::before {
@@ -1309,7 +1315,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #09ff67;
+  background: #ffff83;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
