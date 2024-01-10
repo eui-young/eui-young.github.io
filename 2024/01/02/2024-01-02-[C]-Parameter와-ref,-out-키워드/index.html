@@ -29,7 +29,7 @@
 <meta property="og:description" content="[C#] Parameter 란?Parameter(매개 변수)란 함수를 호출한 곳에서 인수를 전달받아 인수의 값을 함수의 내부에서 사용할 수 있도록 도와주는 변수를 뜻합니다. 1234567891011static void Main(string[] args)&#123;    int _num1 &#x3D; 3;    int _num2 &#x3D; 6;    int _sum &#x3D; Me">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-02T10:37:47.315Z">
+<meta property="article:modified_time" content="2024-01-10T05:23:29.673Z">
 <meta property="article:author" content="zerone">
 <meta property="article:tag" content="C#">
 <meta property="article:tag" content="Parameter">
@@ -215,10 +215,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-01-02 00:00:00 / Modified: 19:37:47" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+              <time title="Created: 2024-01-02 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-10 14:23:29" itemprop="dateModified" datetime="2024-01-10T14:23:29+09:00">2024-01-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -242,7 +248,7 @@
       
         <h2 id="C-Parameter-란"><a href="#C-Parameter-란" class="headerlink" title="[C#] Parameter 란?"></a>[C#] Parameter 란?</h2><p>Parameter(매개 변수)란 함수를 호출한 곳에서 인수를 전달받아 인수의 값을 함수의 내부에서 사용할 수 있도록 도와주는 변수를 뜻합니다.</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">int</span> _num1 = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">int</span> _num2 = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">int</span> _sum = Method(_num1,_num2); <span class="comment">//인수 전달</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="built_in">int</span> <span class="title">Method</span>(<span class="params"><span class="built_in">int</span> num1, <span class="built_in">int</span> num2</span>) <span class="comment">//매개 변수</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> num1 + num2; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위와 같이 Method를 호출하는 Main함수에서 _num1, _num2를 인수(Argument)로 넘겨주고</br><br>호출된 Method에서 <mark style = "background : #da627d">인수</mark> 값을 담고 있는 파라미터인 num1, num2를 이용하여 결과 값을 전달해주고 있습니다.</p>
+<p>위와 같이 Method를 호출하는 Main함수에서 _num1, _num2를 인수(Argument)로 넘겨주고</br><br>호출된 Method에서 <mark style = "background : #f4acb7">인수</mark> 값을 담고 있는 파라미터인 num1, num2를 이용하여 결과 값을 전달해주고 있습니다.</p>
 <p><code>인수란 함수를 호출할 때 넘겨주는 변수 값입니다.</code></p>
 <hr>
 <h3 id="값-형식-전달-참조-형식-전달"><a href="#값-형식-전달-참조-형식-전달" class="headerlink" title="값 형식 전달, 참조 형식 전달"></a>값 형식 전달, 참조 형식 전달</h3><ol>
@@ -310,8 +316,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/01/02/2024-01-09-%5BC%5D-Garbage-Collector/" rel="prev" title="Garbage Collector">
-      <i class="fa fa-chevron-left"></i> Garbage Collector
+    <a href="/2023/12/11/2023-12-11-%5B%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%5D-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/" rel="prev" title="자료구조">
+      <i class="fa fa-chevron-left"></i> 자료구조
     </a></div>
       <div class="post-nav-item">
     <a href="/2024/01/02/2024-01-02-%5BC%5D-Generic/" rel="next" title="Generic">
@@ -405,7 +411,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

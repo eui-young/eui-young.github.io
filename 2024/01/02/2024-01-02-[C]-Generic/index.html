@@ -29,7 +29,7 @@
 <meta property="og:description" content="[C#] Generic 이란?제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다. 1234public void Method&lt;T&gt; (T parameter1, T parameter2)&#123;    ---내용&#125;  원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-02T15:53:31.404Z">
+<meta property="article:modified_time" content="2024-01-10T05:23:36.197Z">
 <meta property="article:author" content="zerone">
 <meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-03 00:53:31" itemprop="dateModified" datetime="2024-01-03T00:53:31+09:00">2024-01-03</time>
+                <time title="Modified: 2024-01-10 14:23:36" itemprop="dateModified" datetime="2024-01-10T14:23:36+09:00">2024-01-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -259,10 +259,10 @@
 <p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p>
 <p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p>
 <hr>
-<p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
+<p><mark style ="background : #f4acb7">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
 <p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p>
 <p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p>
-<p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
+<p><mark style ="background : #f4acb7">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
 <p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p>
 <p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>
 
@@ -378,7 +378,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

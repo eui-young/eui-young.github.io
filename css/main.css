@@ -3,7 +3,7 @@
   --content-bg-color: #fff;
   --card-bg-color: #ffd166;
   --text-color: #333;
-  --blockquote-color: #a9d6e5;
+  --blockquote-color: #83a6b1;
   --link-color: #555;
   --link-hover-color: #222;
   --brand-color: #fff;
@@ -197,7 +197,7 @@ h3,
 h4,
 h5,
 h6 {
-  border-left: 4px solid #37c6c0;
+  border-left: 4px solid #bde0fe;
   font-family: 'Gowun Batang', "Gowun Batang", "Microsoft YaHei", sans-serif;
   font-weight: bolder;
   line-height: 0.8;
@@ -255,7 +255,7 @@ hr {
   margin: 40px 0;
 }
 blockquote {
-  border-left: 2px solid #37c6c0;
+  border-left: 2px solid #83a6b1;
   color: var(--blockquote-color);
   margin: 3px;
   padding: 0 15px;
@@ -1315,7 +1315,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffff83;
+  background: #adc7ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1642,7 +1642,7 @@ pre .javascript .function {
   opacity: 0.8;
 }
 .reading-progress-bar {
-  background: #37c6c0;
+  background: #69eeff;
   display: block;
   height: 3px;
   left: 0;

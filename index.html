@@ -188,6 +188,145 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/09/2024-01-09-[C]-Garbage-Collector/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/09/2024-01-09-%5BC%5D-Garbage-Collector/" class="post-title-link" itemprop="url">Garbage Collector</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-09 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-09T00:00:00+09:00">2024-01-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-10 14:22:46" itemprop="dateModified" datetime="2024-01-10T14:22:46+09:00">2024-01-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="C-Garbage-Collector-란"><a href="#C-Garbage-Collector-란" class="headerlink" title="[C#] Garbage Collector 란?"></a>[C#] Garbage Collector 란?</h2><p>Garbage Collector란 가비지 컬렉터라고 하며 GC라고 부르기도 합니다.</p>
+<p>GC는 CLR(공용 언어 런타임)에서 제공하는 자동 메모리 관리 소프트웨어입니다.</p>
+<p>C#으로 작성한 소스 코드를 컴파일해서 실행 파일을 만들고 실행하면,</p>
+<p>CLR은 프로그램을 위해 메모리를 확보합니다.</p>
+<p>메모리의 공간을 확보해서 관리되는 힙 메모리를 마련합니다.</p>
+<blockquote> 힙 메모리의 첫 번째 주소에 다음 객체를 할당할 메모리의 포인터를 위치시킵니다. </blockquote>
+
+<p>각 프로세스는 가상주소공간을 포함합니다.</p>
+<p>이 때, 가상 주소 공간은 조각화될 수 있는데</p>
+<p>가비지 컬렉터는 객체를 할당할 수 있는 블록을 찾게 됩니다.</p>
+<hr>
+<h2 id="GC가-메모리를-관리하는-방법"><a href="#GC가-메모리를-관리하는-방법" class="headerlink" title="GC가 메모리를 관리하는 방법"></a>GC가 메모리를 관리하는 방법</h2><p>데이터가 할당된 메모리의 위치를 참조하는 객체를 <markdown style = "background : #f4acb7">루트</markdown>라고 합니다.</p>
+<p>JIT 컴파일러는 이 루트들을 그래프로 만들고 CLR은 루트 목록을 관리하며 상태를 갱신하다.</p>
+<blockquote> 애플리케이션 루트에는 정적 필드, 스레드 스택의 지역 변수, CPU 레지스터, GC핸들, finalize 큐가 포함됩니다.</blockquote></br>
+
+<p>GC는 루트목록을 참조하며 힙을 차지하고 있는 쓰레기(힙 메모리를 차지하고 있으나 이를 참조하는 데이터가 없는 개체)들을 수집합니다.</p>
+<hr>
+<h2 id="GC-동작-순서"><a href="#GC-동작-순서" class="headerlink" title="GC 동작 순서"></a>GC 동작 순서</h2><ol>
+<li>작업을 진행하기 전, GC는 모든 객체가 쓰레기라고 가정합니다.</li>
+</ol>
+<blockquote> 루트 목록은 그래프로 관리를 하니, 그래프에 없는 개체라고 생각하시면 됩니다.</blockquote></br>
+
+<ol start="2">
+<li><p>루트 목록 내 어떤 루트도 메모리를 가리키지 않는다고 가정합니다.</p>
+</li>
+<li><p>루트 목록을 순회하면서 각 루트가 참조하고 있는 힙 개체와의 관계 여부를 조사합니다.</p>
+</li>
+<li><p>어떤 루트와도 관계가 없는 힙의 개체들은 쓰레기로 간주합니다.</p>
+</li>
+<li><p>쓰레기 개체가 가지고 있던 메모리는 이제 비어 있는 공간이 됩니다.</p>
+</li>
+<li><p>비어 있는 공간에 개체를 이동시켜 채워넣습니다.</p>
+</li>
+</ol>
+<hr>
+<h2 id="GC-메모리-정리-순서"><a href="#GC-메모리-정리-순서" class="headerlink" title="GC 메모리 정리 순서"></a>GC 메모리 정리 순서</h2><ol>
+<li><p>가비지 컬렉터는 메모리를 할당하고 있는 개체들을 3개의 세대로 나눕니다. (0세대, 1세대, 2세대)</p>
+</li>
+<li><p>0세대는 나이가 적은 개체, 2세대는 나이가 많은 데이터를<br>위치시킵니다.</p>
+</li>
+</ol>
+<blockquote> 나이는 가비지 컬렉션을 겪은 횟수로 정해집니다.</blockquote></br>
+
+<ol start="3">
+<li>가비지 컬렉터는 0세대를 위주로 개체 회수를 진행합니다.</li>
+</ol>
+<p>0세대에서 개체가 회수되지 않았다면 다음 세대로 넘어가게 됩니다.</p>
+<hr>
+<h2 id="GC-호출-시기"><a href="#GC-호출-시기" class="headerlink" title="GC 호출 시기"></a>GC 호출 시기</h2><ol>
+<li><p>엔진은 수집을 수행하기에 가장 적합한 시간을 결정하고, 시간에 맞춰 주기적으로 GC를 호출합니다.</p>
+</li>
+<li><p>시스템의 실제 메모리가 부족한 경우 호출합니다.</p>
+</li>
+<li><p>할당된 개체에 사용되는 힙 메모리가 허용하는 임계값을 초과한 경우 호출합니다. (3개의 세대 중 한 세대의 잔존율이 높을 경우 해당 세대의 할당 임계값을 늘립니다.)</p>
+</li>
+<li><p>GC.Collect 메소드를 호출하여 호출하기도 하지만 GC는 주기적으로 호출되므로 수동으로 호출할 필요는 없습니다.</p>
+</li>
+</ol>
+<h2 id="GC-수행-작업"><a href="#GC-수행-작업" class="headerlink" title="GC 수행 작업"></a>GC 수행 작업</h2><ol>
+<li><p>모든 활성 개체를 찾아 루트 목록을 만드는 표시 작업</p>
+</li>
+<li><p>압축될 개체에 대한 참조를 업데이트 하는 재배치 작업</p>
+</li>
+<li><p>비활성 개체에 의해 점유된 공간을 회수하고 남은 개체를 압축하는 압축작업</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/05/2024-01-05-[Unity]-Singleton-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -562,7 +701,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-03 00:53:31" itemprop="dateModified" datetime="2024-01-03T00:53:31+09:00">2024-01-03</time>
+                <time title="Modified: 2024-01-10 14:23:36" itemprop="dateModified" datetime="2024-01-10T14:23:36+09:00">2024-01-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -599,10 +738,10 @@
 <p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p>
 <p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p>
 <hr>
-<p><mark style ="background : #fcca46">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
+<p><mark style ="background : #f4acb7">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
 <p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p>
 <p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p>
-<p><mark style ="background : #fcca46">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
+<p><mark style ="background : #f4acb7">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
 <p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p>
 <p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>
 
@@ -647,10 +786,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-01-02 00:00:00 / Modified: 19:37:47" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+              <time title="Created: 2024-01-02 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-10 14:23:29" itemprop="dateModified" datetime="2024-01-10T14:23:29+09:00">2024-01-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -674,7 +819,7 @@
       
           <h2 id="C-Parameter-란"><a href="#C-Parameter-란" class="headerlink" title="[C#] Parameter 란?"></a>[C#] Parameter 란?</h2><p>Parameter(매개 변수)란 함수를 호출한 곳에서 인수를 전달받아 인수의 값을 함수의 내부에서 사용할 수 있도록 도와주는 변수를 뜻합니다.</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">int</span> _num1 = <span class="number">3</span>;</span><br><span class="line">    <span class="built_in">int</span> _num2 = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">int</span> _sum = Method(_num1,_num2); <span class="comment">//인수 전달</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> <span class="built_in">int</span> <span class="title">Method</span>(<span class="params"><span class="built_in">int</span> num1, <span class="built_in">int</span> num2</span>) <span class="comment">//매개 변수</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> num1 + num2; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>위와 같이 Method를 호출하는 Main함수에서 _num1, _num2를 인수(Argument)로 넘겨주고</br><br>호출된 Method에서 <mark style = "background : #da627d">인수</mark> 값을 담고 있는 파라미터인 num1, num2를 이용하여 결과 값을 전달해주고 있습니다.</p>
+<p>위와 같이 Method를 호출하는 Main함수에서 _num1, _num2를 인수(Argument)로 넘겨주고</br><br>호출된 Method에서 <mark style = "background : #f4acb7">인수</mark> 값을 담고 있는 파라미터인 num1, num2를 이용하여 결과 값을 전달해주고 있습니다.</p>
 <p><code>인수란 함수를 호출할 때 넘겨주는 변수 값입니다.</code></p>
 <hr>
 <h3 id="값-형식-전달-참조-형식-전달"><a href="#값-형식-전달-참조-형식-전달" class="headerlink" title="값 형식 전달, 참조 형식 전달"></a>값 형식 전달, 참조 형식 전달</h3><ol>
@@ -742,145 +887,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-09-[C]-Garbage-Collector/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/02/2024-01-09-%5BC%5D-Garbage-Collector/" class="post-title-link" itemprop="url">Garbage Collector</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-01-02 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-10 02:50:06" itemprop="dateModified" datetime="2024-01-10T02:50:06+09:00">2024-01-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="C-Garbage-Collector-란"><a href="#C-Garbage-Collector-란" class="headerlink" title="[C#] Garbage Collector 란?"></a>[C#] Garbage Collector 란?</h2><p>Garbage Collector란 가비지 컬렉터라고 하며 GC라고 부르기도 합니다.</p>
-<p>GC는 CLR(공용 언어 런타임)에서 제공하는 자동 메모리 관리 소프트웨어입니다.</p>
-<p>C#으로 작성한 소스 코드를 컴파일해서 실행 파일을 만들고 실행하면,</p>
-<p>CLR은 프로그램을 위해 메모리를 확보합니다.</p>
-<p>메모리의 공간을 확보해서 관리되는 힙 메모리를 마련합니다.</p>
-<blockquote> 힙 메모리의 첫 번째 주소에 다음 객체를 할당할 메모리의 포인터를 위치시킵니다. </blockquote>
-
-<p>각 프로세스는 가상주소공간을 포함합니다.</p>
-<p>이 때, 가상 주소 공간은 조각화될 수 있는데</p>
-<p>가비지 컬렉터는 객체를 할당할 수 있는 블록을 찾게 됩니다.</p>
-<hr>
-<h2 id="GC가-메모리를-관리하는-방법"><a href="#GC가-메모리를-관리하는-방법" class="headerlink" title="GC가 메모리를 관리하는 방법"></a>GC가 메모리를 관리하는 방법</h2><p>데이터가 할당된 메모리의 위치를 참조하는 객체를 <markdown style = "background : #f4acb7">루트</markdown>라고 합니다.</p>
-<p>JIT 컴파일러는 이 루트들을 그래프로 만들고 CLR은 루트 목록을 관리하며 상태를 갱신하다.</p>
-<blockquote> 애플리케이션 루트에는 정적 필드, 스레드 스택의 지역 변수, CPU 레지스터, GC핸들, finalize 큐가 포함됩니다.</blockquote></br>
-
-<p>GC는 루트목록을 참조하며 힙을 차지하고 있는 쓰레기(힙 메모리를 차지하고 있으나 이를 참조하는 데이터가 없는 개체)들을 수집합니다.</p>
-<hr>
-<h2 id="GC-동작-순서"><a href="#GC-동작-순서" class="headerlink" title="GC 동작 순서"></a>GC 동작 순서</h2><ol>
-<li>작업을 진행하기 전, GC는 모든 객체가 쓰레기라고 가정합니다.</li>
-</ol>
-<blockquote> 루트 목록은 그래프로 관리를 하니, 그래프에 없는 개체라고 생각하시면 됩니다.</blockquote></br>
-
-<ol start="2">
-<li><p>루트 목록 내 어떤 루트도 메모리를 가리키지 않는다고 가정합니다.</p>
-</li>
-<li><p>루트 목록을 순회하면서 각 루트가 참조하고 있는 힙 개체와의 관계 여부를 조사합니다.</p>
-</li>
-<li><p>어떤 루트와도 관계가 없는 힙의 개체들은 쓰레기로 간주합니다.</p>
-</li>
-<li><p>쓰레기 개체가 가지고 있던 메모리는 이제 비어 있는 공간이 됩니다.</p>
-</li>
-<li><p>비어 있는 공간에 개체를 이동시켜 채워넣습니다.</p>
-</li>
-</ol>
-<hr>
-<h2 id="GC-메모리-정리-순서"><a href="#GC-메모리-정리-순서" class="headerlink" title="GC 메모리 정리 순서"></a>GC 메모리 정리 순서</h2><ol>
-<li><p>가비지 컬렉터는 메모리를 할당하고 있는 개체들을 3개의 세대로 나눕니다. (0세대, 1세대, 2세대)</p>
-</li>
-<li><p>0세대는 나이가 적은 개체, 2세대는 나이가 많은 데이터를<br>위치시킵니다.</p>
-</li>
-</ol>
-<blockquote> 나이는 가비지 컬렉션을 겪은 횟수로 정해집니다.</blockquote></br>
-
-<ol start="3">
-<li>가비지 컬렉터는 0세대를 위주로 개체 회수를 진행합니다.</li>
-</ol>
-<p>0세대에서 개체가 회수되지 않았다면 다음 세대로 넘어가게 됩니다.</p>
-<hr>
-<h2 id="GC-호출-시기"><a href="#GC-호출-시기" class="headerlink" title="GC 호출 시기"></a>GC 호출 시기</h2><ol>
-<li><p>엔진은 수집을 수행하기에 가장 적합한 시간을 결정하고, 시간에 맞춰 주기적으로 GC를 호출합니다.</p>
-</li>
-<li><p>시스템의 실제 메모리가 부족한 경우 호출합니다.</p>
-</li>
-<li><p>할당된 개체에 사용되는 힙 메모리가 허용하는 임계값을 초과한 경우 호출합니다. (3개의 세대 중 한 세대의 잔존율이 높을 경우 해당 세대의 할당 임계값을 늘립니다.)</p>
-</li>
-<li><p>GC.Collect 메소드를 호출하여 호출하기도 하지만 GC는 주기적으로 호출되므로 수동으로 호출할 필요는 없습니다.</p>
-</li>
-</ol>
-<h2 id="GC-수행-작업"><a href="#GC-수행-작업" class="headerlink" title="GC 수행 작업"></a>GC 수행 작업</h2><ol>
-<li><p>모든 활성 개체를 찾아 루트 목록을 만드는 표시 작업</p>
-</li>
-<li><p>압축될 개체에 대한 참조를 업데이트 하는 재배치 작업</p>
-</li>
-<li><p>비활성 개체에 의해 점유된 공간을 회수하고 남은 개체를 압축하는 압축작업</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/11/2023-12-11-[%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0]-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -912,7 +918,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-02 19:37:41" itemprop="dateModified" datetime="2024-01-02T19:37:41+09:00">2024-01-02</time>
+                <time title="Modified: 2024-01-10 14:23:41" itemprop="dateModified" datetime="2024-01-10T14:23:41+09:00">2024-01-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -938,9 +944,9 @@
           <h2 id="자료구조란"><a href="#자료구조란" class="headerlink" title="자료구조란?"></a>자료구조란?</h2><p>자료구조란 데이터의 저장 방법 또는 데이터 관련 연산의 총집합을 의미합니다.</p>
 <p>자료구조는 단순 자료구조, 복합 자료구조, 파일 구조로 나누어 볼 수 있습니다.</p>
 <p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/f800a0b9-4c3d-4494-8a83-0ded995a792f" alt="DataStructure"></p>
-<h3 id="단순-자료구조"><a href="#단순-자료구조" class="headerlink" title="단순 자료구조"></a>단순 자료구조</h3><p><mark style = "background: #d88c9a">단순 자료구조</mark>란 기본적으로 제공하는 정수, 실수, 문자를 포함합니다. </p>
+<h3 id="단순-자료구조"><a href="#단순-자료구조" class="headerlink" title="단순 자료구조"></a>단순 자료구조</h3><p><mark style = "background: #f4acb7">단순 자료구조</mark>란 기본적으로 제공하는 정수, 실수, 문자를 포함합니다. </p>
 <h3 id="복합-자료구조"><a href="#복합-자료구조" class="headerlink" title="복합 자료구조"></a>복합 자료구조</h3><p>복합 자료구조는 선형구조, 비선형구조로 구분할 수 있습니다.</p>
-<h4 id="선형구조"><a href="#선형구조" class="headerlink" title="선형구조"></a>선형구조</h4><p><mark style = "background: #d88c9a">선형구조</mark>란 데이터 요소를 순차적으로 연결하는 자료구조입니다.</p>
+<h4 id="선형구조"><a href="#선형구조" class="headerlink" title="선형구조"></a>선형구조</h4><p><mark style = "background: #f4acb7">선형구조</mark>란 데이터 요소를 순차적으로 연결하는 자료구조입니다.</p>
 <ol>
 <li>배열</li>
 <li>링크드 리스트</li>
@@ -948,12 +954,12 @@
 <li>큐</li>
 <li>힙</li>
 </ol>
-<h4 id="비선형구조"><a href="#비선형구조" class="headerlink" title="비선형구조"></a>비선형구조</h4><p><mark style = "background: #d88c9a">비선형구조</mark>란 데이터 요소가 비순차적, 트리 형태로 연결되어있습니다.</p>
+<h4 id="비선형구조"><a href="#비선형구조" class="headerlink" title="비선형구조"></a>비선형구조</h4><p><mark style = "background: #f4acb7">비선형구조</mark>란 데이터 요소가 비순차적, 트리 형태로 연결되어있습니다.</p>
 <ol>
 <li>트리</li>
 <li>그래프</li>
 </ol>
-<h3 id="파일구조"><a href="#파일구조" class="headerlink" title="파일구조"></a>파일구조</h3><p><mark style = "background: #d88c9a">파일 구조</mark>는 파일을 저장하는 구조입니다.</p>
+<h3 id="파일구조"><a href="#파일구조" class="headerlink" title="파일구조"></a>파일구조</h3><p><mark style = "background: #f4acb7">파일 구조</mark>는 파일을 저장하는 구조입니다.</p>
 <ol>
 <li>순차 파일구조</li>
 <li>색인 파일구조</li>
@@ -1082,7 +1088,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-02 19:37:30" itemprop="dateModified" datetime="2024-01-02T19:37:30+09:00">2024-01-02</time>
+                <time title="Modified: 2024-01-10 14:23:53" itemprop="dateModified" datetime="2024-01-10T14:23:53+09:00">2024-01-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1114,7 +1120,7 @@
 <p>회전이 일어날 경우 세 축으로 나누어서 계산이 이루어집니다.</p>
 <p>180도가 넘는 회전을 표현할 수 있습니다.</p>
 <p>그 과정에서 짐벌락이라는 문제점이 발생할 수 있습니다.</p>
-<h3 id="짐벌락"><a href="#짐벌락" class="headerlink" title="짐벌락"></a>짐벌락</h3><p><mark style = "background : #a2d2ff"> 짐벌락이란</mark> 3개의 축이 순차적으로 회전하는 도중 2개의 축이 겹치는 현상을 뜻합니다.</p>
+<h3 id="짐벌락"><a href="#짐벌락" class="headerlink" title="짐벌락"></a>짐벌락</h3><p><mark style = "background : #f4acb7"> 짐벌락이란</mark> 3개의 축이 순차적으로 회전하는 도중 2개의 축이 겹치는 현상을 뜻합니다.</p>
 <p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/02aa62a3-a78b-4eed-b860-eb5adda61a08" alt="gimbal loack"><br>참조 <a target="_blank" rel="noopener" href="https://www.researchgate.net/figure/Gimbal-lock-When-the-pitch-Y-rotates-90-degrees-the-roll-X-and-yaw-Z-axes-become_fig14_46720588">https://www.researchgate.net/figure/Gimbal-lock-When-the-pitch-Y-rotates-90-degrees-the-roll-X-and-yaw-Z-axes-become_fig14_46720588</a></p>
 <p>오일러는 x, y, z 축을 기준으로 순차적 회전이 이루어집니다.</p>
 <p>위의 그림에서는 x축 기준으로 회전이 발생하더니 z축과 겹쳐진 것을 확인할 수 있습니다.</p>
@@ -1126,7 +1132,7 @@
 </br>
 
 <h2 id="Quaternion-관련-메소드"><a href="#Quaternion-관련-메소드" class="headerlink" title="Quaternion 관련 메소드"></a>Quaternion 관련 메소드</h2><p>앞에서 Quaternion의 개념에 대해 알아보았으니,</br><br>Quaternion을 어떻게 활용할 수 있는지 그와 관련된 메소드들을 알아보도록 하겠습니다.</p>
-<h3 id="Quaternion-identity"><a href="#Quaternion-identity" class="headerlink" title="Quaternion.identity"></a>Quaternion.identity</h3><p><mark style = "background : #a2d2ff ">Quaternion.identity는</mark> </br><br>오브젝트가 최상위 오브젝트일 경우 월드 좌표 기준 회전이 발생하지 않은 기본 값,</br><br>오브젝트가 자식 오브젝트일 경우 부모 좌표 기준 회전이 발생하지 않는 기본 값을 담고 있습니다.</p>
+<h3 id="Quaternion-identity"><a href="#Quaternion-identity" class="headerlink" title="Quaternion.identity"></a>Quaternion.identity</h3><p><mark style = "background : #f4acb7 ">Quaternion.identity는</mark> </br><br>오브젝트가 최상위 오브젝트일 경우 월드 좌표 기준 회전이 발생하지 않은 기본 값,</br><br>오브젝트가 자식 오브젝트일 경우 부모 좌표 기준 회전이 발생하지 않는 기본 값을 담고 있습니다.</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transform.position = Quaternion.identity;</span><br></pre></td></tr></table></figure>
 
 <h3 id="Quaternion-eulerAngles"><a href="#Quaternion-eulerAngles" class="headerlink" title="Quaternion.eulerAngles"></a>Quaternion.eulerAngles</h3><p><code>정의: public Vector3 eulerAngles</code></p>
@@ -1204,7 +1210,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-02 19:35:27" itemprop="dateModified" datetime="2024-01-02T19:35:27+09:00">2024-01-02</time>
+                <time title="Modified: 2024-01-10 14:24:13" itemprop="dateModified" datetime="2024-01-10T14:24:13+09:00">2024-01-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1298,9 +1304,9 @@
 <p align ="left">
 <img src ="https://github.com/eui-young/eui-young.github.io/assets/56330520/a30f3187-3685-4b35-af40-6448efa78e65" width ="300" height="300"/></p>
 
-<p>매 프레임마다 <mark style = "background : #9b9b7a"> 프레임이 흐른 시간과 moveSpeed </mark>를 이용하여 Position의 y값을 증가시켰습니다.</p>
+<p>매 프레임마다 <mark style = "background : #f4acb7"> 프레임이 흐른 시간과 moveSpeed </mark>를 이용하여 Position의 y값을 증가시켰습니다.</p>
 <h4 id="localPosition"><a href="#localPosition" class="headerlink" title="localPosition"></a>localPosition</h4><p>위의 position은 localposition으로도 표현할 수 있는데요.</br><br>position과 localPosition은 어떤 차이가 있는걸까요?</p>
-<p>position은 오브젝트의 위치 좌표를 <mark style = "background :#9b9b7a">월드 좌표</mark> 기준으로 가지고 있습니다.</br><br>localPosition은 오브젝트의 위치 좌표를 <mark style = "background :#9b9b7a">로컬 좌표</mark> 기준으로 가지고 있습니다.</p>
+<p>position은 오브젝트의 위치 좌표를 <mark style = "background :#f4acb7">월드 좌표</mark> 기준으로 가지고 있습니다.</br><br>localPosition은 오브젝트의 위치 좌표를 <mark style = "background :#f4acb7">로컬 좌표</mark> 기준으로 가지고 있습니다.</p>
 <p>월드 좌표와 로컬 좌표의 차이는 무엇일까요?</p>
 <p><b>월드 좌표란 절대적인 좌표를 말합니다.</b></br><br>절대적인 시점에서 바라본 오브젝트의 위치이므로<br>어디에서 오브젝트 위치를 불러와도 항상 같은 값을 가지게 됩니다.</p>
 <p><b>로컬 좌표는 상대적인 좌표를 말합니다.</b></br><br>만약 Cube 오브젝트가 또 다른 오브젝트의 자식 오브젝트로 존재한다면 부모 오브젝트가 이동할 경우 Cube 오브젝트가 같이 이동을 하게 됩니다.</br><br>이때 Cube의 position은 변하지만 localPosition은 변하지 않습니다.</p>
@@ -1423,7 +1429,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
