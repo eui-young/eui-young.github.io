@@ -188,6 +188,134 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/11/2024-01-11-[Unity]-Event-Bus-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/11/2024-01-11-%5BUnity%5D-Event-Bus-Pattern/" class="post-title-link" itemprop="url">Event Bus Pattern (이벤트 버스 패턴)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-01-11 00:00:00 / Modified: 23:45:59" itemprop="dateCreated datePublished" datetime="2024-01-11T00:00:00+09:00">2024-01-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/Design-Pattern/" itemprop="url" rel="index"><span itemprop="name">Design Pattern</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Event-Bus-Pattern-이란"><a href="#Event-Bus-Pattern-이란" class="headerlink" title="Event Bus Pattern 이란?"></a>Event Bus Pattern 이란?</h2><p>특정 이벤트가 발생하였을 때 이벤트가 발생했다는 사실을 외부 클래스에게 알려주는 방법에는 어떤 것이 있을까요?</p>
+<p>외부 클래스는 해당 이벤트가 발생했다는 것을 알아차리기 위해 항시 대기를 하고 있어야 하는걸까요?</p>
+<p>항시 대기라고 한다면 Unity Update()메소드를 이용하여 매 프레임마다<br>원하는 값을 받아오고 상태가 바뀌었는지 확인하는 방법이 있을 것 같은데요.</p>
+<p>좋은 방법이라고 생각이 되지는 않습니다.</p>
+<p>이러한 상황에 이벤트 버스 패턴을 활용할 수 있습니다.</p>
+<p>이벤트 버스 패턴은 발행&#x2F;구독 패턴의 형식을 띄는 패턴입니다.</p>
+<hr>
+<h2 id="Event-Bus-Pattern의-구성"><a href="#Event-Bus-Pattern의-구성" class="headerlink" title="Event Bus Pattern의 구성"></a>Event Bus Pattern의 구성</h2><p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/6295e03d-075a-4616-89ce-5595787668c1" alt="Event Bus Pattern Diagram"></p>
+<ol>
+<li><p>Publisher : 이벤트 게시자</p>
+</li>
+<li><p>Subscriber : 이벤트 구독자로, 이벤트가 발생하면 Bus를 통해 알림을 받습니다.</p>
+</li>
+<li><p>Bus : 구독자에게 이벤트를 등록해주고, 이벤트가 발생할 경우 Publisher에게서 신호를 받아 Subscriber에게 알려주는 역할을 합니다.</p>
+</li>
+</ol>
+<hr>
+<h2 id="Event-Bus-Pattern의-구현"><a href="#Event-Bus-Pattern의-구현" class="headerlink" title="Event Bus Pattern의 구현"></a>Event Bus Pattern의 구현</h2><h3 id="EventType"><a href="#EventType" class="headerlink" title="[EventType]"></a>[EventType]</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="built_in">enum</span> EventType&#123;</span><br><span class="line">    COUNTDOWN, START, PAUSE, QUIT</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="EventBus"><a href="#EventBus" class="headerlink" title="[EventBus]"></a>[EventBus]</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EventBus</span>&#123;</span><br><span class="line">    <span class="comment">// 이벤트 종류와 구독자 간 관계를 목록으로 관리</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> IDictionary&lt;EventType eventType, UnityAction listener&gt; Events = <span class="keyword">new</span> Dictionary&lt;EventType, Unity Event&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//구독자 등록</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Subscribe</span>(<span class="params">EventType evenetType, UnityAction listener</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        UnityEvent thisEvent;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(Events.TryGetValue(evenetType, <span class="keyword">out</span> thisEvent))</span><br><span class="line">        &#123;</span><br><span class="line">            thisEvent.AddListener(listener);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            thisEvent = <span class="keyword">new</span> UnityEvent();</span><br><span class="line">            thisEvent.AddListener(listener);</span><br><span class="line">            Events.Add(evenetType, thisEvent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//구독 해제</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Unsubscribe</span>(<span class="params">EventType type, UnityAction listener</span>)</span> &#123;</span><br><span class="line">        UnityEvent thisEvent;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(Events.TryGetValue(type, <span class="keyword">out</span> thisEvent))</span><br><span class="line">        &#123;</span><br><span class="line">            thisEvent.RemoveListener(listener);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//이벤트 </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Publish</span>(<span class="params">EventType type</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        UnityEvent thisEvent;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(Events.TryGetValue(type, <span class="keyword">out</span> thisEvent))</span><br><span class="line">        &#123;</span><br><span class="line">            thisEvent.Invoke();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="StartCount-구독자이자-발행자-역할을-하는-클래스"><a href="#StartCount-구독자이자-발행자-역할을-하는-클래스" class="headerlink" title="[StartCount] : 구독자이자 발행자 역할을 하는 클래스"></a>[StartCount] : 구독자이자 발행자 역할을 하는 클래스</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">StartCount</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> _currentTime;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">float</span> _duration = <span class="number">3.0f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnEnable</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        EventBus.Subscribe(EventType.COUNTDOWN, StartTimer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnDisable</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        EventBus.Unsubscribe(EventType.COUNTDOWN, StartTimer);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">StartTimer</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        StartCoroutine(Countdown());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> IEnumerator <span class="title">Countdown</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _currentTime = _duration;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(_currentTime &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function"><span class="keyword">yield</span> <span class="keyword">return</span> <span class="keyword">new</span> <span class="title">WaitForSeconds</span>(<span class="params"><span class="number">1f</span></span>)</span>;</span><br><span class="line">            _currentTime--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        EventBus.Publish(EventType.START);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnGUI</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        GUI.color = Color.blue;</span><br><span class="line">        GUI.Label(<span class="keyword">new</span> Rect(<span class="number">125</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">20</span>), <span class="string">&quot;COUNTDOWN : &quot;</span>, _currentTime.ToString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>오브젝트가 활성화 되었을 경우 event 구독을 시작하고 비활성화되었을 경우 더이상 이벤트 알림을 받을 필요가 없으므로 구독 취소를 해줍니다.</p>
+<p>위의 클래스는 활성화되었을 경우 COUTNDOWN 이벤트를 구독하고</p>
+<p>Countdown이 실행완료되면 START 이벤트를 발행합니다.</p>
+<p>게임시작 버튼을 눌러 COUNTDOWN이벤트가 발행된다면 위의 작업이 실행됩니다.</p>
+<hr>
+<h2 id="Event-Bus-Pattern의-장단점"><a href="#Event-Bus-Pattern의-장단점" class="headerlink" title="Event Bus Pattern의 장단점"></a>Event Bus Pattern의 장단점</h2><h3 id="장점"><a href="#장점" class="headerlink" title="장점"></a>장점</h3><p>이벤트 버스는 게시자와 구독자 간 느슨한 결합을 유지시켜줍니다.</p>
+<p>오브젝트들이 서로 직접 참조하지 않고 이벤트를 통신할 수 있습니다. </p>
+<p>이는 굳이 게시자와 구독자가 누구인지 알아둘 필요가 없다는 것을 뜻하기도 합니다.</p>
+<h3 id="단점"><a href="#단점" class="headerlink" title="단점"></a>단점</h3><p>전역적으로 접근하기 때문에 디버깅과 유닛 테스트를 어렵게 함으로 프로젝트 관리 또한 어렵게 만든다.</p>
+<hr>
+<h2 id="Event-Bus-사용-시기"><a href="#Event-Bus-사용-시기" class="headerlink" title="Event Bus 사용 시기"></a>Event Bus 사용 시기</h2><ol>
+<li><p>빠른 프로토타이핑 : 분리 상태를 유지하면서 이벤트로 각자 다른 동작을 하는 컴포넌트를 쉽게 생성할 수 있었습니다. 빠르고 쉽게 프로토타이핑하고 싶을 때 사용하기 좋습니다.</p>
+</li>
+<li><p>프로덕션 코드 : 게임 이벤트를 더 정교하게 관리하지 않아도 되는 프로덕션 코드에서 사용할 수 있습니다. </p>
+</li>
+<li><p>복잡한 이벤트 타입이나 구조체를 다루지 않아도 될 경우 이벤트 버스 패턴의 이점이 보입니다.</p>
+</li>
+</ol>
+<hr>
+<h2 id="Event-Bus-패턴과-Observer-패턴"><a href="#Event-Bus-패턴과-Observer-패턴" class="headerlink" title="Event Bus 패턴과 Observer 패턴"></a>Event Bus 패턴과 Observer 패턴</h2><p>이벤트 버스 패턴과 옵저버 패턴은 비슷한 성향을 지니고 있지만 명백하게 차이점이 있습니다.</p>
+<p>이는 Event bus의 여부로 볼 수 있습니다.</p>
+<p>옵저버 패턴의 경우 Subject(구독자)가 옵저버를 등록하고 직접 옵저버에 알려주어야 하지만,</p>
+<p> 이벤트 버스 패턴의 경우 Event Bus에 메시지를 전달하기만 하면 구독자와 게시자의 존재를 파악할 필요가 없다는 점입니다.</p>
+<hr>
+<h2 id="Event-Bus-패턴의-대안"><a href="#Event-Bus-패턴의-대안" class="headerlink" title="Event Bus 패턴의 대안"></a>Event Bus 패턴의 대안</h2><ol>
+<li><p>옵저버 : 서브젝트가 옵저버 목록을 유지 관리하고 내부 상태 변경을 알리는 패턴입니다.</p>
+</li>
+<li><p>이벤트 큐 : 게시자가 생성한 이벤트를 큐에 저장하고 편한 시간에 구독자에게 전달하는 패턴입니다.</p>
+</li>
+</ol>
+<p>[참조]</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.yes24.com/Product/Goods/114854688">유니티로 배우는 게임 디자인 패턴</a></li>
+<li><a target="_blank" rel="noopener" href="https://onlyfor-me-blog.tistory.com/550">EventBus패턴</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/09/2024-01-09-[C]-Garbage-Collector/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -670,99 +798,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/01/02/2024-01-02-%5BC%5D-Generic/" class="post-title-link" itemprop="url">Generic</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-01-02 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-10 14:23:36" itemprop="dateModified" datetime="2024-01-10T14:23:36+09:00">2024-01-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p>
-<p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p>
-<p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p>
-<p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p>
-<p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p>
-<hr>
-<p><mark style ="background : #f4acb7">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
-<p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p>
-<p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p>
-<p><mark style ="background : #f4acb7">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
-<p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p>
-<p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Parameter%EC%99%80-ref,-out-%ED%82%A4%EC%9B%8C%EB%93%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -868,6 +903,99 @@
 <p>out일 경우 인수가 할당되지 않아도 되지만,</br><br>호출된 메소드 내에서 새로운 값을 반드시 할당해주어야 합니다.</p>
 <hr>
 <p>자세한 내용은 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/ko-kr/dotnet/csharp/language-reference/keywords/method-parameters">Microsoft c# 가이드</a> 를 참고하시면 됩니다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2024/01/02/2024-01-02-[C]-Generic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/cat.jpg">
+      <meta itemprop="name" content="zerone">
+      <meta itemprop="description" content="알아내보자">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zerone">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/02/2024-01-02-%5BC%5D-Generic/" class="post-title-link" itemprop="url">Generic</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-01-02 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-02T00:00:00+09:00">2024-01-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-10 14:23:36" itemprop="dateModified" datetime="2024-01-10T14:23:36+09:00">2024-01-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="C-Generic-이란"><a href="#C-Generic-이란" class="headerlink" title="[C#] Generic 이란?"></a>[C#] Generic 이란?</h2><p>제너릭이란 데이터의 타입을 일반화하는 것을 의미합니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Method</span>&lt;<span class="title">T</span>&gt; (<span class="params">T parameter1, T parameter2</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    ---내용</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>원래라면 자료형에 관계없이 동일한 작업을 진행해야하는 메소드가 필요할 경우 오버라이딩을 통해 리턴 형식이 다르거나, 다른 종류와 개수의 파라미터를 가지는 메소드를 정의해주어야 했습니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">int</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">string</span> str</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;str&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>(<span class="params"><span class="built_in">float</span> num</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;num&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>같은 메소드를 여러번 정의하는 것은 여간 번거로운 일이 아닙니다.</p>
+<p>그렇기 때문에 어떤 형식이든 이용할 수 있도록 제너릭으로 일반화 메소드를 정의해주면 간편해집니다.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Print</span>&lt;<span class="title">T</span>&gt; (<span class="params">T Parameter</span>)</span>&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;Parameter&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>제너릭은 코드를 재사용할 때, 형식의 안전성과 성능을 최대화합니다. </p>
+<p>제너릭은 제너릭 클래스로 가장 많이 활용됩니다.</br><br>각 인스턴스에서 클래스에 있는 모든 T는 컴파일할 때 제너릭 형식을 의미하는 메타데이터가 생성됩니다.</p>
+<p>그 후 런타임에 메타데이터를 확인하고 특수화된 제너릭 클래스를 생성합니다.</p>
+<p>이 때 사용된 형식이 값 형식인지 참조 형식인지에 따라 제너릭 클래스를 생성하는 방식이 달라집니다.</p>
+<hr>
+<p><mark style ="background : #f4acb7">값 형식</mark>일 경우</br><br>만약 정수를 사용한다면 매개 변수를 정수로 적절히 대체하여 특수화된 버전의 클래스를 생성합니다.</p>
+<p>프로그램 코드에서 해당 클래스를 정수를 이용하여 다시 사용한다면</br><br>이전에 생성했던 특수화 클래스를 다시 사용합니다.</p>
+<p>하지만 다른 값 형식이 들어온다면, </br><br>다른 버전을 생성하여 적절한 위치에 다른 값 형식을 대체합니다.</p>
+<p><mark style ="background : #f4acb7">참조 형식</mark>일 경우</br><br>런타임에서 MSIL의 매개 변수를 개체 참조로 대체하여 특수화된 제너릭 형식을 만듭니다.</p>
+<p>이후 참조 형식과 관계없이 생성된 형식이 인스턴스화될 때마다</br> 런타임에서 이전에 만든 특수화된 버전의 제너릭 형식을 재사용합니다.</p>
+<p>재사용할 때는 이미 생성된 클래스의 인스턴스를 생성하여 변수가 인스턴스를 참조하게 됩니다.</p>
 
       
     </div>
@@ -1175,176 +1303,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://eui-young.github.io/2023/12/02/2023-12-02-[Unity]-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/cat.jpg">
-      <meta itemprop="name" content="zerone">
-      <meta itemprop="description" content="알아내보자">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zerone">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/02/2023-12-02-%5BUnity%5D-3d-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%9D%98-%EC%9D%B4%EB%8F%99/" class="post-title-link" itemprop="url">position,localPosition</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-02 00:00:00" itemprop="dateCreated datePublished" datetime="2023-12-02T00:00:00+09:00">2023-12-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-10 14:24:13" itemprop="dateModified" datetime="2024-01-10T14:24:13+09:00">2024-01-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Unity-position-localPosition"><a href="#Unity-position-localPosition" class="headerlink" title="[Unity] position, localPosition"></a>[Unity] position, localPosition</h3><p>Unity 3D 오브젝트의 이동에 대해 정리를 해보려고 합니다.</p>
-<p>추가적인 내용을 알아보려면<br><a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-position.html">Transform.position</a>, <a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/Transform-localPosition.html">Transform.localPosition</a> 참고하시면 됩니다.</p>
-<p>말하기에 앞서 예시를 들기 위해 3D 오브젝트인 Cube, Plane을 생성해보겠습니다. </br></p>
-<p align ="left">
-<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/6101536a-6e6b-47bf-9cfa-3c884f58c79c" width="300" height="300"/> </p>
-
-<p>3D 오브젝트의 위치 값은 Transform의 position에 Vector3 ( x, y, z )의 형태로 담겨 있습니다.</p>
-<p align ="left">
-<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/214fbbb9-86a9-436e-8adc-3785a4d90359" width  ="600" height ="100"/></p>
-
-<p>위의 Transform 정보는 Cube Object의 데이터입니다.</p>
-<p>현재 Position은 (0, 1, 0)의 값을 가지고 있습니다.</p>
-<p>해당 오브젝트를 우측으로 이동시켜보겠습니다.</p>
-<p align ="left">
-<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/f51c2a57-58e8-40c7-80cc-f5eeae2d2c56" width = "300" height ="300"/> </p>
-
-<p>오브젝트를 우측으로 이동시키니 Position의 x값의 변화가 있습니다.</p>
-<p align ="left">
-<img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/1e7b6c7d-92e7-4ab0-ae86-95f0c8680d59" width = "600" height ="100"/></p>
-
-<p>오브젝트의 위치 이동을 위해서는 Position 값의 변화가 필요하다는 것을 알 수 있습니다.</p>
-<hr>
-<h3 id="3d-오브젝트-방향-벡터"><a href="#3d-오브젝트-방향-벡터" class="headerlink" title="3d 오브젝트 방향 벡터"></a>3d 오브젝트 방향 벡터</h3><p>3D 오브젝트의 간편한 이동을 위해 Unity에는 방향을 나타내는 전역 벡터가 정의되어 있습니다.</p>
-<h4 id="방향-벡터"><a href="#방향-벡터" class="headerlink" title="방향 벡터"></a>방향 벡터</h4><table>
-<thead>
-<tr>
-<th>Direction</th>
-<th>Vector3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Vector3.forward</td>
-<td>(0, 0, 1)</td>
-</tr>
-<tr>
-<td>Vector3.back</td>
-<td>(0, 0, -1)</td>
-</tr>
-<tr>
-<td>Vector3.up</td>
-<td>(0, 1, 0)</td>
-</tr>
-<tr>
-<td>Vector3.down</td>
-<td>(0, -1, 0)</td>
-</tr>
-<tr>
-<td>Vector3.right</td>
-<td>(1, 0, 0)</td>
-</tr>
-<tr>
-<td>Vector3.left</td>
-<td>(-1, 0, 0)</td>
-</tr>
-<tr>
-<td>Vector3.zero</td>
-<td>(0, 0, 0)</td>
-</tr>
-<tr>
-<td>Vector3.one</td>
-<td>(1, 1, 1)</td>
-</tr>
-</tbody></table>
-<h4 id="Position"><a href="#Position" class="headerlink" title="Position"></a>Position</h4><p>Position 값을 직접적으로 수정하여 Cube를 이동시키겠습니다.</p>
-<p>아래의 코드가 작성된 스크립트를 Cube 오브젝트의 컴포넌트로 추가하였습니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.position += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>[결과]</br></p>
-<p align ="left">
-<img src ="https://github.com/eui-young/eui-young.github.io/assets/56330520/a30f3187-3685-4b35-af40-6448efa78e65" width ="300" height="300"/></p>
-
-<p>매 프레임마다 <mark style = "background : #f4acb7"> 프레임이 흐른 시간과 moveSpeed </mark>를 이용하여 Position의 y값을 증가시켰습니다.</p>
-<h4 id="localPosition"><a href="#localPosition" class="headerlink" title="localPosition"></a>localPosition</h4><p>위의 position은 localposition으로도 표현할 수 있는데요.</br><br>position과 localPosition은 어떤 차이가 있는걸까요?</p>
-<p>position은 오브젝트의 위치 좌표를 <mark style = "background :#f4acb7">월드 좌표</mark> 기준으로 가지고 있습니다.</br><br>localPosition은 오브젝트의 위치 좌표를 <mark style = "background :#f4acb7">로컬 좌표</mark> 기준으로 가지고 있습니다.</p>
-<p>월드 좌표와 로컬 좌표의 차이는 무엇일까요?</p>
-<p><b>월드 좌표란 절대적인 좌표를 말합니다.</b></br><br>절대적인 시점에서 바라본 오브젝트의 위치이므로<br>어디에서 오브젝트 위치를 불러와도 항상 같은 값을 가지게 됩니다.</p>
-<p><b>로컬 좌표는 상대적인 좌표를 말합니다.</b></br><br>만약 Cube 오브젝트가 또 다른 오브젝트의 자식 오브젝트로 존재한다면 부모 오브젝트가 이동할 경우 Cube 오브젝트가 같이 이동을 하게 됩니다.</br><br>이때 Cube의 position은 변하지만 localPosition은 변하지 않습니다.</p>
-<p>그런 이유는 Cube 오브젝트의 기준이 부모 오브젝트이기 때문입니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>오른쪽으로 이동하는 기능을 부모 오브젝트에 추가해보겠습니다.</p>
-<p>[Parent Object Position]</p>
-<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/d1d4f682-e5d2-40c9-b5e1-4a8073a88ff6" alt="ParentMove"></p>
-<p>부모 오브젝트인 파란색 Cube를 이동시켜보았습니다.</br><br>우측의 inspector창에 보이는 position은 부모 오브젝트의 position입니다.</br><br>해당 오브젝트는 position 값이 변하는 것을 알 수 있습니다.</p>
-<p>자식오브젝트인 분홍색 Cube의 position은 어떻게 변할까요?</p>
-<p>[Child Object Position]<br><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/b88ffdde-5d5b-49f5-b59b-cbb20c7b6816" alt="image/Movement2.gif"></p>
-<p>자식 오브젝트의 Position값은 변하지 않습니다.</br><br>이는 특정 오브젝트의 자식형질을 가지게 되면서 인스펙터 창에서 확인할 수 있는 position이 localPosition이기 때문입니다.</p>
-<p>부모 오브젝트를 기준으로 일정한 간격을 두고 이동하기 때문에 localPosition에는 변동이 없는 상태입니다.</p>
-<p>이런 경우에 저희가 눈으로 확인할 수 있는 값은 localPosition이므로 </br></p>
-<p>자식오브젝트 trnasform.position을 이용하여 자식오브젝트를 이동시키는 것과<br>transform.localPosition을 이용하여 이동시키는 것은 차이가 발생하게 됩니다.</p>
-<p>그렇다면 자식 오브젝트를 이동시키기 위해서는 어떤 값을 이용할 수 있을까요?</p>
-<p>이럴 때 사용하는 것이 localPosition입니다.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//오브젝트의 이동 속도</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">float</span> _moveSpeed = <span class="number">5f</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>()</span>&#123;</span><br><span class="line">    <span class="comment">//위로 이동</span></span><br><span class="line">    transform.localPosition += Time.deltaTime * _moveSpeed * Vector3.up;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>자식 오브젝트를 일정하게 위로 이동시켜보겠습니다.</p>
-<p><img src="https://github.com/eui-young/eui-young.github.io/assets/56330520/8b8320e3-bbb0-453c-b2c8-2ca182cc211d" alt="Movement3"></p>
-<p>자식 오브젝트 position의 y값만 변화가 있는 것을 확인할 수 있습니다.</p>
-<p>이는 자식 오브젝트의 localPosition에 변화를 주고 있기 때문입니다.</p>
-<p>오브젝트의 이동 구현 또는 위치를 수정할 때 position과 localPosition을 적절하게 사용하시면 됩니다.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1416,7 +1374,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1429,7 +1387,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
